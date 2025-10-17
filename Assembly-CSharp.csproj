@@ -49,14 +49,20 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\AttackInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Controller\PlayerController.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Controller\LoadingScreenController.cs" />
-    <Compile Include="Assets\Systems\MainMenuSystem\Model\MainMenuCanvasModel.cs" />
+    <Compile Include="Assets\Systems\InputSystem\InputMaster.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\Systems\MainMenuSystem\Model\MainMenuCanvasModel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Systems\GameSystem\Installer\GameInstaller.cs" />
     <Compile Include="Assets\Systems\SoundSystem\Installer\SoundInstaller.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\StartCrouchInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Systems\InputSystem\PlayerInputHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
@@ -64,8 +70,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\View\LoadingScreenCanvasView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\StopCrouchInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
+    <Compile Include="Assets\Systems\PauseSystem\Signals\PauseSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Systems\PauseSystem\Signals\UnpauseSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -77,19 +86,25 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Installer\LoadingScreenInstaller.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\StopJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Model\LoadingScreenModel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Services\GameInitiator.cs" />
     <Compile Include="Assets\Services\SceneLoaderService.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\View\MainMenuCanvasView.cs" />
+    <Compile Include="Assets\Services\EventSystemFocusSetter.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\TogglePauseInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Handler\InputHandler.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - License.txt" />
@@ -486,17 +501,29 @@
     <Reference Include="UnityEditor.XRModule">
       <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEditor.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject-usage">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\Source\Usage\Zenject-usage.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collections@d49facba0036\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.ext.nunit@031a54704bff\net40\unity-custom\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Hashing">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collections@d49facba0036\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.visualscripting@6279e2b7c485\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.nuget.mono-cecil@d78732e851eb\Mono.Cecil.dll</HintPath>
@@ -504,20 +531,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collections@d49facba0036\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
-    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
-    </Reference>
-    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Zenject-usage">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\Source\Usage\Zenject-usage.dll</HintPath>
-    </Reference>
     <Reference Include="Zenject.ReflectionBaking.Mono.Cecil">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -927,14 +942,14 @@
     <Reference Include="Unity.Timeline">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
-    <Reference Include="PPv2URPConverters">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Animation.Runtime">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="PPv2URPConverters">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.2D.Runtime">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.2D.Runtime.dll</HintPath>

@@ -442,6 +442,9 @@
     <Reference Include="UnityEditor.UWP.Extensions">
       <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject-usage">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\Source\Usage\Zenject-usage.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.YamlDotNet">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.visualscripting@6279e2b7c485\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
@@ -457,6 +460,9 @@
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collab-proxy@1e5e48aff19d\Lib\Editor\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collab-proxy@1e5e48aff19d\Lib\Editor\log4netPlastic.dll</HintPath>
     </Reference>
@@ -469,8 +475,14 @@
     <Reference Include="System.IO.Hashing">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collections@d49facba0036\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.visualscripting@6279e2b7c485\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
+      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.TextureAssets">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.visualscripting@6279e2b7c485\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
@@ -481,20 +493,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Library\PackageCache\com.unity.collections@d49facba0036\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
-    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
-    </Reference>
-    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Zenject-usage">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\Source\Usage\Zenject-usage.dll</HintPath>
-    </Reference>
     <Reference Include="Zenject.ReflectionBaking.Mono.Cecil">
       <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
-      <HintPath>Y:\Unity_Projects\RiseAgainstHarrasment\Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
