@@ -1,56 +1,40 @@
-﻿using Systems.EnemySystem.EnemyFactory;
-using Systems.EnemySystem.Model;
+﻿using Systems.EnemySystem.Model;
+using Systems.EnemySystem.ObjectPool;
+using Systems.EnemySystem.Service;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
-using Zenject.SpaceFighter;
 
 namespace Systems.EnemySystem.Installer
 {
-    [CreateAssetMenu(fileName = "EnemyInstaller", menuName = "Installer/EnemyInstaller")]
+    [CreateAssetMenu(fileName = "EnemyInstaller", menuName = "Installers/EnemyInstaller")]
     public class EnemyInstaller : ScriptableObjectInstaller<EnemyInstaller>
     {
-        [FormerlySerializedAs("_meleeEnemyPrefab")]
-        [Header("Enemy Prefabs")]
         [SerializeField] private MeleeEnemy meleeEnemyPrefab;
         [SerializeField] private RangedEnemy rangedEnemyPrefab;
-        [SerializeField] private FlyingEnemy flyingEnemyPrefab;
-        
-        [Header("Spawner Settings")]
-        [SerializeField] private EnemySpawner.Settings spawnerSettings;
-        
+        [SerializeField] private AerialEnemy aerialEnemyPrefab;
+
         public override void InstallBindings()
         {
-            BindEnemyPools();
-            BindSpawner();
-        }
-        
-        private void BindEnemyPools()
-        {
-            // Bind each enemy pool with different sizes based on enemy type
+            // Bind melee enemy pool
             Container.BindMemoryPool<MeleeEnemy, MeleeEnemyPool>()
-                .WithInitialSize(10)
-                .WithMaxSize(30)
+                .WithInitialSize(5)
                 .FromComponentInNewPrefab(meleeEnemyPrefab)
-                .UnderTransformGroup("Enemies");
+                .UnderTransformGroup("MeleeEnemyPool");
 
+            // Bind ranged enemy pool
             Container.BindMemoryPool<RangedEnemy, RangedEnemyPool>()
                 .WithInitialSize(5)
-                .WithMaxSize(15)
                 .FromComponentInNewPrefab(rangedEnemyPrefab)
-                .UnderTransformGroup("Enemies");
+                .UnderTransformGroup("RangedEnemyPool");
 
-            Container.BindMemoryPool<FlyingEnemy, FlyingEnemyPool>()
-                .WithInitialSize(3)
-                .WithMaxSize(10)
-                .FromComponentInNewPrefab(flyingEnemyPrefab)
-                .UnderTransformGroup("Enemies");
-        }
-        
-        private void BindSpawner()
-        {
-            Container.BindInstance(spawnerSettings).WhenInjectedInto<EnemySpawner>();
-            Container.BindInterfacesTo<EnemySpawner>().AsSingle();
+            // Bind aerial enemy pool
+            Container.BindMemoryPool<AerialEnemy, AerialEnemyPool>()
+                .WithInitialSize(5)
+                .FromComponentInNewPrefab(aerialEnemyPrefab)
+                .UnderTransformGroup("AerialEnemyPool");
+
+            // Bind spawner service
+            Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
         }
     }
 }

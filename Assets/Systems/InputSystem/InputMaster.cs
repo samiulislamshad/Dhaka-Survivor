@@ -114,7 +114,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""f1ba0d36-48eb-4cd5-b651-1c94a6531f70"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -123,6 +123,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""name"": ""TogglePause"",
                     ""type"": ""Button"",
                     ""id"": ""acb4a4ae-cd99-47ec-9cc0-a07c92f5ddd0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnEnemies"",
+                    ""type"": ""Button"",
+                    ""id"": ""855e12e2-554d-444f-b097-8d168eea15fb"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -259,6 +268,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""490f45d5-d3ff-4632-80ab-221396fc1329"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""SpawnEnemies"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -850,6 +870,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_PlayerControl_Crouch = m_PlayerControl.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerControl_Jump = m_PlayerControl.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControl_TogglePause = m_PlayerControl.FindAction("TogglePause", throwIfNotFound: true);
+        m_PlayerControl_SpawnEnemies = m_PlayerControl.FindAction("SpawnEnemies", throwIfNotFound: true);
         // UiControl
         m_UiControl = asset.FindActionMap("UiControl", throwIfNotFound: true);
         m_UiControl_Navigate = m_UiControl.FindAction("Navigate", throwIfNotFound: true);
@@ -947,6 +968,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControl_Crouch;
     private readonly InputAction m_PlayerControl_Jump;
     private readonly InputAction m_PlayerControl_TogglePause;
+    private readonly InputAction m_PlayerControl_SpawnEnemies;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerControl".
     /// </summary>
@@ -974,6 +996,10 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerControl/TogglePause".
         /// </summary>
         public InputAction @TogglePause => m_Wrapper.m_PlayerControl_TogglePause;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/SpawnEnemies".
+        /// </summary>
+        public InputAction @SpawnEnemies => m_Wrapper.m_PlayerControl_SpawnEnemies;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1012,6 +1038,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @TogglePause.started += instance.OnTogglePause;
             @TogglePause.performed += instance.OnTogglePause;
             @TogglePause.canceled += instance.OnTogglePause;
+            @SpawnEnemies.started += instance.OnSpawnEnemies;
+            @SpawnEnemies.performed += instance.OnSpawnEnemies;
+            @SpawnEnemies.canceled += instance.OnSpawnEnemies;
         }
 
         /// <summary>
@@ -1035,6 +1064,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @TogglePause.started -= instance.OnTogglePause;
             @TogglePause.performed -= instance.OnTogglePause;
             @TogglePause.canceled -= instance.OnTogglePause;
+            @SpawnEnemies.started -= instance.OnSpawnEnemies;
+            @SpawnEnemies.performed -= instance.OnSpawnEnemies;
+            @SpawnEnemies.canceled -= instance.OnSpawnEnemies;
         }
 
         /// <summary>
@@ -1363,6 +1395,13 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTogglePause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SpawnEnemies" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpawnEnemies(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UiControl" which allows adding and removing callbacks.

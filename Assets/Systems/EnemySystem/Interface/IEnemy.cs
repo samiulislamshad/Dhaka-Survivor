@@ -7,6 +7,6 @@ namespace Systems.EnemySystem.Interface
     {
         EnemyType Type { get; }
         void Initialize(Vector3 position);
-        void TakeDamage(float damage);
+        bool ShouldDespawn();
     }
 }

@@ -1,50 +1,34 @@
 ﻿using Systems.EnemySystem.Enum;
 using Systems.EnemySystem.Interface;
 using UnityEngine;
-using Zenject;
 
 namespace Systems.EnemySystem.Model
 {
-    public abstract class Enemy : MonoBehaviour, IEnemy, IPoolable<IMemoryPool>
+    public abstract class Enemy : MonoBehaviour, IEnemy
     {
-        [SerializeField] protected float moveSpeed = 5f;
-    
-        protected IMemoryPool Pool;
         public abstract EnemyType Type { get; }
+    
+        protected float lifetime = 5f;
+        protected float timer;
 
-        public void OnSpawned(IMemoryPool pool)
-        {
-            Pool = pool;
-            gameObject.SetActive(true);
-        
-            OnEnemySpawned();
-        }
-
-        public void OnDespawned()
-        {
-            Pool = null;
-            gameObject.SetActive(false);
-        
-            OnEnemyDespawned();
-        }
-
-        public void Initialize(Vector3 position)
+        public virtual void Initialize(Vector3 position)
         {
             transform.position = position;
-            transform.rotation = Quaternion.identity;
+            timer = 0f;
+            gameObject.SetActive(true);
         }
 
-        public virtual void TakeDamage(float damage)
+        private void Update()
         {
-            Die();
+            timer += Time.deltaTime;
+            OnUpdate();
         }
 
-        protected virtual void Die()
+        protected abstract void OnUpdate();
+
+        public bool ShouldDespawn()
         {
-            Pool?.Despawn(this);
+            return timer >= lifetime;
         }
-        
-        protected virtual void OnEnemySpawned() { }
-        protected virtual void OnEnemyDespawned() { }
     }
 }

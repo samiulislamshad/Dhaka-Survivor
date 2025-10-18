@@ -23,6 +23,9 @@ namespace Systems.InputSystem
         
         private Action<InputAction.CallbackContext> _attackInputAction;
         private Action<InputAction.CallbackContext> _togglePauseInputAction;
+        
+        //for test
+        private Action<InputAction.CallbackContext> _spawnEnemiesInputAction;
        
         
         #region Initializers
@@ -46,6 +49,8 @@ namespace Systems.InputSystem
             _stopJumpInputAction = _ => StopJumpInput();
             
             _togglePauseInputAction = _ => TogglePause();
+
+            _spawnEnemiesInputAction = _ => SpawnEnemy();
             
             
             _inputControls.PlayerControl.Crouch.performed += _startCrouchInputAction;
@@ -55,6 +60,9 @@ namespace Systems.InputSystem
             _inputControls.PlayerControl.Jump.canceled += _stopJumpInputAction;
             
             _inputControls.PlayerControl.TogglePause.performed += _togglePauseInputAction;
+            
+            
+            _inputControls.PlayerControl.SpawnEnemies.performed += _spawnEnemiesInputAction;
             
             // _signalBus.Subscribe<PauseSignal>(DisablePlayerControl);
             // _signalBus.Subscribe<UnpauseSignal>(EnablePlayerControl);
@@ -69,6 +77,8 @@ namespace Systems.InputSystem
             _inputControls.PlayerControl.Jump.canceled -= _stopJumpInputAction;
             
             _inputControls.PlayerControl.TogglePause.performed -= _togglePauseInputAction;
+            
+            _inputControls.PlayerControl.SpawnEnemies.performed -= _spawnEnemiesInputAction;
             
             // _signalBus.Unsubscribe<PauseSignal>(DisablePlayerControl);
             // _signalBus.Unsubscribe<UnpauseSignal>(EnablePlayerControl);
@@ -132,6 +142,11 @@ namespace Systems.InputSystem
         }
         
         #endregion
+
+        private void SpawnEnemy()
+        {
+            _signalBus.Fire<SpawnEnemySignal>();
+        }
         
         #region Pause and Unpause Controls
 

@@ -17,6 +17,7 @@ namespace Systems.GameSystem.Installer
             Container.DeclareSignal<StartCrouchInputSignal>();
             Container.DeclareSignal<StopCrouchInputSignal>();
             Container.DeclareSignal<TogglePauseInputSignal>();
+            Container.DeclareSignal<SpawnEnemySignal>();
         }
     }
 }

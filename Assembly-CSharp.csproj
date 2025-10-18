@@ -48,12 +48,14 @@
   <ItemGroup>
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Model\AerialEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\AttackInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Controller\PlayerController.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Controller\LoadingScreenController.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\Enemy.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\ObjectPool\MeleeEnemyPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Controller\EnemyController.cs" />
     <Compile Include="Assets\Systems\InputSystem\InputMaster.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -64,15 +66,16 @@
     <Compile Include="Assets\Systems\SoundSystem\Installer\SoundInstaller.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartCrouchInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Service\EnemySpawner.cs" />
     <Compile Include="Assets\Systems\InputSystem\PlayerInputHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\SpawnEnemySignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\View\LoadingScreenCanvasView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\Systems\EnemySystem\EnemyFactory\FlyingEnemyPool.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopCrouchInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Signals\PauseSignal.cs" />
@@ -91,7 +94,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Installer\LoadingScreenInstaller.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
-    <Compile Include="Assets\Systems\EnemySystem\EnemyFactory\MeleeEnemyPool.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\ObjectPool\AerialEnemyPool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopJumpInputSignal.cs" />
@@ -101,7 +104,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
-    <Compile Include="Assets\Systems\EnemySystem\EnemyFactory\RangedEnemyPool.cs" />
     <Compile Include="Assets\Services\GameInitiator.cs" />
     <Compile Include="Assets\Services\SceneLoaderService.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Enum\EnemyState.cs" />
@@ -110,12 +112,12 @@
     <Compile Include="Assets\Systems\EnemySystem\Model\MeleeEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\View\MainMenuCanvasView.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Test\SpawnInitiator.cs" />
     <Compile Include="Assets\Services\EventSystemFocusSetter.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\TogglePauseInputSignal.cs" />
-    <Compile Include="Assets\Systems\EnemySystem\Model\FlyingEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Handler\InputHandler.cs" />
-    <Compile Include="Assets\Systems\EnemySystem\EnemyFactory\EnemyPool.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\ObjectPool\RangedEnemyPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\RangedEnemy.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Enum\EnemyType.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
