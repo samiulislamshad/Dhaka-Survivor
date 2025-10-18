@@ -8,23 +8,24 @@ namespace Systems.PlayerSystem.Controller
     {
         private SignalBus _signalBus;
 
-        [Header("Jump Settings")] 
-        [SerializeField] private float jumpForce = 10f;
+        [Header("Jump Settings")] [SerializeField]
+        private float jumpForce = 10f;
 
         [SerializeField] private float normalGravity = 5f;
+        [SerializeField] private float fallGravityMultiplier = 2f; // NEW: Faster fall
         [SerializeField] private float maxJumpTime = 0.3f;
         [SerializeField] private float jumpMultiplier = 1.5f;
 
-        [Header("Ground Check")] 
-        [SerializeField] private Transform groundCheck;
+        [Header("Ground Check")] [SerializeField]
+        private Transform groundCheck;
 
         [SerializeField] private float groundCheckRadius = 0.2f;
         [SerializeField] private LayerMask groundLayer;
 
-        [Header("Crouch Settings")] 
-        [SerializeField] private float crouchSpeed = 2.5f;
+        [Header("Crouch Settings")] [SerializeField]
+        private float crouchSpeed = 2.5f;
 
-        [SerializeField] private float midAirCrouchForce = 10f;
+        [SerializeField] private float midAirCrouchFallMultiplier = 4f; // NEW: Fast fall when crouching in air
         [SerializeField] private float crouchScale = 0.5f;
 
         private Rigidbody2D _rb;
@@ -33,11 +34,11 @@ namespace Systems.PlayerSystem.Controller
         private float _originalColliderHeight;
         private float _originalColliderOffsetY;
 
-        [SerializeField] private bool isGrounded; 
+        [SerializeField] private bool isGrounded;
         [SerializeField] private bool isJumping;
         [SerializeField] private bool isCrouching;
         [SerializeField] private float jumpTimeCounter;
-        
+
         private bool _jumpHeld;
 
         #region Initializers
@@ -55,7 +56,7 @@ namespace Systems.PlayerSystem.Controller
             _originalScale = transform.localScale;
             _originalColliderHeight = _col.size.y;
             _originalColliderOffsetY = _col.offset.y;
-            
+
             SubscribeToActions();
         }
 
@@ -84,6 +85,7 @@ namespace Systems.PlayerSystem.Controller
         private void Update()
         {
             HandleJump();
+            HandleGravity(); // NEW: Handle fall speed
         }
 
         #region Ground Check
@@ -125,10 +127,22 @@ namespace Systems.PlayerSystem.Controller
             }
             else isJumping = false;
         }
+        
+        private void HandleGravity()
+        {
+            if (isCrouching && !isGrounded)
+                _rb.gravityScale = normalGravity * midAirCrouchFallMultiplier;
+            else if (_rb.linearVelocity.y < 0 && !isGrounded)
+                _rb.gravityScale = normalGravity * fallGravityMultiplier;
+            else if (!isGrounded)
+                _rb.gravityScale = normalGravity;
+            else 
+                _rb.gravityScale = normalGravity;
+        }
 
         private void OnJumpPerformed(StartJumpInputSignal signal)
         {
-            if(!isGrounded || isCrouching) return;
+            if (!isGrounded || isCrouching) return;
             isJumping = true;
             _jumpHeld = true;
             jumpTimeCounter = maxJumpTime;
@@ -148,32 +162,36 @@ namespace Systems.PlayerSystem.Controller
         private void OnCrouchPerformed(StartCrouchInputSignal signal)
         {
             if (isCrouching) return;
-            if(!isGrounded)
-                _rb.gravityScale = midAirCrouchForce;
+            if (!isGrounded)
+            {
+                isCrouching = true; // Set crouching state in mid-air
+            }
             else
             {
-                _rb.gravityScale = normalGravity;
                 Crouch();
             }
         }
 
         private void OnCrouchCanceled(StopCrouchInputSignal signal)
         {
-            _rb.gravityScale = normalGravity;
-            if(!isCrouching) return;
-            StandUp();
+            if (!isCrouching) return;
+
+            if (isGrounded)
+                StandUp();
+            else
+                isCrouching = false; // Just reset the flag in mid-air
         }
 
         private void Crouch()
         {
             isCrouching = true;
-            
+
             transform.localScale = new Vector3(
                 _originalScale.x,
                 _originalScale.y * crouchScale,
                 _originalScale.z
             );
-            
+
             _col.size = new Vector2(_col.size.x, _originalColliderHeight * crouchScale);
             _col.offset = new Vector2(_col.offset.x, _originalColliderOffsetY * crouchScale);
         }

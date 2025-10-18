@@ -179,9 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351711cf2f4b45029d5bfa7c818de55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.PlayerSystem.Controller.PlayerController
-  jumpForce: 10
+  jumpForce: 12
   normalGravity: 5
-  maxJumpTime: 0.3
+  fallGravityMultiplier: 2
+  maxJumpTime: 0.35
   jumpMultiplier: 1.5
   groundCheck: {fileID: 0}
   groundCheckRadius: 0.2
@@ -189,7 +190,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   crouchSpeed: 2.5
-  midAirCrouchForce: 10
+  midAirCrouchFallMultiplier: 4
   crouchScale: 0.5
   isGrounded: 0
   isJumping: 0
