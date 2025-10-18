@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6157cdd1c79432181ee4d15ebe0ea22, type: 3}
   m_Name: GameInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.GameSystem.Installer.GameInstaller
+  gameManager: {fileID: 7867651302580867691, guid: 66b09a5544cb7fe46a4e5b900f2d0065, type: 3}
+  startGameCanvasView: {fileID: 506757500756925717, guid: 3411372b395fd964f82f047195c34f0a, type: 3}

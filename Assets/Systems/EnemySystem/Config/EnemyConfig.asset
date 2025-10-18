@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Config.EnemyConfig
   movementSpeed:
-    value: 10
+    value: 5
+  spawnPoint: {fileID: 0}

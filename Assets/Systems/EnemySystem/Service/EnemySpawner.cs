@@ -22,20 +22,21 @@ namespace Systems.EnemySystem.Service
             _aerialPool = aerialPool;
         }
 
-        public void Spawn(EnemyType type, Vector3 position)
+        public Enemy Spawn(EnemyType type, Vector3 position)
         {
             switch (type)
             {
                 case EnemyType.Melee:
-                    _meleePool.Spawn(position);
-                    break;
+                    return _meleePool.Spawn(position);
+                    
                 case EnemyType.Ranged:
-                    _rangedPool.Spawn(position);
-                    break;
+                    return _rangedPool.Spawn(position);
+                    
                 case EnemyType.Aerial:
-                    _aerialPool.Spawn(position);
-                    break;
+                    return _aerialPool.Spawn(position);
             }
+
+            return null;
         }
 
         public void Tick()

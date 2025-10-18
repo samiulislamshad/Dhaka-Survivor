@@ -7,5 +7,7 @@ namespace Systems.EnemySystem.Config
     public class EnemyConfig : ScriptableObject
     {
         public ReactiveProperty<float> movementSpeed = new(5);
+
+        public Transform spawnPoint;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Systems.PlayerSystem.Signals;
+﻿using Systems.GameSystem.Manager;
+using Systems.GameSystem.View;
 using UnityEngine;
 using Zenject;
 
@@ -7,17 +8,17 @@ namespace Systems.GameSystem.Installer
     [CreateAssetMenu(fileName = "GameInstaller",  menuName = "Installers/GameInstaller")]
     public class GameInstaller : ScriptableObjectInstaller<GameInstaller>
     {
+        [SerializeField] private GameManager gameManager;
+        [SerializeField] private StartGameCanvasView startGameCanvasView;
+        
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
+            // View
+            Container.Bind<StartGameCanvasView>().FromComponentInNewPrefab(startGameCanvasView).AsSingle().NonLazy();
 
-            Container.DeclareSignal<AttackInputSignal>();
-            Container.DeclareSignal<StartJumpInputSignal>();
-            Container.DeclareSignal<StopJumpInputSignal>();
-            Container.DeclareSignal<StartCrouchInputSignal>();
-            Container.DeclareSignal<StopCrouchInputSignal>();
-            Container.DeclareSignal<TogglePauseInputSignal>();
-            Container.DeclareSignal<SpawnEnemySignal>();
+            // Manager
+            Container.Bind<GameManager>().FromComponentInNewPrefab(gameManager).AsSingle().NonLazy();
         }
     }
 }

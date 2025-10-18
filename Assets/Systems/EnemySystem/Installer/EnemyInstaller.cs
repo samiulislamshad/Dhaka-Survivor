@@ -1,4 +1,5 @@
 ﻿using Systems.EnemySystem.Config;
+using Systems.EnemySystem.Controller;
 using Systems.EnemySystem.Model;
 using Systems.EnemySystem.ObjectPool;
 using Systems.EnemySystem.Service;
@@ -41,6 +42,9 @@ namespace Systems.EnemySystem.Installer
             
             // Config
             Container.Bind<EnemyConfig>().FromScriptableObject(config).AsSingle();
+            
+            // Controller
+            Container.BindInterfacesAndSelfTo<EnemyController>().AsSingle().NonLazy();
         }
     }
 }
