@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dee6e481674c6787edc5735670734c, type: 3}
   m_Name: EnemyInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Installer.EnemyInstaller
+  config: {fileID: 11400000, guid: 2748e0473f0d303439be82408fb0b1cf, type: 2}
   meleeEnemyPrefab: {fileID: 7408599254762613024, guid: 618d1a8feb57fa640a0c37efbe34e61e, type: 3}
   rangedEnemyPrefab: {fileID: 4426662724799184321, guid: ed035a1a23e6d1f4c9b82505a18be23d, type: 3}
   aerialEnemyPrefab: {fileID: 3732078281177842944, guid: 1d1ceb7f350195d4f80172128b79e3f9, type: 3}

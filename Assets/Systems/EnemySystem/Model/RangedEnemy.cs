@@ -7,9 +7,18 @@ namespace Systems.EnemySystem.Model
     {
         public override EnemyType Type => EnemyType.Ranged;
 
-        protected override void OnUpdate()
+        protected override void OnFixedUpdate()
         {
-            transform.Translate(Vector3.down * (3f * Time.deltaTime));
+            rb.MovePosition(rb.position + Vector2.left * (Config.movementSpeed.Value * Time.fixedDeltaTime));
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Limit"))
+            {
+                Debug.Log($"Triggered {other.gameObject.name}");
+                IsDespawning = true;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Systems.EnemySystem.Model;
+﻿using Systems.EnemySystem.Config;
+using Systems.EnemySystem.Model;
 using Systems.EnemySystem.ObjectPool;
 using Systems.EnemySystem.Service;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Systems.EnemySystem.Installer
     [CreateAssetMenu(fileName = "EnemyInstaller", menuName = "Installers/EnemyInstaller")]
     public class EnemyInstaller : ScriptableObjectInstaller<EnemyInstaller>
     {
+        [SerializeField] private EnemyConfig config;
+        
         [SerializeField] private MeleeEnemy meleeEnemyPrefab;
         [SerializeField] private RangedEnemy rangedEnemyPrefab;
         [SerializeField] private AerialEnemy aerialEnemyPrefab;
@@ -35,6 +38,9 @@ namespace Systems.EnemySystem.Installer
 
             // Bind spawner service
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();
+            
+            // Config
+            Container.Bind<EnemyConfig>().FromScriptableObject(config).AsSingle();
         }
     }
 }

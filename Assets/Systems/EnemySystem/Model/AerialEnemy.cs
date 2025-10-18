@@ -1,4 +1,5 @@
-﻿using Systems.EnemySystem.Enum;
+﻿using System;
+using Systems.EnemySystem.Enum;
 using UnityEngine;
 
 namespace Systems.EnemySystem.Model
@@ -7,10 +8,21 @@ namespace Systems.EnemySystem.Model
     {
         public override EnemyType Type => EnemyType.Aerial;
 
-        protected override void OnUpdate()
+        protected override void OnFixedUpdate()
         {
-            var wave = Mathf.Sin(timer * 3f) * 2f;
-            transform.Translate(new Vector3(wave * Time.deltaTime, -4f * Time.deltaTime, 0));
+            var wave = Mathf.Sin(Timer * 3f) * 2f;
+            var movement = new Vector2(-Config.movementSpeed.Value * Time.fixedDeltaTime, wave * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement);
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Limit"))
+            {
+                Debug.Log($"Triggered {other.gameObject.name}");
+                IsDespawning = true;
+            }
+        }
+        
     }
 }

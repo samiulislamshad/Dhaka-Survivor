@@ -96,6 +96,7 @@
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\AerialEnemyPool.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Config\EnemyConfig.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Interface\IEnemy.cs" />
