@@ -8,12 +8,16 @@ namespace Systems.PlayerSystem.Controller
     {
         private SignalBus _signalBus;
 
-        [Header("Jump Settings")] [SerializeField]
-        private float jumpForce = 10f;
-
-        [SerializeField] private float normalGravity = 5f;
-        [SerializeField] private float fallGravityMultiplier = 2f; // NEW: Faster fall
-        [SerializeField] private float maxJumpTime = 0.3f;
+        [Header("Jump Settings")] 
+        [SerializeField] private float jumpForceWhenHeld = 32f;
+        [SerializeField] private float jumpForceWhenReleased = 25f;
+        [SerializeField] private float jumpForce = 25f; // Higher initial burst
+        
+        [SerializeField] private float jumpGravityWhenHeld = 8f;
+        [SerializeField] private float jumpGravityWhenReleased = 10f;
+        [SerializeField] private float jumpGravity = 10f; // Gravity while ascending
+        [SerializeField] private float fallGravity = 20f; // Much stronger gravity when falling
+        [SerializeField] private float maxJumpTime = 0.01f; // Shorter for snappier feel
         [SerializeField] private float jumpMultiplier = 1.5f;
 
         [Header("Ground Check")] [SerializeField]
@@ -22,10 +26,10 @@ namespace Systems.PlayerSystem.Controller
         [SerializeField] private float groundCheckRadius = 0.2f;
         [SerializeField] private LayerMask groundLayer;
 
-        [Header("Crouch Settings")] [SerializeField]
-        private float crouchSpeed = 2.5f;
+        [Header("Crouch Settings")] 
+        [SerializeField] private float crouchSpeed = 2.5f;
 
-        [SerializeField] private float midAirCrouchFallMultiplier = 4f; // NEW: Fast fall when crouching in air
+        [SerializeField] private float fastFallGravity = 50f; // Extra fast fall when crouching
         [SerializeField] private float crouchScale = 0.5f;
 
         private Rigidbody2D _rb;
@@ -85,7 +89,7 @@ namespace Systems.PlayerSystem.Controller
         private void Update()
         {
             HandleJump();
-            HandleGravity(); // NEW: Handle fall speed
+            HandleGravity();
         }
 
         #region Ground Check
@@ -120,29 +124,49 @@ namespace Systems.PlayerSystem.Controller
         private void HandleJump()
         {
             if (!_jumpHeld || !isJumping) return;
+
             if (jumpTimeCounter > 0)
             {
                 _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce * jumpMultiplier);
                 jumpTimeCounter -= Time.deltaTime;
             }
-            else isJumping = false;
+            else
+            {
+                isJumping = false;
+            }
         }
-        
+
         private void HandleGravity()
         {
-            if (isCrouching && !isGrounded)
-                _rb.gravityScale = normalGravity * midAirCrouchFallMultiplier;
-            else if (_rb.linearVelocity.y < 0 && !isGrounded)
-                _rb.gravityScale = normalGravity * fallGravityMultiplier;
-            else if (!isGrounded)
-                _rb.gravityScale = normalGravity;
-            else 
-                _rb.gravityScale = normalGravity;
+            if (isGrounded)
+            {
+                _rb.gravityScale = jumpGravity; // Reset to normal
+                return;
+            }
+
+            // Fast fall when crouching in air
+            if (isCrouching)
+            {
+                _rb.gravityScale = fastFallGravity;
+            }
+            // Strong gravity when falling (like Chrome dino)
+            else if (_rb.linearVelocity.y < 0)
+            {
+                _rb.gravityScale = fallGravity;
+            }
+            // Light gravity while ascending
+            else
+            {
+                _rb.gravityScale = jumpGravity;
+            }
         }
 
         private void OnJumpPerformed(StartJumpInputSignal signal)
         {
             if (!isGrounded || isCrouching) return;
+
+            jumpForce = jumpForceWhenHeld;
+            jumpGravity =  jumpGravityWhenHeld;
             isJumping = true;
             _jumpHeld = true;
             jumpTimeCounter = maxJumpTime;
@@ -151,6 +175,8 @@ namespace Systems.PlayerSystem.Controller
 
         private void OnJumpCanceled(StopJumpInputSignal signal)
         {
+            jumpForce = jumpForceWhenReleased;
+            jumpGravity = jumpForceWhenReleased;
             _jumpHeld = false;
             isJumping = false;
         }

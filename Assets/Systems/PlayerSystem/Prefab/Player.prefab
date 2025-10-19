@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -585369155
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -179,10 +179,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351711cf2f4b45029d5bfa7c818de55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.PlayerSystem.Controller.PlayerController
-  jumpForce: 12
-  normalGravity: 5
-  fallGravityMultiplier: 2
-  maxJumpTime: 0.35
+  jumpForceWhenHeld: 32
+  jumpForceWhenReleased: 25
+  jumpForce: 30
+  jumpGravity: 10
+  fallGravity: 20
+  maxJumpTime: 0.01
   jumpMultiplier: 1.5
   groundCheck: {fileID: 0}
   groundCheckRadius: 0.2
@@ -190,12 +192,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   crouchSpeed: 2.5
-  midAirCrouchFallMultiplier: 4
+  fastFallGravity: 50
   crouchScale: 0.5
-  isGrounded: 0
+  isGrounded: 1
   isJumping: 0
   isCrouching: 0
-  jumpTimeCounter: 0
+  jumpTimeCounter: -0.0040003974
 --- !u!114 &2627058895458086215
 MonoBehaviour:
   m_ObjectHideFlags: 0
