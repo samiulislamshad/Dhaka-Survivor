@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e29ce8cc50a1435397aa709a119202ff, type: 3}
-  m_Name: EnemyConfig
+  m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Config.EnemyConfig
   movementSpeed:
     value: 5

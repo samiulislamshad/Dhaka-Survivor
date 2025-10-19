@@ -9,7 +9,7 @@ namespace Systems.EnemySystem.Model
 
         protected override void OnFixedUpdate()
         {
-            rb.MovePosition(rb.position + Vector2.left * (Config.movementSpeed.Value * Time.fixedDeltaTime));
+            rb.MovePosition(rb.position + Vector2.left * (Config.gameSpeed.Value * Time.fixedDeltaTime));
         }
         
         private void OnTriggerEnter2D(Collider2D other)

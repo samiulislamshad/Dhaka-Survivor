@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GameInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.GameSystem.Installer.GameInstaller
   gameManager: {fileID: 7867651302580867691, guid: 66b09a5544cb7fe46a4e5b900f2d0065, type: 3}
+  gameConfig: {fileID: 11400000, guid: 2748e0473f0d303439be82408fb0b1cf, type: 2}
   startGameCanvasView: {fileID: 506757500756925717, guid: 3411372b395fd964f82f047195c34f0a, type: 3}

@@ -1,6 +1,6 @@
-﻿using Systems.EnemySystem.Config;
-using Systems.EnemySystem.Enum;
+﻿using Systems.EnemySystem.Enum;
 using Systems.EnemySystem.Interface;
+using Systems.GameSystem.Config;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +8,7 @@ namespace Systems.EnemySystem.Model
 {
     public abstract class Enemy : MonoBehaviour, IEnemy
     {
-        [Inject] protected EnemyConfig Config;
+        [Inject] protected GameConfig Config;
         
         public abstract EnemyType Type { get; }
 

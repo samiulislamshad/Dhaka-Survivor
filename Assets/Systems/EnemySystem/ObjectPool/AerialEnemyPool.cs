@@ -1,9 +1,11 @@
-﻿using Systems.EnemySystem.Model;
+﻿using System;
+using Systems.EnemySystem.Model;
 using UnityEngine;
 using Zenject;
 
 namespace Systems.EnemySystem.ObjectPool
 {
+    [Serializable]
     public class AerialEnemyPool : MonoMemoryPool<Vector3, AerialEnemy>
     {
         protected override void Reinitialize(Vector3 pos, AerialEnemy enemy)

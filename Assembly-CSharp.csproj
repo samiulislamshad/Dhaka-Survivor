@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Systems\GameSystem\Config\GameConfig.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\AerialEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Installer\EnemyInstaller.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Signals\UnregisterEnemySignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\Installer\MainMenuCanvasInstaller.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Installer\LoadingScreenInstaller.cs" />
+    <Compile Include="Assets\Systems\LevelSystem\View\LevelView.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\GameSystem\Manager\GameManager.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\AerialEnemyPool.cs" />
@@ -104,8 +107,10 @@
     <Compile Include="Assets\Systems\EnemySystem\Config\EnemyConfig.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopJumpInputSignal.cs" />
+    <Compile Include="Assets\Systems\LevelSystem\Installer\LevelInstaller.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Interface\IEnemy.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Model\LoadingScreenModel.cs" />
+    <Compile Include="Assets\Systems\LevelSystem\Controller\LevelController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -122,7 +127,6 @@
     <Compile Include="Assets\Services\EventSystemFocusSetter.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\TogglePauseInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
-    <Compile Include="Assets\Systems\PlayerSystem\Handler\InputHandler.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\RangedEnemyPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\RangedEnemy.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Enum\EnemyType.cs" />
