@@ -12,10 +12,18 @@ namespace Systems.GameSystem.Installer
         [SerializeField] private GameManager gameManager;
         [SerializeField] private GameConfig gameConfig;
         [SerializeField] private StartGameCanvasView startGameCanvasView;
+        [SerializeField] private Camera mainCameraPrefab;
         
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
+            
+            // Prefab
+            Container.Bind<Camera>()
+                .WithId("MainCamera")
+                .FromComponentInNewPrefab(mainCameraPrefab)
+                .AsSingle()
+                .NonLazy();
             
             // Config
             Container.Bind<GameConfig>().FromScriptableObject(gameConfig).AsSingle();
