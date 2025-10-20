@@ -45,7 +45,7 @@ namespace Systems.GameSystem.Manager
 
         private void InitializeVariables()
         {
-            _config.gameSpeed = new ReactiveProperty<int>(5);
+            _config.gameSpeed = new ReactiveProperty<float>(5);
             _config.timer = new ReactiveProperty<float>(0);
             _config.hasGameStarted = new ReactiveProperty<bool>(false);
             _config.hasTimerStarted = new ReactiveProperty<bool>(false);
@@ -59,12 +59,12 @@ namespace Systems.GameSystem.Manager
         private void SubscribeToProperties()
         {
             // Increment game speed every 10 seconds
-            _config.timer
-                .Where(_ => _config.hasGameStarted.Value)
-                .Where(value => Mathf.FloorToInt(value) % 10 == 0 && Mathf.FloorToInt(value) > 0)
-                .DistinctUntilChanged(value => Mathf.FloorToInt(value / 10)) // Prevent multiple calls per interval
-                .Subscribe(_ => IncrementGameSpeed())
-                .AddTo(_disposable);
+            // _config.timer
+            //     .Where(_ => _config.hasGameStarted.Value)
+            //     .Where(value => Mathf.FloorToInt(value) % 10 == 0 && Mathf.FloorToInt(value) > 0)
+            //     .DistinctUntilChanged(value => Mathf.FloorToInt(value / 10)) // Prevent multiple calls per interval
+            //     .Subscribe(_ => IncrementGameSpeed())
+            //     .AddTo(_disposable);
         }
 
         private void ShowPressToStartGame()
@@ -90,6 +90,8 @@ namespace Systems.GameSystem.Manager
         {
             if (_config.hasTimerStarted.Value)
                 _config.timer.Value += Time.fixedDeltaTime;
+            if(_config.hasGameStarted.Value)
+                _config.gameSpeed.Value += Time.fixedDeltaTime/10;
         }
 
         private void IncrementGameSpeed()

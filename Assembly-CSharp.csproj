@@ -46,6 +46,8 @@
     <Analyzer Include="Y:\Unity Editors\6000.2.7f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Systems\InputSystem\Controller\VirtualKeyboardController.cs" />
+    <Compile Include="Assets\Systems\InputSystem\Model\UserData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Systems\GameSystem\Config\GameConfig.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -60,7 +62,6 @@
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\MeleeEnemyPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Controller\EnemyController.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Installer\PauseInstaller.cs" />
-    <Compile Include="Assets\Systems\InputSystem\InputMaster.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\Model\MainMenuCanvasModel.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\Systems\EnemySystem\Interface\IEnemy.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Model\LoadingScreenModel.cs" />
     <Compile Include="Assets\Systems\LevelSystem\Controller\LevelController.cs" />
+    <Compile Include="Assets\Systems\InputSystem\View\VirtualKeyboardView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\View\MainMenuCanvasView.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Test\SpawnInitiator.cs" />
+    <Compile Include="Assets\Systems\InputSystem\NewInputSystem\InputMaster.cs" />
     <Compile Include="Assets\Services\EventSystemFocusSetter.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\TogglePauseInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />

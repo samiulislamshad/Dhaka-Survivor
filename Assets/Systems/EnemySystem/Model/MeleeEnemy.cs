@@ -9,7 +9,11 @@ namespace Systems.EnemySystem.Model
 
         protected override void OnFixedUpdate()
         {
-            rb.MovePosition(rb.position + Vector2.left * (Config.gameSpeed.Value * Time.fixedDeltaTime));
+            var finalSpeedX = GetCalculatedSpeedX();
+            var finalSpeedY = GetCalculatedSpeedY();
+        
+            var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.deltaTime * Config.enemySpeedMultiplier);
+            rb.MovePosition(rb.position + movement);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

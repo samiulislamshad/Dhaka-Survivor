@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29ce8cc50a1435397aa709a119202ff, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Config.EnemyConfig
-  movementSpeed:
-    value: 5
-  spawnPoint: {fileID: 0}
+  gameSpeed:
+    value: 10.011637
+  timer:
+    value: 50.120956
+  hasGameStarted:
+    value: 1
+  hasTimerStarted:
+    value: 1
+  maxEnemies:
+    value: 1
+  enemySpeedMultiplier: 20

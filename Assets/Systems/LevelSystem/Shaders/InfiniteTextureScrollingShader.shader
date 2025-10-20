@@ -4,8 +4,7 @@ Shader "Custom/ScrollingSprite"
     {
         _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
-        _ScrollSpeedX ("Scroll Speed X", Float) = 1.0
-        _ScrollSpeedY ("Scroll Speed Y", Float) = 0.0
+        _ScrollOffset ("Scroll Offset", Vector) = (0,0,0,0)
         
         [Header(Sprite Settings)]
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
@@ -80,9 +79,10 @@ Shader "Custom/ScrollingSprite"
             fixed4 frag(v2f IN) : SV_Target
             {
                 // Scroll the UV coordinates over time
+                // Use unity_DeltaTime.y for frame-rate independent scrolling that matches physics
                 float2 scrolledUV = IN.texcoord;
-                scrolledUV.x += _Time.y * _ScrollSpeedX;
-                scrolledUV.y += _Time.y * _ScrollSpeedY;
+                scrolledUV.x += unity_DeltaTime.y * _ScrollSpeedX;
+                scrolledUV.y += unity_DeltaTime.y * _ScrollSpeedY;
                 
                 // Wrap UVs to create seamless loop
                 scrolledUV = frac(scrolledUV);
