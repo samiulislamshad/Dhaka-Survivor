@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Systems.ParallaxSystem.Model;
+﻿using Systems.ParallaxSystem.Model;
 using UnityEngine;
 
 namespace Systems.ParallaxSystem.Config

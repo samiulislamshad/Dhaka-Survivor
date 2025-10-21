@@ -13,15 +13,43 @@ MonoBehaviour:
   m_Name: ParallaxLayerConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.ParallaxSystem.Config.ParallaxLayerConfig
   firstParallaxLayer:
-    id: 
+    id: FIrst
     layerName: 
     layerType: 0
-    environmentObjects: []
+    environmentObjects:
+    - id: Divider
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 5411488168671862048, guid: 99451d64a243be24fbed02b4a77fc99e, type: 3}
+    - id: ElectricPole
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 8750243502871124784, guid: 5ac39334283ab444a9c06b6c89f10d73, type: 3}
   secondParallaxLayer:
-    id: 
+    id: Second
     layerName: 
     layerType: 0
-    environmentObjects: []
+    environmentObjects:
+    - id: RoadSign01
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 7132345269004648166, guid: d037d61765bc3c249a5a47a14fa3213a, type: 3}
+    - id: Stall
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 725434517373756211, guid: 2f78143866313ef4e81b27e576a0b80e, type: 3}
   thirdParallaxLayer:
     id: 
     layerName: 
