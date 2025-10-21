@@ -501,9 +501,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Zenject::Zenject.SceneContext
   _scriptableObjectInstallers:
-  - {fileID: 11400000, guid: 7b5a23ffb19e2a449af2b7b9419dcef0, type: 2}
-  - {fileID: 11400000, guid: 1af48640d5a4fb4448552e22f89b0fab, type: 2}
-  - {fileID: 11400000, guid: 7f3aa83a4f5a6e0418ea77df6c3f2b16, type: 2}
   - {fileID: 11400000, guid: e0c97d3f5dab5004f8f1a5f7bcc36097, type: 2}
   _monoInstallers: []
   _installerPrefabs: []
@@ -11831,6 +11828,7 @@ MonoBehaviour:
   deleteButton: {fileID: 0}
   userNameText: {fileID: 319009634}
   buttonSelectedColor: {r: 0, g: 0, b: 0, a: 0}
+  eventSystem: {fileID: 0}
 --- !u!1 &8730420151108066292
 GameObject:
   m_ObjectHideFlags: 0

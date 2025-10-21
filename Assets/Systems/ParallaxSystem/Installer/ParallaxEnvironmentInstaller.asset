@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66de0a402e4d422b9eaf0ab6bb768c1f, type: 3}
   m_Name: ParallaxEnvironmentInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.LevelSystem.Installer.LevelInstaller
+  parallaxLayerConfig: {fileID: 11400000, guid: a2bf3b67c6b1cf74d81b26355a009755, type: 2}
   parallaxEnvironmentView: {fileID: 3047592000506219047, guid: 0be5cd3eee7a449439422aff589b5459, type: 3}
   firstLayerPrefab: {fileID: 7838399947043808736, guid: 99451d64a243be24fbed02b4a77fc99e, type: 3}
   secondLayerPrefab: {fileID: 3920385870312841090, guid: 2f78143866313ef4e81b27e576a0b80e, type: 3}

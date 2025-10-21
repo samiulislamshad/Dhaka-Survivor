@@ -10,11 +10,16 @@ namespace Systems.ParallaxSystem.Model
     {
         [SerializeField] private float parallaxSpeed = 0.1f;
     
-        public override async UniTask Initialize(Vector3 position, CancellationToken cancellationToken = default)
+        public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
             transform.position = position;
-            // Add any first layer specific initialization
-            await UniTask.CompletedTask;
+            Id = data.id;
+            Data = data;
+        }
+        
+        public override void Reinitialize(Vector3 pos)
+        {
+            transform.position = pos;
         }
     
         public override bool ShouldDespawn()

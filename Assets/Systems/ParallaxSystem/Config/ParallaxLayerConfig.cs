@@ -7,9 +7,9 @@ namespace Systems.ParallaxSystem.Config
     [CreateAssetMenu(fileName = "ParallaxLayerConfig", menuName = "Configs/ParallaxLayerConfig")]
     public class ParallaxLayerConfig : ScriptableObject
     {
-        public List<ParallaxLayer>  firstParallaxLayer;
-        public List<ParallaxLayer>  secondParallaxLayer;
-        public List<ParallaxLayer>  thirdParallaxLayer;
-        public List<ParallaxLayer>  fourthParallaxLayer;
+        public ParallaxLayer  firstParallaxLayer;
+        public ParallaxLayer  secondParallaxLayer;
+        public ParallaxLayer  thirdParallaxLayer;
+        public ParallaxLayer  fourthParallaxLayer;
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System.Threading;
-using Cysharp.Threading.Tasks;
+using Systems.ParallaxSystem.Model;
 using UnityEngine;
 
 namespace Systems.ParallaxSystem.Interface
 {
     public interface IEnvironmentObject
     {
-        UniTask Initialize(Vector3 position, CancellationToken cancellationToken = default);
+        void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default);
+        void Reinitialize(Vector3 pos);
         bool ShouldDespawn();
         void OnSpawned();
         void OnDespawned();

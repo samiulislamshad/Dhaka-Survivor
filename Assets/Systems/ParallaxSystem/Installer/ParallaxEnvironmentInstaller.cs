@@ -1,4 +1,5 @@
-﻿using Systems.ParallaxSystem.Controller;
+﻿using Systems.ParallaxSystem.Config;
+using Systems.ParallaxSystem.Controller;
 using Systems.ParallaxSystem.Handler;
 using Systems.ParallaxSystem.Model;
 using Systems.ParallaxSystem.ObjectPooling;
@@ -11,6 +12,7 @@ namespace Systems.ParallaxSystem.Installer
     [CreateAssetMenu(fileName = "ParallaxEnvironmentInstaller", menuName = "Installers/ParallaxEnvironmentInstaller")]
     public class ParallaxEnvironmentInstaller : ScriptableObjectInstaller<ParallaxEnvironmentInstaller>
     {
+        [SerializeField] private ParallaxLayerConfig parallaxLayerConfig;
         [SerializeField] private ParallaxEnvironmentView parallaxEnvironmentView;
         
         [SerializeField] private FirstLayerEnvironmentObject firstLayerPrefab;
@@ -21,8 +23,11 @@ namespace Systems.ParallaxSystem.Installer
 
         public override void InstallBindings()
         {
+            // Config
+            Container.Bind<ParallaxLayerConfig>().FromScriptableObject(parallaxLayerConfig).AsSingle();
+            
             // View
-            Container.Bind<ParallaxEnvironmentView>().FromComponentInNewPrefab(parallaxEnvironmentView).AsSingle();
+            // Container.Bind<ParallaxEnvironmentView>().FromComponentInNewPrefab(parallaxEnvironmentView).AsSingle();
             
             Container.BindMemoryPool<FirstLayerEnvironmentObject, FirstLayerPool>()
                 .WithInitialSize(10)

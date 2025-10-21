@@ -7,6 +7,7 @@ namespace Systems.ParallaxSystem.Model
     [Serializable]
     public class ParallaxLayer
     {
+        public string id;
         public string layerName;
         public EnvironmentLayerType layerType;
         public List<EnvironmentObjectData> environmentObjects;

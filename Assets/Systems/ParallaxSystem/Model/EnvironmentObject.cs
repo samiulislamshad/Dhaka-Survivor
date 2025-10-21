@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using Cysharp.Threading.Tasks;
 using Systems.ParallaxSystem.Interface;
 using UnityEngine;
 
@@ -7,7 +6,11 @@ namespace Systems.ParallaxSystem.Model
 {
     public abstract class EnvironmentObject : MonoBehaviour, IEnvironmentObject
     {
-        public abstract UniTask Initialize(Vector3 position, CancellationToken cancellationToken = default);
+        public string Id { get; protected set; }
+        protected EnvironmentObjectData Data;
+        public abstract void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default);
+        public abstract void Reinitialize(Vector3 pos);
+
         public abstract bool ShouldDespawn();
 
         public virtual void OnSpawned()

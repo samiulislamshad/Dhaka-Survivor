@@ -12,4 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7204b12645420d8cfafc7e586fec50, type: 3}
   m_Name: ParallaxLayerConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.ParallaxSystem.Config.ParallaxLayerConfig
-  layers: []
+  firstParallaxLayer:
+    id: 
+    layerName: 
+    layerType: 0
+    environmentObjects: []
+  secondParallaxLayer:
+    id: 
+    layerName: 
+    layerType: 0
+    environmentObjects: []
+  thirdParallaxLayer:
+    id: 
+    layerName: 
+    layerType: 0
+    environmentObjects: []
+  fourthParallaxLayer:
+    id: 
+    layerName: 
+    layerType: 0
+    environmentObjects: []

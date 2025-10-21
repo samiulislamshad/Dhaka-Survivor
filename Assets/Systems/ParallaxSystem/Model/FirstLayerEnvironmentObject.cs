@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Cysharp.Threading.Tasks;
+using System.Xml;
 using UnityEngine;
 
 namespace Systems.ParallaxSystem.Model
@@ -8,11 +8,16 @@ namespace Systems.ParallaxSystem.Model
     {
         [SerializeField] private float parallaxSpeed = 0.1f;
     
-        public override async UniTask Initialize(Vector3 position, CancellationToken cancellationToken = default)
+        public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
             transform.position = position;
-            // Add any first layer specific initialization
-            await UniTask.CompletedTask;
+            Id = data.id;
+            Data = data;
+        }
+
+        public override void Reinitialize(Vector3 pos)
+        {
+            transform.position = pos;
         }
     
         public override bool ShouldDespawn()
@@ -20,5 +25,7 @@ namespace Systems.ParallaxSystem.Model
             // Implement despawn logic based on camera position or other criteria
             return transform.position.x < -50f; // Example condition
         }
+        
+        public float GetParallaxSpeed() => parallaxSpeed;
     }
 }
