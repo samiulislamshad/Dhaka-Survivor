@@ -1,6 +1,5 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -2,7 +2,6 @@
 using Systems.LoadingScreenSystem.Model;
 using Systems.LoadingScreenSystem.View;
 using UniRx;
-using UnityEngine;
 
 namespace Systems.LoadingScreenSystem.Controller
 {

@@ -42,6 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FourthLayer
+    uniqueID: 1934819787
+    locked: 0
+  - name: Thirdlayer
+    uniqueID: 2545380137
+    locked: 0
+  - name: SecondLayer
+    uniqueID: 3422825309
+    locked: 0
+  - name: FirstLayer
+    uniqueID: 971698059
+    locked: 0
   - name: Ground
     uniqueID: 876947435
     locked: 0

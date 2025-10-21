@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66de0a402e4d422b9eaf0ab6bb768c1f, type: 3}
+  m_Name: ParallaxEnvironmentInstaller
+  m_EditorClassIdentifier: Assembly-CSharp::Systems.LevelSystem.Installer.LevelInstaller
+  parallaxEnvironmentView: {fileID: 3047592000506219047, guid: 0be5cd3eee7a449439422aff589b5459, type: 3}
+  firstLayerPrefab: {fileID: 7838399947043808736, guid: 99451d64a243be24fbed02b4a77fc99e, type: 3}
+  secondLayerPrefab: {fileID: 3920385870312841090, guid: 2f78143866313ef4e81b27e576a0b80e, type: 3}
+  thirdLayerPrefab: {fileID: 219925703636921378, guid: 0e05fc5f397695e49a8563ebe5137b18, type: 3}
+  fourthLayerPrefab: {fileID: 6902920777520940510, guid: df99b91393eb9324c89ebe4c3a8a26df, type: 3}

@@ -12,7 +12,7 @@ namespace Systems.EnemySystem.Model
             var finalSpeedX = GetCalculatedSpeedX();
             var finalSpeedY = GetCalculatedSpeedY();
         
-            var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.deltaTime * Config.enemySpeedMultiplier);
+            var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.fixedDeltaTime * Config.enemySpeedMultiplier);
             rb.MovePosition(rb.position + movement);
         }
 

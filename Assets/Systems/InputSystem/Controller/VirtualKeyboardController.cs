@@ -4,7 +4,6 @@ using Systems.GameSystem.Config;
 using Systems.InputSystem.Model;
 using Systems.InputSystem.View;
 using UniRx;
-using UnityEngine;
 
 namespace Systems.InputSystem.Controller
 {

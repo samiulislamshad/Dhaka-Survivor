@@ -5,7 +5,7 @@ using Systems.EnemySystem.Model;
 using Systems.EnemySystem.Service;
 using Systems.EnemySystem.Signals;
 using Systems.GameSystem.Config;
-using Systems.LevelSystem.View;
+using Systems.ParallaxSystem.View;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -19,7 +19,7 @@ namespace Systems.EnemySystem.Controller
         private readonly SignalBus _signalBus;
         
         private GameConfig _config;
-        private LevelView _levelView;
+        private ParallaxEnvironmentView _parallaxEnvironmentView;
 
         private EnemySpawner _spawner;
         private CompositeDisposable _disposable;
@@ -31,11 +31,11 @@ namespace Systems.EnemySystem.Controller
         private float _spawnTimer;
         private float _nextSpawnTime;
 
-        public EnemyController(GameConfig config, EnemySpawner spawner, LevelView levelView, SignalBus signalBus)
+        public EnemyController(GameConfig config, EnemySpawner spawner, ParallaxEnvironmentView parallaxEnvironmentView, SignalBus signalBus)
         {
             _config = config;
             _spawner = spawner;
-            _levelView = levelView;
+            _parallaxEnvironmentView = parallaxEnvironmentView;
             _signalBus = signalBus;
 
             _disposable = new CompositeDisposable();
@@ -107,7 +107,7 @@ namespace Systems.EnemySystem.Controller
 
             var randomIndex = Random.Range(0, _unlockedEnemies.Count);
             var enemyType = (EnemyType)_unlockedEnemies[randomIndex];
-            var enemy = _spawner.Spawn(enemyType, _levelView.spawnPoint.position);
+            var enemy = _spawner.Spawn(enemyType, _parallaxEnvironmentView.spawnPoint.position);
 
             if (enemy == null) return;
             RegisterEnemy(enemy);

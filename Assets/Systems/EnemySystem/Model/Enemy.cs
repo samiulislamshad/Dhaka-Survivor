@@ -36,7 +36,7 @@ namespace Systems.EnemySystem.Model
             gameObject.SetActive(true);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Timer += Time.deltaTime;
             OnFixedUpdate();
