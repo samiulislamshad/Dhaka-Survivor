@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Systems.InputSystem
+namespace Systems.InputSystem.Handler
 {
     public class PlayerInputHandler : MonoBehaviour
     {

@@ -9,5 +9,6 @@ namespace Systems.InputSystem.Model
         public string score;
         public string date;
         public string time;
+        public string survivedTime;
     }
 }

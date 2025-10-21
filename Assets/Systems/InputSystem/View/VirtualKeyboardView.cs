@@ -2,19 +2,30 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Systems.InputSystem.View
 {
     public class VirtualKeyboardView : MonoBehaviour
     {
-        [SerializeField] private TMP_Text userNameText; // Text where the name appears
-        [SerializeField] private int maxLength = 20;
+        public Button submitButton;
+        public Button cancelButton;
+        public Button deleteButton;
 
-        private readonly List<string> _specialKeys = new() {"Submit", "Cancel", "Delete"};
+        public TMP_Text userNameText;
 
-        private void Awake()
+        [SerializeField] private Color buttonSelectedColor;
+        [SerializeField] private EventSystem eventSystem;
+
+        public void InitializeAlphanumericButtons(List<string> specialKeys, Action<string> callback)
         {
+            if (callback == null)
+            {
+                Debug.LogError("Callback is null!");
+                return;
+            }
+            
             var buttons = GetComponentsInChildren<Button>(true);
 
             foreach (var btn in buttons)
@@ -22,49 +33,24 @@ namespace Systems.InputSystem.View
                 var label = btn.GetComponentInChildren<TMP_Text>();
 
                 if (label == null) continue;
-                var key = label.text.Trim().ToUpperInvariant();
+                var key = label.text;
 
-                // Filter out special buttons
-                if (_specialKeys.Contains(key))
-                {
-                    switch (key)
-                    {
-                        case "SUBMIT": btn.onClick.AddListener(OnSubmit); break;
-                        case "CANCEL": btn.onClick.AddListener(OnCancel); break;
-                        case "DELETE": btn.onClick.AddListener(OnDelete); break;
-                    }
-                }
-                else
-                {
-                    // Normal alphabet keys
-                    btn.onClick.AddListener(() => OnLetterPressed(key));
-                }
+                if (specialKeys.Contains(key)) continue;
+                btn.onClick.AddListener(() => callback(key));
+                var colors = btn.colors;
+                colors.selectedColor = buttonSelectedColor;
+                btn.colors = colors;
             }
-        }
-
-        private void OnLetterPressed(string letter)
-        {
-            if (userNameText.text.Length < maxLength)
-                userNameText.text += letter;
-        }
-
-        private void OnDelete()
-        {
-            if (userNameText.text.Length > 0)
-                userNameText.text = userNameText.text[..^1]; // remove last char
-        }
-
-        private void OnSubmit()
-        {
-            Debug.Log("Submitted name: " + userNameText.text);
-            // Add your submit logic here (e.g., send to game manager or server)
-        }
-
-        private void OnCancel()
-        {
-            Debug.Log("Cancelled name input.");
-            userNameText.text = "";
-            // Add your cancel logic (e.g., hide keyboard UI)
+            
+            var buttonColors = submitButton.colors;
+            buttonColors.selectedColor = buttonSelectedColor;
+            submitButton.colors = buttonColors;
+            cancelButton.colors = buttonColors;
+            deleteButton.colors = buttonColors;
+            
+            if(eventSystem == null)
+                eventSystem = FindFirstObjectByType<EventSystem>();
+            eventSystem.SetSelectedGameObject(buttons[0].gameObject);
         }
     }
 }
