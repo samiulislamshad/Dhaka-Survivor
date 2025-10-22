@@ -20,7 +20,7 @@ namespace Systems.ParallaxSystem.Handler
         // private readonly FourthLayerPool _fourthLayerPool;
         private readonly ParallaxLayerConfig _config;
 
-        private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        private readonly CompositeDisposable _disposables = new();
         private CancellationTokenSource _cancellationTokenSource;
 
         public ParallaxEnvironmentSpawner(
