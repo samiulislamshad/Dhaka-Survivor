@@ -56,14 +56,9 @@ namespace Systems.ParallaxSystem.Installer
                 .FromInstance(secondLayerParent)
                 .AsCached();
 
-            Container.Bind<Transform>()
-                .WithId("ThirdLayerParent")
-                .FromInstance(thirdLayerParent)
-                .AsCached();
+            Container.Bind<Transform>().WithId("ThirdLayerParent").FromInstance(thirdLayerParent).AsCached();
 
-            Container.Bind<Transform>()
-                .WithId("FourthLayerParent")
-                .FromInstance(fourthLayerParent)
+            Container.Bind<Transform>().WithId("FourthLayerParent").FromInstance(fourthLayerParent)
                 .AsCached();
 
             // Bind factories
@@ -77,33 +72,27 @@ namespace Systems.ParallaxSystem.Installer
                     SecondLayerEnvironmentObjectFactory>()
                 .FromFactory<SecondLayerEnvironmentObjectCustomFactory>();
 
-            // Container
-            //     .BindFactory<EnvironmentObjectData, Vector3, ThirdLayerEnvironmentObject,
-            //         ThirdLayerEnvironmentObjectFactory>()
-            //     .FromFactory<ThirdLayerEnvironmentObjectCustomFactory>();
-            //
-            // Container
-            //     .BindFactory<EnvironmentObjectData, Vector3, FourthLayerEnvironmentObject,
-            //         FourthLayerEnvironmentObjectFactory>()
-            //     .FromFactory<FourthLayerEnvironmentObjectCustomFactory>();
+            Container
+                .BindFactory<EnvironmentObjectData, Vector3, ThirdLayerEnvironmentObject,
+                    ThirdLayerEnvironmentObjectFactory>()
+                .FromFactory<ThirdLayerEnvironmentObjectCustomFactory>();
+            
+            Container
+                .BindFactory<EnvironmentObjectData, Vector3, FourthLayerEnvironmentObject,
+                    FourthLayerEnvironmentObjectFactory>()
+                .FromFactory<FourthLayerEnvironmentObjectCustomFactory>();
 
             // Bind pools
-            Container.Bind<FirstLayerPool>()
-                .AsSingle();
+            Container.Bind<FirstLayerPool>().AsSingle();
 
-            Container.Bind<SecondLayerPool>()
-                .AsSingle();
+            Container.Bind<SecondLayerPool>().AsSingle();
 
-            // Container.Bind<ThirdLayerPool>()
-            //     .AsSingle();
-            //
-            // Container.Bind<FourthLayerPool>()
-            //     .AsSingle();
+            Container.Bind<ThirdLayerPool>().AsSingle();
+            
+            Container.Bind<FourthLayerPool>().AsSingle();
 
             // Bind spawner
-            Container.BindInterfacesAndSelfTo<ParallaxEnvironmentSpawner>()
-                .AsSingle()
-                .NonLazy();
+            Container.BindInterfacesAndSelfTo<ParallaxEnvironmentSpawner>().AsSingle().NonLazy();
 
             // Controller
             Container.Bind<ParallaxEnvironmentController>().AsSingle();

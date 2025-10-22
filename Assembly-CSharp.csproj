@@ -46,6 +46,7 @@
     <Analyzer Include="Y:\Unity Editors\6000.2.7f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Systems\ParallaxSystem\Factory\FourthLayerEnvironmentObjectFactory.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Systems\GameSystem\Config\GameConfig.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\View\ParallaxEnvironmentView.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Systems\EnemySystem\Controller\EnemyController.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ThirdLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Installer\PauseInstaller.cs" />
+    <Compile Include="Assets\Systems\ParallaxSystem\Factory\FourthLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\Model\MainMenuCanvasModel.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ActiveEnvironmentObjectData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Signals\PauseSignal.cs" />
+    <Compile Include="Assets\Systems\ParallaxSystem\Factory\ThirdLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\EnvironmentObject.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Signals\UnpauseSignal.cs" />
@@ -119,6 +122,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Installer\LoadingScreenInstaller.cs" />
+    <Compile Include="Assets\Systems\ParallaxSystem\Factory\ThirdLayerEnvironmentObjectFactory.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\FourthLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\InputSystem\Signal\SwitchToUiControlSignal.cs" />

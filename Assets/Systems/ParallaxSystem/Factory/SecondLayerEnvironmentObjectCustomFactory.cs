@@ -1,9 +1,11 @@
-﻿using Systems.ParallaxSystem.Model;
+﻿using System;
+using Systems.ParallaxSystem.Model;
 using UnityEngine;
 using Zenject;
 
 namespace Systems.ParallaxSystem.Factory
 {
+    [Serializable]
     public class SecondLayerEnvironmentObjectCustomFactory : IFactory<EnvironmentObjectData, Vector3, SecondLayerEnvironmentObject>
     {
         private readonly DiContainer _container;

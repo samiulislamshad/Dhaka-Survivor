@@ -6,7 +6,8 @@ using Zenject;
 namespace Systems.ParallaxSystem.Factory
 {
     [Serializable]
-    public class SecondLayerEnvironmentObjectFactory : PlaceholderFactory<EnvironmentObjectData, Vector3, SecondLayerEnvironmentObject>
+    public class FourthLayerEnvironmentObjectFactory : PlaceholderFactory<EnvironmentObjectData, Vector3, FourthLayerEnvironmentObject>
     {
+        
     }
 }
