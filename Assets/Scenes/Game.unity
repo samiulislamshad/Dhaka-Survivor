@@ -154,6 +154,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 041e8d1960d463b4382074a6b436f489, type: 2}
   - {fileID: 11400000, guid: 1af48640d5a4fb4448552e22f89b0fab, type: 2}
   - {fileID: 11400000, guid: 7b5a23ffb19e2a449af2b7b9419dcef0, type: 2}
+  - {fileID: 11400000, guid: be4caf4e5cd5182439f1cf379fe77cf7, type: 2}
+  - {fileID: 11400000, guid: 74be4dc441492a045a07690cded04c16, type: 2}
   _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
@@ -320,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3451812090990045375, guid: fd70b96fcce4aea45b631b84684ec1fc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -9,12 +9,15 @@ namespace Systems.EnemySystem.Model
     public abstract class Enemy : MonoBehaviour, IEnemy
     {
         [Inject] protected GameConfig Config;
+        [Inject] protected SignalBus SignalBus;
+
+        protected ContactWithEnemySignal contactWithEnemySignal;
         
         public abstract EnemyType Type { get; }
 
         [SerializeField] protected Rigidbody2D rb;
-        [SerializeField] protected LayerMask despawnLayer;
-        [SerializeField] protected LayerMask playerLayer;
+        // [SerializeField] protected LayerMask despawnLayer;
+        // [SerializeField] protected LayerMask playerLayer;
         
         protected bool IsDespawning;
         protected float Timer;

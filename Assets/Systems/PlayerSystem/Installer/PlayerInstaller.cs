@@ -1,4 +1,5 @@
-﻿using Systems.PlayerSystem.Controller;
+﻿using Systems.EnemySystem;
+using Systems.PlayerSystem.Controller;
 using Systems.PlayerSystem.Signals;
 using UnityEngine;
 using Zenject;
@@ -19,6 +20,9 @@ namespace Systems.PlayerSystem.Installer
             Container.DeclareSignal<StopCrouchInputSignal>();
             Container.DeclareSignal<TogglePauseInputSignal>();
             Container.DeclareSignal<SpawnEnemySignal>();
+
+            Container.DeclareSignal<ContactWithEnemySignal>();
+            Container.DeclareSignal<PlayerDeadSignal>();
 
             Container.BindInterfacesAndSelfTo<PlayerController>().FromComponentInNewPrefab(playerController).AsSingle().NonLazy();
         }

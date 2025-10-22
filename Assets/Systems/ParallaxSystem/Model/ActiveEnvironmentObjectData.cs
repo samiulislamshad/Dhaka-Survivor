@@ -6,19 +6,19 @@ namespace Systems.ParallaxSystem.Model
     [Serializable]
     public class ActiveEnvironmentObjectData
     {
-        public string guid; // Unique instance identifier
-        public string id; // Original object data ID
+        public string guid; // Unique identifier for this specific instance
+        public string id; // Original object type ID
         public EnvironmentLayerType layerType;
         public float timeElapsedSinceSpawn;
         public float estimatedSpawnTime;
 
         public ActiveEnvironmentObjectData(EnvironmentObjectData data)
         {
-            guid = Guid.NewGuid().ToString();
             layerType = data.layerType;
             id = data.id;
             estimatedSpawnTime = data.estimatedSpawnTime;
             timeElapsedSinceSpawn = 0f;
+            guid = System.Guid.NewGuid().ToString();
         }
     }
 }

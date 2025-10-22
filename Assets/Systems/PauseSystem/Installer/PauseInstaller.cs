@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Systems.PauseSystem.Controller;
+using Systems.PauseSystem.Signals;
+using UnityEngine;
 using Zenject;
 
 namespace Systems.PauseSystem.Installer
@@ -8,7 +10,10 @@ namespace Systems.PauseSystem.Installer
     {
         public override void InstallBindings()
         {
-            
+            Container.DeclareSignal<PauseSignal>();
+            Container.DeclareSignal<UnpauseSignal>();
+
+            Container.Bind<PauseController>().AsSingle().NonLazy();
         }
     }
 }

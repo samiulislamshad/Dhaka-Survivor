@@ -1,4 +1,5 @@
-﻿using Systems.GameSystem.Config;
+﻿using Services;
+using Systems.GameSystem.Config;
 using Systems.GameSystem.Manager;
 using Systems.GameSystem.View;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace Systems.GameSystem.Installer
                 .FromComponentInNewPrefab(mainCameraPrefab)
                 .AsSingle()
                 .NonLazy();
+            
+            // Services
+            Container.BindInterfacesAndSelfTo<SceneLoaderService>().AsSingle();
             
             // Config
             Container.Bind<GameConfig>().FromScriptableObject(gameConfig).AsSingle();

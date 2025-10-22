@@ -1,4 +1,6 @@
-﻿using Systems.PlayerSystem.Signals;
+﻿using Systems.EnemySystem;
+using Systems.PauseSystem.Signals;
+using Systems.PlayerSystem.Signals;
 using UnityEngine;
 using Zenject;
 
@@ -32,6 +34,8 @@ namespace Systems.PlayerSystem.Controller
         [SerializeField] private float fastFallGravity = 50f; // Extra fast fall when crouching
         [SerializeField] private float crouchScale = 0.5f;
 
+        [SerializeField] private bool isDead;
+
         private Rigidbody2D _rb;
         private BoxCollider2D _col;
         private Vector3 _originalScale;
@@ -60,9 +64,12 @@ namespace Systems.PlayerSystem.Controller
             _originalScale = transform.localScale;
             _originalColliderHeight = _col.size.y;
             _originalColliderOffsetY = _col.offset.y;
+            isDead = false;
 
             SubscribeToActions();
         }
+        
+        
 
         #endregion
 
@@ -74,6 +81,7 @@ namespace Systems.PlayerSystem.Controller
             _signalBus.Subscribe<StopJumpInputSignal>(OnJumpCanceled);
             _signalBus.Subscribe<StartCrouchInputSignal>(OnCrouchPerformed);
             _signalBus.Subscribe<StopCrouchInputSignal>(OnCrouchCanceled);
+            _signalBus.Subscribe<ContactWithEnemySignal>(Death);
         }
 
         private void UnsubscribeFromActions()
@@ -82,12 +90,14 @@ namespace Systems.PlayerSystem.Controller
             _signalBus.Unsubscribe<StopJumpInputSignal>(OnJumpCanceled);
             _signalBus.Unsubscribe<StartCrouchInputSignal>(OnCrouchPerformed);
             _signalBus.Unsubscribe<StopCrouchInputSignal>(OnCrouchCanceled);
+            _signalBus.Unsubscribe<ContactWithEnemySignal>(Death);
         }
 
         #endregion
 
         private void Update()
         {
+            if(isDead) return;
             HandleJump();
             HandleGravity();
         }
@@ -228,6 +238,17 @@ namespace Systems.PlayerSystem.Controller
             transform.localScale = _originalScale;
             _col.size = new Vector2(_col.size.x, _originalColliderHeight);
             _col.offset = new Vector2(_col.offset.x, _originalColliderOffsetY);
+        }
+
+        #endregion
+
+        #region Death
+
+        private void Death()
+        {
+            isDead = true;
+            _signalBus.Fire<PlayerDeadSignal>();
+            _signalBus.Fire<PauseSignal>();
         }
 
         #endregion

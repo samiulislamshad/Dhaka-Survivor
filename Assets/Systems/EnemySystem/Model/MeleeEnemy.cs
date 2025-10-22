@@ -23,6 +23,9 @@ namespace Systems.EnemySystem.Model
                 Debug.Log($"Triggered {other.gameObject.name}");
                 IsDespawning = true;
             }
+            
+            if(other.gameObject.CompareTag("Player"))
+                SignalBus.Fire<ContactWithEnemySignal>();
         }
     }
 }

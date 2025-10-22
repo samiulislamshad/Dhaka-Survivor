@@ -21,20 +21,28 @@ MonoBehaviour:
       name: 
       layerType: 0
       crucialRelativeObjects: []
-      preferredRelativeObjects: []
+      preferredRelativeObjects:
+      - relativeObjectId: Divider01
+        distance: 5
+        relativeObjectName: 
+      - relativeObjectId: Dumpster00
+        distance: 20
+        relativeObjectName: 
+      - relativeObjectId: RoadSign00
+        distance: 30
+        relativeObjectName: 
       estimatedSpawnTime: 0
       prefab: {fileID: 5411488168671862048, guid: 99451d64a243be24fbed02b4a77fc99e, type: 3}
-    - id: ElectricPole
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 0
-      prefab: {fileID: 8011357441982721187, guid: 5ac39334283ab444a9c06b6c89f10d73, type: 3}
     - id: RoadSign
       name: 
       layerType: 0
-      crucialRelativeObjects: []
+      crucialRelativeObjects:
+      - relativeObjectId: Building
+        distance: 20
+        relativeObjectName: 
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
       preferredRelativeObjects: []
       estimatedSpawnTime: 0
       prefab: {fileID: 2292037685236752632, guid: 4644a39f54b7761499a15f2d7738d76b, type: 3}
