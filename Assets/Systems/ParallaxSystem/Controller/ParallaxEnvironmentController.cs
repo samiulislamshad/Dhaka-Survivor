@@ -7,6 +7,7 @@ using Systems.ParallaxSystem.Config;
 using Systems.ParallaxSystem.Enum;
 using Systems.ParallaxSystem.Handler;
 using Systems.ParallaxSystem.Model;
+using Systems.ParallaxSystem.View;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,7 @@ namespace Systems.ParallaxSystem.Controller
     {
         private ParallaxEnvironmentSpawner _spawner;
         private CompositeDisposable _disposable;
+        private ParallaxEnvironmentView  _view;
 
         private GameConfig _gameConfig;
         private ParallaxLayerConfig _config;
@@ -29,23 +31,44 @@ namespace Systems.ParallaxSystem.Controller
 
         // Dictionary to track active environment objects by their GUID
         private Dictionary<string, ActiveEnvironmentObjectData> _activeEnvironmentObjects;
-        
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // NEWLY ADDED: Random spawning control variables
+        // ═══════════════════════════════════════════════════════════════════════════════
+        private bool _isRandomSpawning = false;
+        private float _randomSpawnWaitTime = 1f; // Default wait time between random spawns
+        // ═══════════════════════════════════════════════════════════════════════════════
+
         public ParallaxEnvironmentController(ParallaxEnvironmentSpawner spawner, GameConfig gameConfig,
-            ParallaxLayerConfig config)
+            ParallaxLayerConfig config, ParallaxEnvironmentView view)
         {
             _spawner = spawner;
             _gameConfig = gameConfig;
             _config = config;
+            _view = view;
 
             _disposable = new CompositeDisposable();
             _firstLayerEnvironmentObjects = new List<EnvironmentObject>();
             _secondLayerEnvironmentObjects = new List<EnvironmentObject>();
             _thirdLayerEnvironmentObjects = new List<EnvironmentObject>();
             _fourthLayerEnvironmentObjects = new List<EnvironmentObject>();
-            
+
             _activeEnvironmentObjects = new Dictionary<string, ActiveEnvironmentObjectData>();
             
-            SpawnFirstLayerObjects().Forget();
+            _isRandomSpawning = false;
+            _randomSpawnWaitTime = 1f;
+
+            // SpawnFirstLayerObjects().Forget();
+            SubscribeToProperties();
+        }
+
+        private void SubscribeToProperties()
+        {
+            _gameConfig.hasGameStarted.Subscribe(value =>
+            {
+                if (!value) return;
+                StartRandomSpawning().Forget();
+            }).AddTo(_disposable);
         }
 
         public void FixedTick()
@@ -59,20 +82,20 @@ namespace Systems.ParallaxSystem.Controller
         private void UpdateEnvironmentObjects()
         {
             var gameSpeed = _gameConfig.gameSpeed.Value;
-        
+
             UpdateLayerObjects(_firstLayerEnvironmentObjects, gameSpeed);
             UpdateLayerObjects(_secondLayerEnvironmentObjects, gameSpeed);
             UpdateLayerObjects(_thirdLayerEnvironmentObjects, gameSpeed);
             UpdateLayerObjects(_fourthLayerEnvironmentObjects, gameSpeed);
         }
-        
+
         private void UpdateLayerObjects(List<EnvironmentObject> objects, float gameSpeed)
         {
             for (var i = objects.Count - 1; i >= 0; i--)
             {
                 var obj = objects[i];
                 obj.OnFixedUpdate(gameSpeed);
-            
+
                 // Check if object should despawn
                 if (obj.ShouldDespawn())
                 {
@@ -80,7 +103,7 @@ namespace Systems.ParallaxSystem.Controller
                 }
             }
         }
-        
+
         private void UpdateActiveObjectTimers()
         {
             var deltaTime = Time.fixedDeltaTime;
@@ -89,12 +112,12 @@ namespace Systems.ParallaxSystem.Controller
                 kvp.Value.timeElapsedSinceSpawn += deltaTime;
             }
         }
-        
+
         private void CheckAndSpawnRelativeObjects()
         {
             // Check all spawned objects for relative spawning opportunities
             var objectsToCheck = new List<EnvironmentObject>(_firstLayerEnvironmentObjects);
-        
+
             foreach (var envObj in objectsToCheck)
             {
                 if (!_activeEnvironmentObjects.TryGetValue(envObj.Guid, out var activeData))
@@ -105,13 +128,13 @@ namespace Systems.ParallaxSystem.Controller
 
                 // Spawn crucial relative objects
                 SpawnCrucialRelativeObjects(envObj, objectData, activeData);
-            
+
                 // Spawn preferred relative objects (if conditions are met)
                 SpawnPreferredRelativeObjects(envObj, objectData, activeData);
             }
         }
-        
-        private void SpawnCrucialRelativeObjects(EnvironmentObject sourceObject, 
+
+        private void SpawnCrucialRelativeObjects(EnvironmentObject sourceObject,
             EnvironmentObjectData objectData, ActiveEnvironmentObjectData activeData)
         {
             if (objectData.crucialRelativeObjects == null || objectData.crucialRelativeObjects.Count == 0)
@@ -121,7 +144,7 @@ namespace Systems.ParallaxSystem.Controller
             {
                 // Check if this crucial object has already been spawned for this source object
                 string spawnKey = $"{sourceObject.Guid}_crucial_{relativeData.relativeObjectId}";
-            
+
                 if (HasAlreadySpawnedRelative(spawnKey))
                     continue;
 
@@ -129,12 +152,13 @@ namespace Systems.ParallaxSystem.Controller
                 var relativeObjectData = GetEnvironmentObjectDataById(relativeData.relativeObjectId);
                 if (relativeObjectData == null) continue;
 
-                Vector3 spawnPosition = CalculateRelativeSpawnPosition(sourceObject, relativeData.distance);
+                var spawnPosition = CalculateRelativeSpawnPosition(sourceObject, relativeData.distance);
+                spawnPosition.y = _view.spawnPoint.transform.position.y;
                 SpawnRelativeObject(relativeObjectData, spawnPosition, spawnKey);
             }
         }
-        
-        private void SpawnPreferredRelativeObjects(EnvironmentObject sourceObject, 
+
+        private void SpawnPreferredRelativeObjects(EnvironmentObject sourceObject,
             EnvironmentObjectData objectData, ActiveEnvironmentObjectData activeData)
         {
             if (objectData.preferredRelativeObjects == null || objectData.preferredRelativeObjects.Count == 0)
@@ -144,7 +168,7 @@ namespace Systems.ParallaxSystem.Controller
             {
                 // Check if this preferred object has already been spawned for this source object
                 string spawnKey = $"{sourceObject.Guid}_preferred_{relativeData.relativeObjectId}";
-            
+
                 if (HasAlreadySpawnedRelative(spawnKey))
                     continue;
 
@@ -157,21 +181,22 @@ namespace Systems.ParallaxSystem.Controller
                 if (relativeObjectData == null) continue;
 
                 Vector3 spawnPosition = CalculateRelativeSpawnPosition(sourceObject, relativeData.distance);
+                spawnPosition.y = _view.spawnPoint.transform.position.y;
                 SpawnRelativeObject(relativeObjectData, spawnPosition, spawnKey);
             }
         }
-        
+
         private bool HasAlreadySpawnedRelative(string spawnKey)
         {
             return _activeEnvironmentObjects.ContainsKey(spawnKey);
         }
-        
+
         private bool IsObjectTypeRecentlyActive(string objectId)
         {
             foreach (var kvp in _activeEnvironmentObjects)
             {
                 var activeData = kvp.Value;
-            
+
                 // Check if this is the same type of object
                 if (activeData.id == objectId)
                 {
@@ -182,36 +207,37 @@ namespace Systems.ParallaxSystem.Controller
                     }
                 }
             }
-        
+
             return false;
         }
-        
+
         private Vector3 CalculateRelativeSpawnPosition(EnvironmentObject sourceObject, float distance)
         {
             // Spawn to the right of the source object at the specified distance
-            return sourceObject.transform.position + new Vector3(distance, 0, 0);
+            var spawnPoint = _view.spawnPoint.transform.position;
+            return sourceObject.transform.position + new Vector3(distance, spawnPoint.y, spawnPoint.z);
         }
-        
+
         private void SpawnRelativeObject(EnvironmentObjectData objectData, Vector3 position, string trackingKey)
         {
             var spawnedObject = _spawner.SpawnById(objectData.id, objectData.layerType, position);
-        
+
             if (spawnedObject == null) return;
 
             // Generate a GUID for tracking, but use the tracking key for relative objects
             spawnedObject.Guid = trackingKey;
             spawnedObject.OnDespawnSignal.Subscribe(OnEnvironmentObjectDespawned).AddTo(_disposable);
-        
+
             // Create active data and track it
             var activeData = new ActiveEnvironmentObjectData(objectData);
             _activeEnvironmentObjects[trackingKey] = activeData;
-        
+
             // Add to appropriate layer list
             AddToLayerList(spawnedObject, objectData.layerType);
-        
+
             spawnedObject.gameObject.SetActive(true);
         }
-        
+
         private void AddToLayerList(EnvironmentObject obj, EnvironmentLayerType layerType)
         {
             switch (layerType)
@@ -234,20 +260,20 @@ namespace Systems.ParallaxSystem.Controller
                     break;
             }
         }
-        
+
         private EnvironmentObjectData GetEnvironmentObjectDataById(string id)
         {
             // Search in first layer
             var obj = _config.firstParallaxLayer.environmentObjects?.FirstOrDefault(x => x.id == id);
             if (obj != null) return obj;
-        
+
             // Search in other layers if needed
             obj = _config.secondParallaxLayer?.environmentObjects?.FirstOrDefault(x => x.id == id);
             if (obj != null) return obj;
-        
+
             obj = _config.thirdParallaxLayer?.environmentObjects?.FirstOrDefault(x => x.id == id);
             if (obj != null) return obj;
-        
+
             obj = _config.fourthParallaxLayer?.environmentObjects?.FirstOrDefault(x => x.id == id);
             return obj;
         }
@@ -263,30 +289,178 @@ namespace Systems.ParallaxSystem.Controller
                     var spawnPosition = new Vector3(UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5), 0);
                     var firstLayerObject = _spawner.SpawnById(envObj.id, envObj.layerType, spawnPosition);
                     firstLayerObject.OnDespawnSignal.Subscribe(OnEnvironmentObjectDespawned).AddTo(_disposable);
-                
+
                     if (firstLayerObject == null) continue;
-                
+
                     // Generate unique GUID for this instance
                     string guid = Guid.NewGuid().ToString();
                     firstLayerObject.Guid = guid;
-                
+
                     // Create and track active data
                     var activeData = new ActiveEnvironmentObjectData(envObj);
                     _activeEnvironmentObjects[guid] = activeData;
-                
+
                     if (_firstLayerEnvironmentObjects.Contains(firstLayerObject)) continue;
                     _firstLayerEnvironmentObjects.Add(firstLayerObject);
                     firstLayerObject.gameObject.SetActive(true);
                 }
             }
         }
-        
-        // private void HandleObjectDespawn(EnvironmentObject obj)
-        // {
-        //     // Notify that this object is despawning
-        //     OnObjectDespawned.OnNext(obj.Guid);
-        // }
-        
+
+        #region Random Spawning
+
+        /// <summary>
+        /// NEWLY ADDED: Starts the continuous random spawning loop
+        /// </summary>
+        private async UniTaskVoid StartRandomSpawning()
+        {
+            await UniTask.Delay(1000); // Initial delay before starting random spawns
+
+            _isRandomSpawning = true;
+
+            while (_isRandomSpawning)
+            {
+                await SpawnRandomEnvironmentObject();
+            }
+        }
+
+        /// <summary>
+        /// NEWLY ADDED: Spawns a random environment object and checks for relative objects to spawn
+        /// Flow:
+        /// 1. Pick random object from config
+        /// 2. Spawn it off-screen to the right
+        /// 3. Check if it has crucial/preferred relatives
+        /// 4. Spawn relatives if they exist
+        /// 5. Wait (longer if relatives were spawned)
+        /// 6. Repeat
+        /// </summary>
+        private async UniTask SpawnRandomEnvironmentObject()
+        {
+            // Wait if game hasn't started yet
+            if (!_gameConfig.hasGameStarted.Value)
+            {
+                await UniTask.Delay(100);
+                return;
+            }
+
+            // Get a random environment object from the first layer
+            var randomObjectData = GetRandomEnvironmentObjectData();
+            if (randomObjectData == null)
+            {
+                await UniTask.Delay((int)(_randomSpawnWaitTime * 1000));
+                return;
+            }
+
+            // Spawn at a position off-screen to the right
+            var spawnPosition = _view.spawnPoint.transform.position; //new Vector3(UnityEngine.Random.Range(50, 60), UnityEngine.Random.Range(-5, 5), 0);
+            var spawnedObject = SpawnEnvironmentObject(randomObjectData, spawnPosition);
+
+            if (spawnedObject == null)
+            {
+                await UniTask.Delay((int)(_randomSpawnWaitTime * 1000));
+                return;
+            }
+
+            // Check if this object has crucial or preferred relative objects
+            bool hasRelativeObjects = HasCrucialOrPreferredObjects(randomObjectData);
+
+            if (hasRelativeObjects)
+            {
+                // Wait a frame to allow the object to be tracked
+                await UniTask.Yield();
+
+                // Spawn crucial relative objects immediately
+                SpawnCrucialRelativeObjects(spawnedObject, randomObjectData,
+                    _activeEnvironmentObjects[spawnedObject.Guid]);
+
+                // Spawn preferred relative objects if conditions are met
+                SpawnPreferredRelativeObjects(spawnedObject, randomObjectData,
+                    _activeEnvironmentObjects[spawnedObject.Guid]);
+            }
+
+            // Wait before spawning the next random object
+            // Wait longer if we spawned relatives (to avoid cluttering)
+            float waitTime = hasRelativeObjects ? _randomSpawnWaitTime * 1.5f : _randomSpawnWaitTime;
+            await UniTask.Delay((int)(waitTime * 1000));
+        }
+
+        /// <summary>
+        /// NEWLY ADDED: Helper method to spawn an environment object with proper setup
+        /// Centralizes all spawn logic: GUID generation, signal subscription, tracking, etc.
+        /// </summary>
+        private EnvironmentObject SpawnEnvironmentObject(EnvironmentObjectData objectData, Vector3 position)
+        {
+            var spawnedObject = _spawner.SpawnById(objectData.id, objectData.layerType, position);
+
+            if (spawnedObject == null) return null;
+
+            // Generate unique GUID for this instance
+            string guid = System.Guid.NewGuid().ToString();
+            spawnedObject.Guid = guid;
+
+            // Subscribe to this object's despawn signal
+            spawnedObject.OnDespawnSignal
+                .Subscribe(despawnedGuid => OnEnvironmentObjectDespawned(despawnedGuid))
+                .AddTo(_disposable);
+
+            // Create and track active data
+            var activeData = new ActiveEnvironmentObjectData(objectData);
+            _activeEnvironmentObjects[guid] = activeData;
+
+            // Add to appropriate layer list
+            AddToLayerList(spawnedObject, objectData.layerType);
+
+            spawnedObject.gameObject.SetActive(true);
+
+            return spawnedObject;
+        }
+
+        /// <summary>
+        /// NEWLY ADDED: Gets a random environment object data from the first parallax layer
+        /// </summary>
+        private EnvironmentObjectData GetRandomEnvironmentObjectData()
+        {
+            if (_config.firstParallaxLayer.environmentObjects == null ||
+                _config.firstParallaxLayer.environmentObjects.Count == 0)
+            {
+                return null;
+            }
+
+            int randomIndex = UnityEngine.Random.Range(0, _config.firstParallaxLayer.environmentObjects.Count);
+            return _config.firstParallaxLayer.environmentObjects[randomIndex];
+        }
+
+        /// <summary>
+        /// NEWLY ADDED: Checks if an object has crucial or preferred relative objects
+        /// </summary>
+        private bool HasCrucialOrPreferredObjects(EnvironmentObjectData objectData)
+        {
+            bool hasCrucial = objectData.crucialRelativeObjects != null &&
+                              objectData.crucialRelativeObjects.Count > 0;
+            bool hasPreferred = objectData.preferredRelativeObjects != null &&
+                                objectData.preferredRelativeObjects.Count > 0;
+
+            return hasCrucial || hasPreferred;
+        }
+
+        /// <summary>
+        /// NEWLY ADDED: Public method to stop random spawning
+        /// </summary>
+        public void StopRandomSpawning()
+        {
+            _isRandomSpawning = false;
+        }
+
+        /// <summary>
+        /// NEWLY ADDED: Public method to change random spawn wait time
+        /// </summary>
+        public void SetRandomSpawnWaitTime(float waitTime)
+        {
+            _randomSpawnWaitTime = Mathf.Max(0.5f, waitTime); // Minimum 0.5 seconds
+        }
+
+        #endregion
+
         // This method is called when any EnvironmentObject fires its despawn signal
         private void OnEnvironmentObjectDespawned(string guid)
         {
@@ -294,7 +468,7 @@ namespace Systems.ParallaxSystem.Controller
             if (_activeEnvironmentObjects.Remove(guid))
                 Debug.Log($"Stopped tracking object with GUID: {guid}");
         }
-        
+
         // Public method for EnvironmentObject to call when despawning
         // public IObservable<string> OnObjectDespawned => _onObjectDespawned;
 

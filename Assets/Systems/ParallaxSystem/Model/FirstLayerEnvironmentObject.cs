@@ -21,7 +21,7 @@ namespace Systems.ParallaxSystem.Model
 
         public override void OnFixedUpdate(float gameSpeed)
         {
-            var movement = new Vector2(-gameSpeed, 0) * Time.fixedDeltaTime;
+            var movement = new Vector2(-gameSpeed, 0) * (Time.fixedDeltaTime * parallaxSpeed);
             transform.Translate(movement);
         }
 

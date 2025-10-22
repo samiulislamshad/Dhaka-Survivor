@@ -52,7 +52,7 @@ namespace Systems.ScoreSystem.Controller
 
             _view.okayButton.OnClickAsObservable().Subscribe(_ =>
             {
-                HideScoreBoard().Forget();
+                HideScoreBoard();
             }).AddTo(_disposable);
         }
 
@@ -84,15 +84,12 @@ namespace Systems.ScoreSystem.Controller
             EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
         }
 
-        private async UniTask HideScoreBoard()
+        private void HideScoreBoard()
         {
             _view.okayButton.interactable = false;
-            var currentSceneName = SceneManager.GetActiveScene().name;
-            // await _sceneLoaderService.LoadSceneAsync("Leaderboard");
             SceneManager.LoadScene("Leaderboard");
             _view.runEndScorePanel.SetActive(false);
             _signalBus.Fire<UnpauseSignal>();
-            // await _sceneLoaderService.UnloadSceneAsync("Game");
             SceneManager.UnloadSceneAsync("Game");
         }
 

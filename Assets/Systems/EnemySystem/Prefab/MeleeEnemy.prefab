@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -585369155
-  m_SortingLayer: 2
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.58859694, g: 0.8773585, b: 0.045523323, a: 1}
@@ -179,9 +179,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Model.MeleeEnemy
   rb: {fileID: 7220984007408321848}
-  despawnLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  moveSpeedX: 1
+  moveSpeedY: 0

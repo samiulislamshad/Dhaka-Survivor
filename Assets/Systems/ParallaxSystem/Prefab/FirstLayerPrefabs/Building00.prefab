@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1019931828581547441}
   - component: {fileID: 2766249161114818952}
-  - component: {fileID: 205435336461890950}
   m_Layer: 0
   m_Name: Object
   m_TagString: Untagged
@@ -79,7 +78,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 971698059
   m_SortingLayer: 4
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 96064417f59f82d4189b09b65a166010, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,19 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &205435336461890950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1711950777259995264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b8ba7eb19943309f55865aa135d925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Systems.ParallaxSystem.Model.FirstLayerEnvironmentObject
-  parallaxSpeed: 1
 --- !u!1 &4412810674354075342
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +101,7 @@ GameObject:
   - component: {fileID: 5443135822534641493}
   - component: {fileID: 1491505852235612743}
   m_Layer: 0
-  m_Name: Building
+  m_Name: Building00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

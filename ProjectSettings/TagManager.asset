@@ -42,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FifithLayer
+    uniqueID: 2470666095
+    locked: 0
   - name: FourthLayer
     uniqueID: 1934819787
     locked: 0
