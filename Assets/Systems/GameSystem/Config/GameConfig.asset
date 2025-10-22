@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Config.EnemyConfig
   gameSpeed:
-    value: 10.011637
+    value: 10
   timer:
-    value: 50.120956
+    value: 37.68067
   hasGameStarted:
     value: 1
   hasTimerStarted:
     value: 1
+  currentUserData:
+    userName: HGFF
+    score: 
+    date: 10/22/2025
+    time: 4:37 PM
+    survivedTime: 
   maxEnemies:
-    value: 1
-  enemySpeedMultiplier: 20
+    value: 10
+  enemySpeedMultiplier: 2

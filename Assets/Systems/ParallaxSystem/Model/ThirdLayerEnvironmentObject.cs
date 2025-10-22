@@ -8,7 +8,7 @@ namespace Systems.ParallaxSystem.Model
     [Serializable]
     public class ThirdLayerEnvironmentObject : EnvironmentObject
     {
-        [SerializeField] private float parallaxSpeed = 0.1f;
+        // [SerializeField] private float parallaxSpeed = 0.1f;
     
         public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
@@ -21,7 +21,12 @@ namespace Systems.ParallaxSystem.Model
         {
             transform.position = pos;
         }
-    
+
+        public override void OnFixedUpdate(float gameSpeed)
+        {
+            
+        }
+
         public override bool ShouldDespawn()
         {
             // Implement despawn logic based on camera position or other criteria

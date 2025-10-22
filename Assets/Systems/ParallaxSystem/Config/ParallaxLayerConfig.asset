@@ -17,7 +17,7 @@ MonoBehaviour:
     layerName: 
     layerType: 0
     environmentObjects:
-    - id: Divider
+    - id: Divider00
       name: 
       layerType: 0
       crucialRelativeObjects: []
@@ -41,15 +41,8 @@ MonoBehaviour:
   secondParallaxLayer:
     id: Second
     layerName: 
-    layerType: 0
+    layerType: 1
     environmentObjects:
-    - id: RoadSign01
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 0
-      prefab: {fileID: 7132345269004648166, guid: d037d61765bc3c249a5a47a14fa3213a, type: 3}
     - id: Stall
       name: 
       layerType: 0
@@ -58,12 +51,26 @@ MonoBehaviour:
       estimatedSpawnTime: 0
       prefab: {fileID: 725434517373756211, guid: 2f78143866313ef4e81b27e576a0b80e, type: 3}
   thirdParallaxLayer:
-    id: 
+    id: Third
     layerName: 
-    layerType: 0
-    environmentObjects: []
+    layerType: 2
+    environmentObjects:
+    - id: Tree
+      name: 
+      layerType: 2
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 6828494727639380030, guid: 0e05fc5f397695e49a8563ebe5137b18, type: 3}
   fourthParallaxLayer:
-    id: 
+    id: Fourth
     layerName: 
-    layerType: 0
-    environmentObjects: []
+    layerType: 3
+    environmentObjects:
+    - id: Building
+      name: 
+      layerType: 3
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 1629993652115523741, guid: df99b91393eb9324c89ebe4c3a8a26df, type: 3}

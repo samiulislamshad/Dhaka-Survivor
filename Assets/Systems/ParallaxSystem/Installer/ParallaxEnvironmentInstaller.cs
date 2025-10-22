@@ -16,19 +16,13 @@ namespace Systems.ParallaxSystem.Installer
         [SerializeField] private ParallaxLayerConfig parallaxLayerConfig;
         [SerializeField] private ParallaxEnvironmentView parallaxEnvironmentView;
 
-        [SerializeField] private FirstLayerEnvironmentObject firstLayerPrefab;
-        [SerializeField] private SecondLayerEnvironmentObject secondLayerPrefab;
-        [SerializeField] private ThirdLayerEnvironmentObject thirdLayerPrefab;
-        [SerializeField] private FourthLayerEnvironmentObject fourthLayerPrefab;
-        // [SerializeField] private FifthLayerEnvironmentObject fifthLayerPrefab;
-
         public override void InstallBindings()
         {
             // Config
             Container.Bind<ParallaxLayerConfig>().FromScriptableObject(parallaxLayerConfig).AsSingle();
 
             // View
-            // Container.Bind<ParallaxEnvironmentView>().FromComponentInNewPrefab(parallaxEnvironmentView).AsSingle();
+            Container.Bind<ParallaxEnvironmentView>().FromComponentInNewPrefab(parallaxEnvironmentView).AsSingle();
 
             // Create parent transforms
             var envParent = new GameObject("Environment").transform;
@@ -58,8 +52,7 @@ namespace Systems.ParallaxSystem.Installer
 
             Container.Bind<Transform>().WithId("ThirdLayerParent").FromInstance(thirdLayerParent).AsCached();
 
-            Container.Bind<Transform>().WithId("FourthLayerParent").FromInstance(fourthLayerParent)
-                .AsCached();
+            Container.Bind<Transform>().WithId("FourthLayerParent").FromInstance(fourthLayerParent).AsCached();
 
             // Bind factories
             Container
@@ -95,7 +88,7 @@ namespace Systems.ParallaxSystem.Installer
             Container.BindInterfacesAndSelfTo<ParallaxEnvironmentSpawner>().AsSingle().NonLazy();
 
             // Controller
-            Container.Bind<ParallaxEnvironmentController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ParallaxEnvironmentController>().AsSingle();
         }
     }
 }

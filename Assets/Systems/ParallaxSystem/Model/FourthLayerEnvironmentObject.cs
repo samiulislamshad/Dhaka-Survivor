@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Systems.ParallaxSystem.Model
@@ -8,7 +7,7 @@ namespace Systems.ParallaxSystem.Model
     [Serializable]
     public class FourthLayerEnvironmentObject : EnvironmentObject
     {
-        [SerializeField] private float parallaxSpeed = 0.1f;
+        // [SerializeField] private float parallaxSpeed = 0.1f;
     
         public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
@@ -20,6 +19,11 @@ namespace Systems.ParallaxSystem.Model
         public override void Reinitialize(Vector3 pos)
         {
             transform.position = pos;
+        }
+
+        public override void OnFixedUpdate(float gameSpeed)
+        {
+            
         }
 
         public override bool ShouldDespawn()

@@ -1,12 +1,11 @@
 ﻿using System.Threading;
-using System.Xml;
 using UnityEngine;
 
 namespace Systems.ParallaxSystem.Model
 {
     public class FirstLayerEnvironmentObject : EnvironmentObject
     {
-        [SerializeField] private float parallaxSpeed = 0.1f;
+        // [SerializeField] private float parallaxSpeed = 0.1f;
     
         public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
@@ -19,11 +18,17 @@ namespace Systems.ParallaxSystem.Model
         {
             transform.position = pos;
         }
-    
+
+        public override void OnFixedUpdate(float gameSpeed)
+        {
+            var movement = new Vector2(-gameSpeed, 0) * Time.fixedDeltaTime;
+            transform.Translate(movement);
+        }
+
         public override bool ShouldDespawn()
         {
             // Implement despawn logic based on camera position or other criteria
-            return transform.position.x < -50f; // Example condition
+            return transform.position.x < -60f; // Example condition
         }
         
         public float GetParallaxSpeed() => parallaxSpeed;

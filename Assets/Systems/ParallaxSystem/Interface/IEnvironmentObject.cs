@@ -8,6 +8,7 @@ namespace Systems.ParallaxSystem.Interface
     {
         void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default);
         void Reinitialize(Vector3 pos);
+        public void OnFixedUpdate(float gameSpeed);
         bool ShouldDespawn();
         void OnSpawned();
         void OnDespawned();

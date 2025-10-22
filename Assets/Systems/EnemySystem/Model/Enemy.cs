@@ -21,12 +21,12 @@ namespace Systems.EnemySystem.Model
         
         // ✨ ADD THESE NEW FIELDS ✨
         [Header("Movement Settings")]
-        [SerializeField] protected float moveSpeedX = 0.5f;
-        [SerializeField] protected float moveSpeedY = 0f;
+        [SerializeField] protected float moveSpeedX = 1f;
+        [SerializeField] protected float moveSpeedY;
     
-        [Header("Parallax Settings")]
-        [Tooltip("Should match the parallax layer (1.0 for foreground enemies)")]
-        [SerializeField] protected float parallaxMultiplier = 1f;
+        // [Header("Parallax Settings")]
+        // [Tooltip("Should match the parallax layer (1.0 for foreground enemies)")]
+        // [SerializeField] protected float parallaxMultiplier = 1f;
 
         public virtual void Initialize(Vector3 position)
         {
@@ -49,18 +49,14 @@ namespace Systems.EnemySystem.Model
             return IsDespawning;
         }
         
-        /// <summary>
-        /// Calculate final speed using the same formula as ShaderScrollController
-        /// finalSpeed = baseValue × parallaxMultiplier × gameSpeed
-        /// </summary>
         protected float GetCalculatedSpeedX()
         {
-            return moveSpeedX * parallaxMultiplier * Config.gameSpeed.Value;
+            return moveSpeedX * Config.gameSpeed.Value;
         }
         
         protected float GetCalculatedSpeedY()
         {
-            return moveSpeedY * parallaxMultiplier * Config.gameSpeed.Value;
+            return moveSpeedY * Config.gameSpeed.Value;
         }
     }
 }

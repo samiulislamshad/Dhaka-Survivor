@@ -6,7 +6,7 @@ namespace Systems.ParallaxSystem.Model
 {
     public class SecondLayerEnvironmentObject : EnvironmentObject
     {
-        [SerializeField] private float parallaxSpeed = 0.3f;
+        // [SerializeField] private float parallaxSpeed = 0.3f;
     
         public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
@@ -18,6 +18,11 @@ namespace Systems.ParallaxSystem.Model
         public override void Reinitialize(Vector3 pos)
         {
             transform.position = pos;
+        }
+
+        public override void OnFixedUpdate(float gameSpeed)
+        {
+            
         }
 
         public override bool ShouldDespawn()

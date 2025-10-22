@@ -43,7 +43,7 @@ namespace Systems.ParallaxSystem.ObjectPooling
             {
                 for (var i = 0; i < initialCount; i++)
                 {
-                    var obj = _factory.Create(envObj, Vector3.zero);
+                    var obj = _factory.Create(envObj, new Vector3(100,0,0));
                     obj.transform.SetParent(_parentTransform);
                     obj.gameObject.SetActive(false);
                     _objectsByType[envObj.id].Push(obj);
