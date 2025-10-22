@@ -1,42 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Systems.ParallaxSystem.Config;
+using Systems.ParallaxSystem.Factory;
 using Systems.ParallaxSystem.Model;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
+
 
 namespace Systems.ParallaxSystem.ObjectPooling
 {
     [Serializable]
-    public class FirstLayerPool : MonoMemoryPool<Vector3, FirstLayerEnvironmentObject>
+    public class FirstLayerPool : IDisposable
     {
-        private Dictionary<string, Queue<FirstLayerEnvironmentObject>> _objectsByType = new();
-        private ParallaxLayerConfig _config;
+        private readonly Dictionary<string, Stack<FirstLayerEnvironmentObject>> _objectsByType = new();
+        private readonly Dictionary<string, EnvironmentObjectData> _dataByType = new();
+        private readonly FirstLayerEnvironmentObjectFactory _factory;
+        private readonly ParallaxLayerConfig _config;
+        private readonly Transform _parentTransform;
 
-        [Inject]
-        public void Construct(ParallaxLayerConfig config)
+        public FirstLayerPool(
+            FirstLayerEnvironmentObjectFactory factory,
+            ParallaxLayerConfig config,
+            [Inject(Id = "FirstLayerParent")] Transform parentTransform)
         {
+            _factory = factory;
             _config = config;
+            _parentTransform = parentTransform;
+
+            // Cache data by ID
+            foreach (var envObj in _config.firstParallaxLayer.environmentObjects)
+            {
+                _dataByType[envObj.id] = envObj;
+                _objectsByType[envObj.id] = new Stack<FirstLayerEnvironmentObject>();
+            }
         }
 
         public void InitializePool(int initialCount = 3)
         {
             foreach (var envObj in _config.firstParallaxLayer.environmentObjects)
             {
-                if (!_objectsByType.ContainsKey(envObj.id))
-                {
-                    _objectsByType[envObj.id] = new Queue<FirstLayerEnvironmentObject>();
-                }
-
-                // Pre-spawn objects
                 for (var i = 0; i < initialCount; i++)
                 {
-                    var obj = Spawn(Vector3.zero);
-                    obj.Initialize(envObj, Vector3.zero);
+                    var obj = _factory.Create(envObj, Vector3.zero);
+                    obj.transform.SetParent(_parentTransform);
                     obj.gameObject.SetActive(false);
-                    _objectsByType[envObj.id].Enqueue(obj);
+                    _objectsByType[envObj.id].Push(obj);
                 }
+
+                Debug.Log($"Initialized {initialCount} instances of {envObj.name} (ID: {envObj.id})");
             }
+        }
+        
+        public FirstLayerEnvironmentObject Spawn(Vector3 position)
+        {
+            // Get a random ID from available objects
+            if (_dataByType.Count == 0)
+            {
+                Debug.LogError("No objects configured in FirstLayerPool");
+                return null;
+            }
+    
+            // Pick random ID
+            var randomIndex = Random.Range(0, _dataByType.Count);
+            var randomId = _dataByType.Keys.ElementAt(randomIndex);
+    
+            // Use SpawnById with the random ID
+            return SpawnById(randomId, position);
         }
 
         public FirstLayerEnvironmentObject SpawnById(string id, Vector3 position)
@@ -51,30 +82,52 @@ namespace Systems.ParallaxSystem.ObjectPooling
 
             if (_objectsByType[id].Count > 0)
             {
-                obj = _objectsByType[id].Dequeue();
-                obj.transform.position = position;
-                obj.gameObject.SetActive(true);
+                obj = _objectsByType[id].Pop();
+                obj.Reinitialize(position);
+                obj.OnSpawned();
             }
             else
             {
                 // Create new if pool is empty
-                obj = Spawn(position);
-                var envData = _config.firstParallaxLayer.environmentObjects.Find(x => x.id == id);
-                obj.Initialize(envData, Vector3.zero);
+                obj = _factory.Create(_dataByType[id], position);
+                obj.transform.SetParent(_parentTransform);
+                obj.OnSpawned();
             }
 
             return obj;
         }
 
-        protected override void Reinitialize(Vector3 pos, FirstLayerEnvironmentObject environmentObject)
+        public void Despawn(FirstLayerEnvironmentObject obj)
         {
-            environmentObject.Reinitialize(pos);
-            environmentObject.OnSpawned();
+            if (obj == null || string.IsNullOrEmpty(obj.Id))
+            {
+                Debug.LogWarning("Trying to despawn null or uninitialized object");
+                return;
+            }
+
+            obj.OnDespawned();
+
+            if (_objectsByType.ContainsKey(obj.Id))
+            {
+                _objectsByType[obj.Id].Push(obj);
+            }
         }
 
-        protected override void OnDespawned(FirstLayerEnvironmentObject environmentObject)
+        public void Dispose()
         {
-            environmentObject.OnDespawned();
+            foreach (var stack in _objectsByType.Values)
+            {
+                while (stack.Count > 0)
+                {
+                    var obj = stack.Pop();
+                    if (obj != null && obj.gameObject != null)
+                    {
+                        UnityEngine.Object.Destroy(obj.gameObject);
+                    }
+                }
+            }
+
+            _objectsByType.Clear();
         }
     }
 }

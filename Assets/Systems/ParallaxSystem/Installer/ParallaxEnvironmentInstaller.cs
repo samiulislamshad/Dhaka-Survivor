@@ -1,5 +1,6 @@
 ﻿using Systems.ParallaxSystem.Config;
 using Systems.ParallaxSystem.Controller;
+using Systems.ParallaxSystem.Factory;
 using Systems.ParallaxSystem.Handler;
 using Systems.ParallaxSystem.Model;
 using Systems.ParallaxSystem.ObjectPooling;
@@ -14,7 +15,7 @@ namespace Systems.ParallaxSystem.Installer
     {
         [SerializeField] private ParallaxLayerConfig parallaxLayerConfig;
         [SerializeField] private ParallaxEnvironmentView parallaxEnvironmentView;
-        
+
         [SerializeField] private FirstLayerEnvironmentObject firstLayerPrefab;
         [SerializeField] private SecondLayerEnvironmentObject secondLayerPrefab;
         [SerializeField] private ThirdLayerEnvironmentObject thirdLayerPrefab;
@@ -25,37 +26,85 @@ namespace Systems.ParallaxSystem.Installer
         {
             // Config
             Container.Bind<ParallaxLayerConfig>().FromScriptableObject(parallaxLayerConfig).AsSingle();
-            
+
             // View
             // Container.Bind<ParallaxEnvironmentView>().FromComponentInNewPrefab(parallaxEnvironmentView).AsSingle();
-            
-            Container.BindMemoryPool<FirstLayerEnvironmentObject, FirstLayerPool>()
-                .WithInitialSize(10)
-                .FromComponentInNewPrefab(firstLayerPrefab)
-                .UnderTransformGroup("Environment/FirstLayer");
 
-            Container.BindMemoryPool<SecondLayerEnvironmentObject, SecondLayerPool>()
-                .WithInitialSize(8)
-                .FromComponentInNewPrefab(secondLayerPrefab)
-                .UnderTransformGroup("Environment/SecondLayer");
+            // Create parent transforms
+            var envParent = new GameObject("Environment").transform;
 
-            Container.BindMemoryPool<ThirdLayerEnvironmentObject, ThirdLayerPool>()
-                .WithInitialSize(6)
-                .FromComponentInNewPrefab(thirdLayerPrefab)
-                .UnderTransformGroup("Environment/ThirdLayer");
+            var firstLayerParent = new GameObject("FirstLayer").transform;
+            firstLayerParent.SetParent(envParent);
 
-            Container.BindMemoryPool<FourthLayerEnvironmentObject, FourthLayerPool>()
-                .WithInitialSize(4)
-                .FromComponentInNewPrefab(fourthLayerPrefab)
-                .UnderTransformGroup("Environment/FourthLayer");
+            var secondLayerParent = new GameObject("SecondLayer").transform;
+            secondLayerParent.SetParent(envParent);
 
-            // Container.BindMemoryPool<FifthLayerEnvironmentObject, FifthLayerPool>()
-            //     .WithInitialSize(2)
-            //     .FromComponentInNewPrefab(fifthLayerPrefab)
-            //     .UnderTransformGroup("Environment/FifthLayer");
+            var thirdLayerParent = new GameObject("ThirdLayer").transform;
+            thirdLayerParent.SetParent(envParent);
 
-            Container.BindInterfacesTo<ParallaxEnvironmentSpawner>().AsSingle();
-            
+            var fourthLayerParent = new GameObject("FourthLayer").transform;
+            fourthLayerParent.SetParent(envParent);
+
+            // Bind parent transforms
+            Container.Bind<Transform>()
+                .WithId("FirstLayerParent")
+                .FromInstance(firstLayerParent)
+                .AsCached();
+
+            Container.Bind<Transform>()
+                .WithId("SecondLayerParent")
+                .FromInstance(secondLayerParent)
+                .AsCached();
+
+            Container.Bind<Transform>()
+                .WithId("ThirdLayerParent")
+                .FromInstance(thirdLayerParent)
+                .AsCached();
+
+            Container.Bind<Transform>()
+                .WithId("FourthLayerParent")
+                .FromInstance(fourthLayerParent)
+                .AsCached();
+
+            // Bind factories
+            Container
+                .BindFactory<EnvironmentObjectData, Vector3, FirstLayerEnvironmentObject,
+                    FirstLayerEnvironmentObjectFactory>()
+                .FromFactory<FirstLayerEnvironmentObjectCustomFactory>();
+
+            Container
+                .BindFactory<EnvironmentObjectData, Vector3, SecondLayerEnvironmentObject,
+                    SecondLayerEnvironmentObjectFactory>()
+                .FromFactory<SecondLayerEnvironmentObjectCustomFactory>();
+
+            // Container
+            //     .BindFactory<EnvironmentObjectData, Vector3, ThirdLayerEnvironmentObject,
+            //         ThirdLayerEnvironmentObjectFactory>()
+            //     .FromFactory<ThirdLayerEnvironmentObjectCustomFactory>();
+            //
+            // Container
+            //     .BindFactory<EnvironmentObjectData, Vector3, FourthLayerEnvironmentObject,
+            //         FourthLayerEnvironmentObjectFactory>()
+            //     .FromFactory<FourthLayerEnvironmentObjectCustomFactory>();
+
+            // Bind pools
+            Container.Bind<FirstLayerPool>()
+                .AsSingle();
+
+            Container.Bind<SecondLayerPool>()
+                .AsSingle();
+
+            // Container.Bind<ThirdLayerPool>()
+            //     .AsSingle();
+            //
+            // Container.Bind<FourthLayerPool>()
+            //     .AsSingle();
+
+            // Bind spawner
+            Container.BindInterfacesAndSelfTo<ParallaxEnvironmentSpawner>()
+                .AsSingle()
+                .NonLazy();
+
             // Controller
             Container.Bind<ParallaxEnvironmentController>().AsSingle();
         }
