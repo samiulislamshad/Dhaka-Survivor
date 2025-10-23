@@ -41,8 +41,8 @@ namespace Systems.EnemySystem.Controller
             _disposable = new CompositeDisposable();
 
             _activeEnemies = new List<Enemy>();
-            _lockedEnemies = new List<int> { 1 };
-            _unlockedEnemies = new List<int> { 0, 2 };
+            _lockedEnemies = new List<int> { 2 };
+            _unlockedEnemies = new List<int> { 0, 1 };
 
             _spawnTimer = 0f;
             _nextSpawnTime = Random.Range(0.5f, 2f);
@@ -112,6 +112,7 @@ namespace Systems.EnemySystem.Controller
             if (enemy == null) return;
             RegisterEnemy(enemy);
         }
+        
 
         public void Dispose()
         {
