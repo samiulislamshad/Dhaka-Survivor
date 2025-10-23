@@ -5,14 +5,12 @@ namespace Systems.ParallaxSystem.Model
 {
     public class FirstLayerEnvironmentObject : EnvironmentObject
     {
-        // [SerializeField] private float parallaxSpeed = 0.1f;
-    
         public override void Initialize(EnvironmentObjectData data, Vector3 position, CancellationToken cancellationToken = default)
         {
             transform.position = position;
             Id = data.id;
             Data = data;
-            parallaxSpeed = 0.5f;
+            parallaxSpeed = 1f;
         }
 
         public override void Reinitialize(Vector3 pos)

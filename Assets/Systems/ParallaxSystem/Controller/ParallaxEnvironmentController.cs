@@ -19,7 +19,7 @@ namespace Systems.ParallaxSystem.Controller
     {
         private ParallaxEnvironmentSpawner _spawner;
         private CompositeDisposable _disposable;
-        private ParallaxEnvironmentView  _view;
+        private ParallaxEnvironmentView _view;
 
         private GameConfig _gameConfig;
         private ParallaxLayerConfig _config;
@@ -36,7 +36,7 @@ namespace Systems.ParallaxSystem.Controller
         // NEWLY ADDED: Random spawning control variables
         // ═══════════════════════════════════════════════════════════════════════════════
         private bool _isRandomSpawning = false;
-        private float _firstLayerRandomSpawnWaitTime = 3f; // Default wait time between random spawns
+        private float _firstLayerRandomSpawnWaitTime = 2f;
         private float _secondLayerRandomSpawnWaitTime = 7f;
         // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -55,11 +55,9 @@ namespace Systems.ParallaxSystem.Controller
             _fourthLayerEnvironmentObjects = new List<EnvironmentObject>();
 
             _activeEnvironmentObjects = new Dictionary<string, ActiveEnvironmentObjectData>();
-            
-            _isRandomSpawning = false;
-            // _randomSpawnWaitTime = 1f;
 
-            // SpawnFirstLayerObjects().Forget();
+            _isRandomSpawning = false;
+            
             SubscribeToProperties();
         }
 
@@ -67,8 +65,15 @@ namespace Systems.ParallaxSystem.Controller
         {
             _gameConfig.hasGameStarted.Subscribe(value =>
             {
-                if (!value) return;
-                StartRandomSpawning().Forget();
+                if (value)
+                {
+                    StartRandomSpawning(_config.firstParallaxLayer, _firstLayerRandomSpawnWaitTime,
+                        _view.firstLayerSpawnPoint.transform.position).Forget();
+                    StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
+                        _view.secondLayerSpawnPoint.transform.position).Forget();
+                }
+                else
+                    StopRandomSpawning();
             }).AddTo(_disposable);
         }
 
@@ -309,33 +314,24 @@ namespace Systems.ParallaxSystem.Controller
         }
 
         #region Random Spawning
-
-        /// <summary>
-        /// NEWLY ADDED: Starts the continuous random spawning loop
-        /// </summary>
-        private async UniTaskVoid StartRandomSpawning()
+        
+        private async UniTaskVoid StartRandomSpawning(ParallaxLayer parallaxLayer,float spawnWaitTime, Vector3 position)
         {
-            await UniTask.Delay(1000); // Initial delay before starting random spawns
-
+            await UniTask.Delay(1000);
             _isRandomSpawning = true;
 
             while (_isRandomSpawning)
             {
-                await SpawnRandomEnvironmentObject();
+                await SpawnRandomEnvironmentObject(parallaxLayer, spawnWaitTime, position);
+                // var secondLayerTask = SpawnRandomEnvironmentObject(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
+                //     _view.secondLayerSpawnPoint.transform.position);
+                
+                // await UniTask.WhenAll(firstLayerTask, secondLayerTask);
             }
         }
-
-        /// <summary>
-        /// NEWLY ADDED: Spawns a random environment object and checks for relative objects to spawn
-        /// Flow:
-        /// 1. Pick random object from config
-        /// 2. Spawn it off-screen to the right
-        /// 3. Check if it has crucial/preferred relatives
-        /// 4. Spawn relatives if they exist
-        /// 5. Wait (longer if relatives were spawned)
-        /// 6. Repeat
-        /// </summary>
-        private async UniTask SpawnRandomEnvironmentObject()
+        
+        private async UniTask SpawnRandomEnvironmentObject(ParallaxLayer parallaxLayer, float randomSpawnWaitTime,
+            Vector3 randomSpawnPosition)
         {
             // Wait if game hasn't started yet
             if (!_gameConfig.hasGameStarted.Value)
@@ -345,25 +341,24 @@ namespace Systems.ParallaxSystem.Controller
             }
 
             // Get a random environment object from the first layer
-            var randomObjectData = GetRandomEnvironmentObjectData();
+            var randomObjectData = GetRandomEnvironmentObjectData(parallaxLayer);
             if (randomObjectData == null)
             {
-                await UniTask.Delay((int)(_firstLayerRandomSpawnWaitTime * 1000));
+                await UniTask.Delay(2000);
                 return;
             }
 
             // Spawn at a position off-screen to the right
-            var spawnPosition = _view.firstLayerSpawnPoint.transform.position; //new Vector3(UnityEngine.Random.Range(50, 60), UnityEngine.Random.Range(-5, 5), 0);
-            var spawnedObject = SpawnEnvironmentObject(randomObjectData, spawnPosition);
+            var spawnedObject = SpawnEnvironmentObject(randomObjectData, randomSpawnPosition);
 
             if (spawnedObject == null)
             {
-                await UniTask.Delay((int)(_firstLayerRandomSpawnWaitTime * 1000));
+                await UniTask.Delay((int)(randomSpawnWaitTime * 1000));
                 return;
             }
 
             // Check if this object has crucial or preferred relative objects
-            bool hasRelativeObjects = HasCrucialOrPreferredObjects(randomObjectData);
+            var hasRelativeObjects = HasCrucialOrPreferredObjects(randomObjectData);
 
             if (hasRelativeObjects)
             {
@@ -381,7 +376,7 @@ namespace Systems.ParallaxSystem.Controller
 
             // Wait before spawning the next random object
             // Wait longer if we spawned relatives (to avoid cluttering)
-            float waitTime = hasRelativeObjects ? _firstLayerRandomSpawnWaitTime * 1.5f : _firstLayerRandomSpawnWaitTime;
+            var waitTime = hasRelativeObjects ? randomSpawnWaitTime * 1.5f : randomSpawnWaitTime;
             await UniTask.Delay((int)(waitTime * 1000));
         }
 
@@ -401,7 +396,7 @@ namespace Systems.ParallaxSystem.Controller
 
             // Subscribe to this object's despawn signal
             spawnedObject.OnDespawnSignal
-                .Subscribe(despawnedGuid => OnEnvironmentObjectDespawned(despawnedGuid))
+                .Subscribe(OnEnvironmentObjectDespawned)
                 .AddTo(_disposable);
 
             // Create and track active data
@@ -410,7 +405,6 @@ namespace Systems.ParallaxSystem.Controller
 
             // Add to appropriate layer list
             AddToLayerList(spawnedObject, objectData.layerType);
-
             spawnedObject.gameObject.SetActive(true);
 
             return spawnedObject;
@@ -419,16 +413,16 @@ namespace Systems.ParallaxSystem.Controller
         /// <summary>
         /// NEWLY ADDED: Gets a random environment object data from the first parallax layer
         /// </summary>
-        private EnvironmentObjectData GetRandomEnvironmentObjectData()
+        private EnvironmentObjectData GetRandomEnvironmentObjectData(ParallaxLayer parallaxLayer)
         {
-            if (_config.firstParallaxLayer.environmentObjects == null ||
-                _config.firstParallaxLayer.environmentObjects.Count == 0)
+            if (parallaxLayer.environmentObjects == null ||
+                parallaxLayer.environmentObjects.Count == 0)
             {
                 return null;
             }
 
-            int randomIndex = UnityEngine.Random.Range(0, _config.firstParallaxLayer.environmentObjects.Count);
-            return _config.firstParallaxLayer.environmentObjects[randomIndex];
+            var randomIndex = UnityEngine.Random.Range(0, parallaxLayer.environmentObjects.Count);
+            return parallaxLayer.environmentObjects[randomIndex];
         }
 
         /// <summary>

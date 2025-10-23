@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: ae0d1af8fdcd85742a507753af446e22
+guid: 8ceb8c03d56d8eb4da2d09faaf7838a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9001514278674602414
-    second: Building300_0
+      213: 8214791405801152037
+    second: MonumentSheet1_0
   - first:
-      213: 3075464685035822956
-    second: Building300_1
+      213: -2996211738059542191
+    second: MonumentSheet1_1
   - first:
-      213: -5325498075976118535
-    second: Building300_2
+      213: 3527897773248622778
+    second: MonumentSheet1_2
   - first:
-      213: -1451493608764237370
-    second: Building300_3
+      213: 4891382665766442861
+    second: MonumentSheet1_3
   - first:
-      213: -1123547588245670676
-    second: Building300_4
+      213: -6790931314153313007
+    second: MonumentSheet1_4
   - first:
-      213: -6685189051171614691
-    second: Building300_5
+      213: 592279025119563080
+    second: MonumentSheet1_5
   - first:
-      213: -6596862405782755432
-    second: Building300_6
+      213: 3767133943019337383
+    second: MonumentSheet1_6
   - first:
-      213: 4608772853306901571
-    second: Building300_7
+      213: -5241896808082517140
+    second: MonumentSheet1_7
   - first:
-      213: -8326023400729575856
-    second: Building300_8
+      213: -2645036409345111397
+    second: MonumentSheet1_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,7 +96,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -137,199 +137,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Building300_0
+      name: MonumentSheet1_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 238
-        height: 174
+        width: 73
+        height: 95
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 1, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2566ef2a472341380800000000000000
-      internalID: -9001514278674602414
+      spriteID: 52e95be724dc00270800000000000000
+      internalID: 8214791405801152037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_1
+      name: MonumentSheet1_1
       rect:
         serializedVersion: 2
-        x: 240
+        x: 74
         y: 0
-        width: 238
-        height: 229
+        width: 132
+        height: 98
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c6f91d626de3eaa20800000000000000
-      internalID: 3075464685035822956
+      spriteID: 151fa118c415b66d0800000000000000
+      internalID: -2996211738059542191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_2
+      name: MonumentSheet1_2
       rect:
         serializedVersion: 2
-        x: 480
+        x: 207
         y: 0
-        width: 238
-        height: 283
+        width: 277
+        height: 98
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9feca6137b70816b0800000000000000
-      internalID: -5325498075976118535
+      spriteID: ab0306a455c95f030800000000000000
+      internalID: 3527897773248622778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_3
+      name: MonumentSheet1_3
       rect:
         serializedVersion: 2
-        x: 720
+        x: 485
         y: 0
-        width: 241
-        height: 146
+        width: 285
+        height: 98
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6c99bdfc0424bdbe0800000000000000
-      internalID: -1451493608764237370
+      spriteID: d67138d6e9ea1e340800000000000000
+      internalID: 4891382665766442861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_4
+      name: MonumentSheet1_6
       rect:
         serializedVersion: 2
-        x: 963
+        x: 771
         y: 0
-        width: 241
-        height: 200
+        width: 160
+        height: 98
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce4be5adb6b5860f0800000000000000
-      internalID: -1123547588245670676
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Building300_5
-      rect:
-        serializedVersion: 2
-        x: 1206
-        y: 0
-        width: 241
-        height: 254
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d10d5944aff6933a0800000000000000
-      internalID: -6685189051171614691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Building300_6
-      rect:
-        serializedVersion: 2
-        x: 1449
-        y: 0
-        width: 221
-        height: 146
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 897a037f79c3374a0800000000000000
-      internalID: -6596862405782755432
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Building300_7
-      rect:
-        serializedVersion: 2
-        x: 1672
-        y: 0
-        width: 221
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 34442d3ed76a5ff30800000000000000
-      internalID: 4608772853306901571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Building300_8
-      rect:
-        serializedVersion: 2
-        x: 1895
-        y: 0
-        width: 220
-        height: 254
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 05e7ce784d5047c80800000000000000
-      internalID: -8326023400729575856
+      spriteID: 7a6fbfeac5c874430800000000000000
+      internalID: 3767133943019337383
       vertices: []
       indices: 
       edges: []
@@ -338,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6acb2f52c1c05f94bbd6b7d415927d68
     internalID: 0
     vertices: []
     indices: 
@@ -348,15 +260,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Building300_0: -9001514278674602414
-      Building300_1: 3075464685035822956
-      Building300_2: -5325498075976118535
-      Building300_3: -1451493608764237370
-      Building300_4: -1123547588245670676
-      Building300_5: -6685189051171614691
-      Building300_6: -6596862405782755432
-      Building300_7: 4608772853306901571
-      Building300_8: -8326023400729575856
+      MonumentSheet1_0: 8214791405801152037
+      MonumentSheet1_1: -2996211738059542191
+      MonumentSheet1_2: 3527897773248622778
+      MonumentSheet1_3: 4891382665766442861
+      MonumentSheet1_4: -6790931314153313007
+      MonumentSheet1_5: 592279025119563080
+      MonumentSheet1_6: 3767133943019337383
+      MonumentSheet1_7: -5241896808082517140
+      MonumentSheet1_8: -2645036409345111397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

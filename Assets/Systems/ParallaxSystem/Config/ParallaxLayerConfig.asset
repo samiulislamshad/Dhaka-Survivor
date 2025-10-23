@@ -312,43 +312,127 @@ MonoBehaviour:
       layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 0
+      estimatedSpawnTime: 30
       prefab: {fileID: 817492173529997483, guid: 43cba682e78e9f345b92cacd9278854a, type: 3}
-    - id: Bulding105
+    - id: Buddha
       name: 
       layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 0
-      prefab: {fileID: 3257744641641759629, guid: 03e83b9b16780804aa154051a38bda49, type: 3}
-    - id: Bulding107
+      estimatedSpawnTime: 100
+      prefab: {fileID: 1920561906437562701, guid: 5a87ef544e2bcf54da3dafbc72d82093, type: 3}
+    - id: Church
       name: 
       layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 0
-      prefab: {fileID: 2512683064451423072, guid: 5d3f4b0fcedd5cb4eac245fd5d1bf39e, type: 3}
+      estimatedSpawnTime: 100
+      prefab: {fileID: 5834564363044123060, guid: 380629ebb84a9eb40b8429c6215e00fa, type: 3}
     - id: Bulding202
       name: 
       layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 0
+      estimatedSpawnTime: 30
       prefab: {fileID: 867018037982354230, guid: 46ee94840bab1ef4b81dd9573f2b6911, type: 3}
+    - id: Bulding107
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 30
+      prefab: {fileID: 2512683064451423072, guid: 5d3f4b0fcedd5cb4eac245fd5d1bf39e, type: 3}
+    - id: Minar
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 9134868638213619499, guid: 143712fbc1fd2ac4eba49c4c34db2df7, type: 3}
+    - id: Mosque
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 7870977629366218415, guid: b7f166b5f67181449b7a3d454d1c4cbe, type: 3}
+    - id: Bulding105
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 30
+      prefab: {fileID: 3257744641641759629, guid: 03e83b9b16780804aa154051a38bda49, type: 3}
+    - id: NationalMuseum
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 4862295051668686381, guid: 3736063afc672da47a34b634ae47fb8f, type: 3}
+    - id: Shangshad
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 6902327599774738373, guid: 2af799c8ac55b9541b14010030794ffd, type: 3}
     - id: Bulding208
       name: 
       layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 0
+      estimatedSpawnTime: 30
       prefab: {fileID: 7445697877801510316, guid: 8bd48cc9f21b8f947b54a68936cfb306, type: 3}
+    - id: Temple
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 3170598551085102509, guid: 9ca02ff83f4da6e4d8ca2953962cf0c8, type: 3}
     - id: Bulding305
       name: 
       layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 0
+      estimatedSpawnTime: 30
       prefab: {fileID: 4986433003668715729, guid: 879123aa536dd26498030ff1f41fc421, type: 3}
+    - id: ShaplaChottor
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 6105927108959190609, guid: b3240747bca5314498360f63d04ae6dd, type: 3}
+    - id: Tree00
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 15
+      prefab: {fileID: 4883235682034002151, guid: 9d9a83f3b5bb9584ba1ee405b1bb320d, type: 3}
+    - id: Tree01
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 15
+      prefab: {fileID: 2044618200596559405, guid: 70afd3fec7b3b0e46b613d7c72abb9c0, type: 3}
+    - id: Tree02
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 15
+      prefab: {fileID: 354985997418701114, guid: 2dacd549d26f2b54cb3ab53c1e7f971a, type: 3}
+    - id: Tree03
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 15
+      prefab: {fileID: 2543946925884800112, guid: 04697e6b3dbe9554c8c8762b457de34f, type: 3}
   thirdParallaxLayer:
     id: Third
     layerName: 

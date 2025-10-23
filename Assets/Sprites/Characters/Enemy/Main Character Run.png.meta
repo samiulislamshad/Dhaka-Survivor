@@ -1,34 +1,31 @@
 fileFormatVersion: 2
-guid: ae0d1af8fdcd85742a507753af446e22
+guid: bfe44f651be75bd44ba9aa857bb0c1df
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9001514278674602414
-    second: Building300_0
+      213: -2321154479641357782
+    second: Main Character Run_0
   - first:
-      213: 3075464685035822956
-    second: Building300_1
+      213: -2585682190955628609
+    second: Main Character Run_1
   - first:
-      213: -5325498075976118535
-    second: Building300_2
+      213: -6247264026240792792
+    second: Main Character Run_2
   - first:
-      213: -1451493608764237370
-    second: Building300_3
+      213: 8416050912114269000
+    second: Main Character Run_3
   - first:
-      213: -1123547588245670676
-    second: Building300_4
+      213: 7058383149494902467
+    second: Main Character Run_4
   - first:
-      213: -6685189051171614691
-    second: Building300_5
+      213: -53646356544930189
+    second: Main Character Run_5
   - first:
-      213: -6596862405782755432
-    second: Building300_6
+      213: -7583307996016854439
+    second: Main Character Run_6
   - first:
-      213: 4608772853306901571
-    second: Building300_7
-  - first:
-      213: -8326023400729575856
-    second: Building300_8
+      213: -2190529201184487408
+    second: Main Character Run_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +69,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -96,10 +93,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -137,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Building300_0
+      name: Main Character Run_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 238
-        height: 174
+        y: 1
+        width: 27
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2566ef2a472341380800000000000000
-      internalID: -9001514278674602414
+      spriteID: a229b2c7c4a99cfd0800000000000000
+      internalID: -2321154479641357782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_1
+      name: Main Character Run_1
       rect:
         serializedVersion: 2
-        x: 240
+        x: 25
         y: 0
-        width: 238
-        height: 229
+        width: 26
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c6f91d626de3eaa20800000000000000
-      internalID: 3075464685035822956
+      spriteID: fb739023fbfcd1cd0800000000000000
+      internalID: -2585682190955628609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_2
+      name: Main Character Run_2
       rect:
         serializedVersion: 2
-        x: 480
+        x: 51
         y: 0
-        width: 238
-        height: 283
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,20 +193,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9feca6137b70816b0800000000000000
-      internalID: -5325498075976118535
+      spriteID: 82747d1b7724d49a0800000000000000
+      internalID: -6247264026240792792
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_3
+      name: Main Character Run_3
       rect:
         serializedVersion: 2
-        x: 720
+        x: 77
         y: 0
-        width: 241
-        height: 146
+        width: 25
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6c99bdfc0424bdbe0800000000000000
-      internalID: -1451493608764237370
+      spriteID: 84b5c24e6b1dbc470800000000000000
+      internalID: 8416050912114269000
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_4
+      name: Main Character Run_4
       rect:
         serializedVersion: 2
-        x: 963
-        y: 0
-        width: 241
-        height: 200
+        x: 103
+        y: 1
+        width: 25
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce4be5adb6b5860f0800000000000000
-      internalID: -1123547588245670676
+      spriteID: 3ce1f3ad31a64f160800000000000000
+      internalID: 7058383149494902467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_5
+      name: Main Character Run_5
       rect:
         serializedVersion: 2
-        x: 1206
+        x: 129
         y: 0
-        width: 241
-        height: 254
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -262,20 +259,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d10d5944aff6933a0800000000000000
-      internalID: -6685189051171614691
+      spriteID: 37e35a64ce8614ff0800000000000000
+      internalID: -53646356544930189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_6
+      name: Main Character Run_6
       rect:
         serializedVersion: 2
-        x: 1449
+        x: 155
         y: 0
-        width: 221
-        height: 146
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,20 +281,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 897a037f79c3374a0800000000000000
-      internalID: -6596862405782755432
+      spriteID: 95a39034e8da2c690800000000000000
+      internalID: -7583307996016854439
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building300_7
+      name: Main Character Run_7
       rect:
         serializedVersion: 2
-        x: 1672
+        x: 181
         y: 0
-        width: 221
-        height: 200
+        width: 25
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,30 +303,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 34442d3ed76a5ff30800000000000000
-      internalID: 4608772853306901571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Building300_8
-      rect:
-        serializedVersion: 2
-        x: 1895
-        y: 0
-        width: 220
-        height: 254
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 05e7ce784d5047c80800000000000000
-      internalID: -8326023400729575856
+      spriteID: 01847452c4da991e0800000000000000
+      internalID: -2190529201184487408
       vertices: []
       indices: 
       edges: []
@@ -348,15 +323,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Building300_0: -9001514278674602414
-      Building300_1: 3075464685035822956
-      Building300_2: -5325498075976118535
-      Building300_3: -1451493608764237370
-      Building300_4: -1123547588245670676
-      Building300_5: -6685189051171614691
-      Building300_6: -6596862405782755432
-      Building300_7: 4608772853306901571
-      Building300_8: -8326023400729575856
+      Main Character Run_0: -2321154479641357782
+      Main Character Run_1: -2585682190955628609
+      Main Character Run_2: -6247264026240792792
+      Main Character Run_3: 8416050912114269000
+      Main Character Run_4: 7058383149494902467
+      Main Character Run_5: -53646356544930189
+      Main Character Run_6: -7583307996016854439
+      Main Character Run_7: -2190529201184487408
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
