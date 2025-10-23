@@ -42,8 +42,8 @@ namespace Systems.ParallaxSystem.Handler
             _cancellationTokenSource = new CancellationTokenSource();
 
             // Initialize pools with pre-spawned objects
-            _firstLayerPool.InitializePool(3);
-            _secondLayerPool.InitializePool(3);
+            _firstLayerPool.InitializePool(15);
+            _secondLayerPool.InitializePool(5);
             // _thirdLayerPool.InitializePool(3);
             // _fourthLayerPool.InitializePool(3);
 

@@ -36,7 +36,8 @@ namespace Systems.ParallaxSystem.Controller
         // NEWLY ADDED: Random spawning control variables
         // ═══════════════════════════════════════════════════════════════════════════════
         private bool _isRandomSpawning = false;
-        private float _randomSpawnWaitTime = 1f; // Default wait time between random spawns
+        private float _firstLayerRandomSpawnWaitTime = 3f; // Default wait time between random spawns
+        private float _secondLayerRandomSpawnWaitTime = 7f;
         // ═══════════════════════════════════════════════════════════════════════════════
 
         public ParallaxEnvironmentController(ParallaxEnvironmentSpawner spawner, GameConfig gameConfig,
@@ -56,7 +57,7 @@ namespace Systems.ParallaxSystem.Controller
             _activeEnvironmentObjects = new Dictionary<string, ActiveEnvironmentObjectData>();
             
             _isRandomSpawning = false;
-            _randomSpawnWaitTime = 1f;
+            // _randomSpawnWaitTime = 1f;
 
             // SpawnFirstLayerObjects().Forget();
             SubscribeToProperties();
@@ -153,7 +154,7 @@ namespace Systems.ParallaxSystem.Controller
                 if (relativeObjectData == null) continue;
 
                 var spawnPosition = CalculateRelativeSpawnPosition(sourceObject, relativeData.distance);
-                spawnPosition.y = _view.spawnPoint.transform.position.y;
+                spawnPosition.y = _view.firstLayerSpawnPoint.transform.position.y;
                 SpawnRelativeObject(relativeObjectData, spawnPosition, spawnKey);
             }
         }
@@ -181,7 +182,7 @@ namespace Systems.ParallaxSystem.Controller
                 if (relativeObjectData == null) continue;
 
                 Vector3 spawnPosition = CalculateRelativeSpawnPosition(sourceObject, relativeData.distance);
-                spawnPosition.y = _view.spawnPoint.transform.position.y;
+                spawnPosition.y = _view.firstLayerSpawnPoint.transform.position.y;
                 SpawnRelativeObject(relativeObjectData, spawnPosition, spawnKey);
             }
         }
@@ -214,7 +215,7 @@ namespace Systems.ParallaxSystem.Controller
         private Vector3 CalculateRelativeSpawnPosition(EnvironmentObject sourceObject, float distance)
         {
             // Spawn to the right of the source object at the specified distance
-            var spawnPoint = _view.spawnPoint.transform.position;
+            var spawnPoint = _view.firstLayerSpawnPoint.transform.position;
             return sourceObject.transform.position + new Vector3(distance, spawnPoint.y, spawnPoint.z);
         }
 
@@ -347,17 +348,17 @@ namespace Systems.ParallaxSystem.Controller
             var randomObjectData = GetRandomEnvironmentObjectData();
             if (randomObjectData == null)
             {
-                await UniTask.Delay((int)(_randomSpawnWaitTime * 1000));
+                await UniTask.Delay((int)(_firstLayerRandomSpawnWaitTime * 1000));
                 return;
             }
 
             // Spawn at a position off-screen to the right
-            var spawnPosition = _view.spawnPoint.transform.position; //new Vector3(UnityEngine.Random.Range(50, 60), UnityEngine.Random.Range(-5, 5), 0);
+            var spawnPosition = _view.firstLayerSpawnPoint.transform.position; //new Vector3(UnityEngine.Random.Range(50, 60), UnityEngine.Random.Range(-5, 5), 0);
             var spawnedObject = SpawnEnvironmentObject(randomObjectData, spawnPosition);
 
             if (spawnedObject == null)
             {
-                await UniTask.Delay((int)(_randomSpawnWaitTime * 1000));
+                await UniTask.Delay((int)(_firstLayerRandomSpawnWaitTime * 1000));
                 return;
             }
 
@@ -380,7 +381,7 @@ namespace Systems.ParallaxSystem.Controller
 
             // Wait before spawning the next random object
             // Wait longer if we spawned relatives (to avoid cluttering)
-            float waitTime = hasRelativeObjects ? _randomSpawnWaitTime * 1.5f : _randomSpawnWaitTime;
+            float waitTime = hasRelativeObjects ? _firstLayerRandomSpawnWaitTime * 1.5f : _firstLayerRandomSpawnWaitTime;
             await UniTask.Delay((int)(waitTime * 1000));
         }
 
@@ -456,7 +457,7 @@ namespace Systems.ParallaxSystem.Controller
         /// </summary>
         public void SetRandomSpawnWaitTime(float waitTime)
         {
-            _randomSpawnWaitTime = Mathf.Max(0.5f, waitTime); // Minimum 0.5 seconds
+            _firstLayerRandomSpawnWaitTime = Mathf.Max(0.5f, waitTime); // Minimum 0.5 seconds
         }
 
         #endregion
@@ -468,9 +469,6 @@ namespace Systems.ParallaxSystem.Controller
             if (_activeEnvironmentObjects.Remove(guid))
                 Debug.Log($"Stopped tracking object with GUID: {guid}");
         }
-
-        // Public method for EnvironmentObject to call when despawning
-        // public IObservable<string> OnObjectDespawned => _onObjectDespawned;
 
         public void Dispose()
         {

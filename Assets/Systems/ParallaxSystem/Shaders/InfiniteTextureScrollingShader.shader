@@ -4,7 +4,12 @@ Shader "Custom/ScrollingSprite"
     {
         _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
-        _ScrollOffset ("Scroll Offset", Vector) = (0,0,0,0)
+        
+        [Header(Scrolling Settings)]
+        _ScrollSpeedX ("Scroll Speed X", Float) = 1.0
+        _ScrollSpeedY ("Scroll Speed Y", Float) = 0.0
+        _SpeedMultiplier ("Speed Multiplier", Float) = 1.0
+        _ScrollDirection ("Scroll Direction", Vector) = (-1,0,0,0)
         
         [Header(Sprite Settings)]
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
@@ -59,6 +64,8 @@ Shader "Custom/ScrollingSprite"
             fixed4 _Color;
             float _ScrollSpeedX;
             float _ScrollSpeedY;
+            float _SpeedMultiplier;
+            float4 _ScrollDirection;
 
             v2f vert(appdata_t IN)
             {
@@ -78,11 +85,19 @@ Shader "Custom/ScrollingSprite"
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                // Scroll the UV coordinates over time
-                // Use unity_DeltaTime.y for frame-rate independent scrolling that matches physics
+                // Calculate scroll using multiple speed controls
                 float2 scrolledUV = IN.texcoord;
-                scrolledUV.x += unity_DeltaTime.y * _ScrollSpeedX;
-                scrolledUV.y += unity_DeltaTime.y * _ScrollSpeedY;
+                
+                // Method 1: Using individual X/Y speeds with multiplier
+                float finalSpeedX = _ScrollSpeedX * _SpeedMultiplier;
+                float finalSpeedY = _ScrollSpeedY * _SpeedMultiplier;
+                
+                // Method 2: Alternatively use direction vector (normalized)
+                float2 directionScroll = normalize(_ScrollDirection.xy) * length(float2(_ScrollSpeedX, _ScrollSpeedY)) * _SpeedMultiplier;
+                
+                // Use the individual speeds (you can switch to directionScroll if preferred)
+                scrolledUV.x += _Time.y * finalSpeedX;
+                scrolledUV.y += _Time.y * finalSpeedY;
                 
                 // Wrap UVs to create seamless loop
                 scrolledUV = frac(scrolledUV);

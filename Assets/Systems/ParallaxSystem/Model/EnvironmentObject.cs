@@ -12,7 +12,7 @@ namespace Systems.ParallaxSystem.Model
         public string Guid { get; set; } // Unique identifier for this instance
         public float parallaxSpeed;
         protected EnvironmentObjectData Data;
-        // Signal to notify when this object despawns
+        
         private Subject<string> _onDespawn = new();
         public IObservable<string> OnDespawnSignal => _onDespawn;
         

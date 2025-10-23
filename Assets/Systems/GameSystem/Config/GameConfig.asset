@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Config.EnemyConfig
   gameSpeed:
-    value: 12.286198
+    value: 32.423668
   timer:
-    value: 15.240158
+    value: 149.47511
   hasGameStarted:
     value: 1
   hasTimerStarted:

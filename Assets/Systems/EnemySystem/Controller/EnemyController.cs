@@ -107,7 +107,7 @@ namespace Systems.EnemySystem.Controller
 
             var randomIndex = Random.Range(0, _unlockedEnemies.Count);
             var enemyType = (EnemyType)_unlockedEnemies[randomIndex];
-            var enemy = _spawner.Spawn(enemyType, _parallaxEnvironmentView.spawnPoint.position);
+            var enemy = _spawner.Spawn(enemyType, _parallaxEnvironmentView.firstLayerSpawnPoint.position);
 
             if (enemy == null) return;
             RegisterEnemy(enemy);

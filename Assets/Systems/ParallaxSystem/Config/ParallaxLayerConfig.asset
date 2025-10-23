@@ -23,7 +23,7 @@ MonoBehaviour:
       crucialRelativeObjects: []
       preferredRelativeObjects:
       - relativeObjectId: Divider01
-        distance: 2
+        distance: 5
         relativeObjectName: 
       - relativeObjectId: Dumpster00
         distance: 8
@@ -57,16 +57,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 6
       prefab: {fileID: 5722758633964627569, guid: 4aa02d853393d7e4ea56f59276f19a08, type: 3}
-    - id: Building00
-      name: 
-      layerType: 0
-      crucialRelativeObjects:
-      - relativeObjectId: Dumpster01
-        distance: 10
-        relativeObjectName: 
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 4412810674354075342, guid: dc8ccbec1bc3ef24d83aeda209da3f87, type: 3}
     - id: Dumpster00
       name: 
       layerType: 0
@@ -116,18 +106,249 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 6
       prefab: {fileID: 5116279936018653101, guid: 5ffc79019f8a48440b9f6229000d8251, type: 3}
+    - id: Building00
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 4412810674354075342, guid: dc8ccbec1bc3ef24d83aeda209da3f87, type: 3}
+    - id: Building100
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 7467768050060905544, guid: b7978ad7a65ab4a4597f78761d8e1ab2, type: 3}
+    - id: Building101
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 784838601459009822, guid: 14ee9ac703589a344a3c8f2553d4790a, type: 3}
+    - id: Building103
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 104995254481301104, guid: 3ee3d4e500514e447a670c7039b5d32a, type: 3}
+    - id: Building104
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 8808273303517215034, guid: 8e6c69410c7255f4f9a3020ebe7916d3, type: 3}
+    - id: Building106
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 7880132151708644868, guid: fa54fb74d32179e49af2063b936d9425, type: 3}
+    - id: Building108
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 1094002559920700173, guid: ef357ba51125fd046bf68888f518667e, type: 3}
+    - id: Building200
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 4946614887005656345, guid: 760aa1c7640ba834b9a9f8c9ba5a016c, type: 3}
+    - id: Building201
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 6547835643003495403, guid: 4bd1ce23201181d488384e0eba878002, type: 3}
+    - id: Building203
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 4990725203917687522, guid: e1ec6ddf3929b444191f5dd312448f2b, type: 3}
+    - id: Building204
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 8703091763128994420, guid: 86ddbdd2e59d300489d463d3b3a3068b, type: 3}
+    - id: Building205
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 6942774377445506479, guid: 3f806323445ac0a44919a8569d8d832a, type: 3}
+    - id: Building206
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 3438323946864874563, guid: 3d403afaa0a30ac47931a9f42466abb1, type: 3}
+    - id: Building207
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 1783616925305730023, guid: 8c50a167f1ab0a043a2e23b96edb482c, type: 3}
+    - id: Building300
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 4047477896170575748, guid: b4323879547fd724f8a5a50ffed2aeec, type: 3}
+    - id: Building301
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 961075522771038680, guid: 9bd251f80761ecc4c8a82542b88de47e, type: 3}
+    - id: Building302
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 2564787014884542317, guid: 257123fef1026cb4799e5347b871c3de, type: 3}
+    - id: Building303
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 5170074003865742516, guid: 3992c3b917b1f5442a48b241bd01d8b3, type: 3}
+    - id: Building303
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 5170074003865742516, guid: 3992c3b917b1f5442a48b241bd01d8b3, type: 3}
+    - id: Building304
+      name: 
+      layerType: 0
+      crucialRelativeObjects:
+      - relativeObjectId: Dumpster01
+        distance: 10
+        relativeObjectName: 
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 7481238153824159418, guid: 0c2c574c51eeafe4b9c14c2c05d7d4bb, type: 3}
+    - id: Building306
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 5985087695667098372, guid: f4c1abd71c65aba4994e4567b19f2951, type: 3}
+    - id: Building307
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 8025517025571936027, guid: ae6f8379c96a8ba43b50a43b5c283f49, type: 3}
+    - id: Building308
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 448364043178095952, guid: 1245132455e9cac4089d4645ee117795, type: 3}
+    - id: Building400
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 2476948109621556220, guid: 069bc5303dd4a604c9e620a0de6eceae, type: 3}
+    - id: Wall
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 50
+      prefab: {fileID: 7609466437566635439, guid: 2fdcba1208e0a12498afe1597dc82f53, type: 3}
   secondParallaxLayer:
     id: Second
     layerName: 
     layerType: 1
     environmentObjects:
-    - id: Stall
+    - id: Bulding102
       name: 
-      layerType: 0
+      layerType: 1
       crucialRelativeObjects: []
       preferredRelativeObjects: []
       estimatedSpawnTime: 0
-      prefab: {fileID: 725434517373756211, guid: 2f78143866313ef4e81b27e576a0b80e, type: 3}
+      prefab: {fileID: 817492173529997483, guid: 43cba682e78e9f345b92cacd9278854a, type: 3}
+    - id: Bulding105
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 3257744641641759629, guid: 03e83b9b16780804aa154051a38bda49, type: 3}
+    - id: Bulding107
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 2512683064451423072, guid: 5d3f4b0fcedd5cb4eac245fd5d1bf39e, type: 3}
+    - id: Bulding202
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 867018037982354230, guid: 46ee94840bab1ef4b81dd9573f2b6911, type: 3}
+    - id: Bulding208
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 7445697877801510316, guid: 8bd48cc9f21b8f947b54a68936cfb306, type: 3}
+    - id: Bulding305
+      name: 
+      layerType: 1
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 0
+      prefab: {fileID: 4986433003668715729, guid: 879123aa536dd26498030ff1f41fc421, type: 3}
   thirdParallaxLayer:
     id: Third
     layerName: 

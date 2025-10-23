@@ -12,6 +12,7 @@ namespace Systems.ParallaxSystem.Model
             transform.position = position;
             Id = data.id;
             Data = data;
+            parallaxSpeed = 0.5f;
         }
 
         public override void Reinitialize(Vector3 pos)
