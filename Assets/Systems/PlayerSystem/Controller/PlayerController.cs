@@ -105,7 +105,8 @@ namespace Systems.PlayerSystem.Controller
             _landingTimer = 0f; // No landing animation at start
 
             SubscribeToActions();
-            SetAnimationState(PlayerAnimState.Idle);
+            // SetAnimationState(PlayerAnimState.Idle);
+            animator.Play("idle");
         }
 
         #endregion
@@ -160,13 +161,15 @@ namespace Systems.PlayerSystem.Controller
                 if (landingVelocity <= landingThreshold)
                 {
                  
-                    SetAnimationState(PlayerAnimState.LandingStart);
+                    // SetAnimationState(PlayerAnimState.LandingStart);
+                    animator.Play("landingStart");
                     _landingTimer = idleDelay;
                 }
                 else
                 {
                   
-                    SetAnimationState(PlayerAnimState.Land);
+                    // SetAnimationState(PlayerAnimState.Land);
+                    // animator.Play("land");
                     _landingTimer = idleDelay * 0.5f; 
                 }
             }
@@ -177,12 +180,14 @@ namespace Systems.PlayerSystem.Controller
                 if (_rb.linearVelocity.y > 0.1f)
                 {
                     // Moving upward - jumping
-                    SetAnimationState(PlayerAnimState.Jump);
+                    // SetAnimationState(PlayerAnimState.Jump);
+                    animator.Play("jump");
                 }
                 else if (_rb.linearVelocity.y < -0.1f)
                 {
                     // Moving downward - falling
-                    SetAnimationState(PlayerAnimState.Fall);
+                    // SetAnimationState(PlayerAnimState.Fall);
+                    animator.Play("fall");
                 }
             }
             // ===== GROUNDED STATES =====
@@ -193,12 +198,14 @@ namespace Systems.PlayerSystem.Controller
                 if (_gameConfig.hasGameStarted.Value && !isDead)
                 {
                     // Player is moving - play run animation
-                    SetAnimationState(PlayerAnimState.Run);
+                    // SetAnimationState(PlayerAnimState.Run);
+                    animator.Play("run");
                 }
                 else
                 {
                     // Player is stationary - play idle animation
-                    SetAnimationState(PlayerAnimState.Idle);
+                    // SetAnimationState(PlayerAnimState.Idle);
+                    animator.Play("idle");
                 }
             }
 
@@ -211,19 +218,19 @@ namespace Systems.PlayerSystem.Controller
         /// Prevents redundant state changes for performance
         /// </summary>
         /// <param name="newState">The animation state to transition to</param>
-        private void SetAnimationState(PlayerAnimState newState)
-        {
-            // Avoid setting the same state twice (optimization)
-            if (_currentAnimState == newState) return;
-
-            _currentAnimState = newState;
-
-            // Update Animator parameter if animator exists
-            if (animator != null)
-            {
-                animator.SetInteger(AnimStateHash, (int)newState);
-            }
-        }
+        // private void SetAnimationState(PlayerAnimState newState)
+        // {
+        //     // Avoid setting the same state twice (optimization)
+        //     if (_currentAnimState == newState) return;
+        //
+        //     _currentAnimState = newState;
+        //
+        //     // Update Animator parameter if animator exists
+        //     if (animator != null)
+        //     {
+        //         animator.SetInteger(AnimStateHash, (int)newState);
+        //     }
+        // }
 
         // ==================================================
 
@@ -309,7 +316,8 @@ namespace Systems.PlayerSystem.Controller
             jumpTimeCounter = maxJumpTime;
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
             
-            SetAnimationState(PlayerAnimState.Jump);
+            // SetAnimationState(PlayerAnimState.Jump);
+            animator.Play("jump");
             _landingTimer = 0f; // Clear landing timer to allow immediate animation change
         }
 
