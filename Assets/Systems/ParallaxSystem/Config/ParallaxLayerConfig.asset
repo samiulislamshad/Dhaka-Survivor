@@ -295,13 +295,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 2476948109621556220, guid: 069bc5303dd4a604c9e620a0de6eceae, type: 3}
-    - id: Wall
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 50
-      prefab: {fileID: 7609466437566635439, guid: 2fdcba1208e0a12498afe1597dc82f53, type: 3}
   secondParallaxLayer:
     id: Second
     layerName: 
