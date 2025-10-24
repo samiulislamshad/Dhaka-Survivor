@@ -1,6 +1,8 @@
 ﻿using Systems.EnemySystem;
+using Systems.InputSystem.Signal;
 using Systems.PlayerSystem.Controller;
 using Systems.PlayerSystem.Signals;
+using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
 using Zenject;
 

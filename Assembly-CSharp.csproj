@@ -53,6 +53,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\View\ParallaxEnvironmentView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\FirstLayerEnvironmentObjectFactory.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\ContactWithEnemySignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\MinarEnemy.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\AttackInputSignal.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\FourthLayerEnvironmentObjectFactory.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ParallaxLayerData.cs" />
     <Compile Include="Assets\Systems\ScoreSystem\Signal\AddScoreSignal.cs" />
-    <Compile Include="Assets\Systems\PlayerSystem\Signals\PlayerDeadSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Handler\GroundHandler.cs" />
     <Compile Include="Assets\Systems\InputSystem\Model\UserData.cs" />
@@ -72,7 +72,6 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Controller\ParallaxEnvironmentController.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Installer\PlayerInstaller.cs" />
     <Compile Include="Assets\Systems\InputSystem\Signal\SwitchToPlayerControlSignal.cs" />
-    <Compile Include="Assets\Systems\PlayerSystem\Signals\ContactWithEnemySignal.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\Enemy.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\ChapriBikerPool.cs" />
     <Compile Include="Assets\Systems\InputSystem\Installer\VirtualKeyboardInstaller.cs" />
@@ -87,7 +86,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\ObjectPooling\FirstLayerPool.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\RelativeObjectData.cs" />
-    <Compile Include="Assets\Systems\PlayerSystem\Signals\PlayerSpecialJumpSignal.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\SwitchOnPlayerControlSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ParallaxLayer.cs" />
     <Compile Include="Assets\Systems\GameSystem\Installer\GameInstaller.cs" />
     <Compile Include="Assets\Systems\SoundSystem\Installer\SoundInstaller.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\MinarPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\AuntyEnemy.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\PlayerSpecialJumpSignal.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\SpawnEnemySignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\SecondLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\SecondLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopCrouchInputSignal.cs" />
+    <Compile Include="Assets\Systems\InputSystem\HelperScript\KeyboardFocusHelper.cs" />
     <Compile Include="Assets\Systems\InputSystem\Controller\VirtualKeyboardController.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ActiveEnvironmentObjectData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Assets\Systems\MainMenuSystem\Controller\MainMenuCanvasController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\PlayerDeadSignal.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Installer\LoadingScreenInstaller.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\ThirdLayerEnvironmentObjectFactory.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Handler\ParallaxShaderEffectController.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\SwitchOffPlayerControlSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\ObjectPooling\FourthLayerPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\ChapriBikerEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />

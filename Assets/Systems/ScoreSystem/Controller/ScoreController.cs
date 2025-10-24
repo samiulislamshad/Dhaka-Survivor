@@ -4,6 +4,7 @@ using Services;
 using Systems.GameSystem.Config;
 using Systems.PauseSystem.Signals;
 using Systems.PlayerSystem.Signals;
+using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
 using UnityEngine.EventSystems;

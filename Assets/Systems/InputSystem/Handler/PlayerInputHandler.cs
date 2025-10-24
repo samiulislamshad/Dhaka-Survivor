@@ -1,5 +1,6 @@
 using System;
 using Systems.PlayerSystem.Signals;
+using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -21,21 +22,14 @@ namespace Systems.InputSystem.Handler
         private Action<InputAction.CallbackContext> _startCrouchInputAction;
         private Action<InputAction.CallbackContext> _stopCrouchInputAction;
         
-        private Action<InputAction.CallbackContext> _attackInputAction;
         private Action<InputAction.CallbackContext> _togglePauseInputAction;
         
-        //for test
-        private Action<InputAction.CallbackContext> _spawnEnemiesInputAction;
-       
         
         #region Initializers
 
         private void Awake()
         {
             _inputControls = new InputMaster();
-            // keyboardMap = inp.actions.FindActionMap("Keyboard");
-            // gamepadMap = playerInput.actions.FindActionMap("Gamepad");
-            
         }
 
         #region Subscribe and Unsubscribe
@@ -44,14 +38,11 @@ namespace Systems.InputSystem.Handler
         {
             _startCrouchInputAction = _ => StartCrouchInput();
             _stopCrouchInputAction = _ => StopCrouchInput();
-            _attackInputAction = _ => AttackInput();
+            
             _startJumpInputAction = _ => StartJumpInput();
             _stopJumpInputAction = _ => StopJumpInput();
             
             _togglePauseInputAction = _ => TogglePause();
-
-            _spawnEnemiesInputAction = _ => SpawnEnemy();
-            
             
             _inputControls.PlayerControl.Crouch.performed += _startCrouchInputAction;
             _inputControls.PlayerControl.Crouch.canceled += _stopCrouchInputAction;
@@ -61,9 +52,8 @@ namespace Systems.InputSystem.Handler
             
             _inputControls.PlayerControl.TogglePause.performed += _togglePauseInputAction;
             
-            
-            _inputControls.PlayerControl.SpawnEnemies.performed += _spawnEnemiesInputAction;
-            
+            _signalBus.Subscribe<SwitchOnPlayerControlSignal>(SwitchOnPlayerControl);
+            _signalBus.Subscribe<SwitchOffPlayerControlSignal>(SwitchOffPlayerControl);
             // _signalBus.Subscribe<PauseSignal>(DisablePlayerControl);
             // _signalBus.Subscribe<UnpauseSignal>(EnablePlayerControl);
         }
@@ -78,8 +68,8 @@ namespace Systems.InputSystem.Handler
             
             _inputControls.PlayerControl.TogglePause.performed -= _togglePauseInputAction;
             
-            _inputControls.PlayerControl.SpawnEnemies.performed -= _spawnEnemiesInputAction;
-            
+            _signalBus.Unsubscribe<SwitchOnPlayerControlSignal>(SwitchOnPlayerControl);
+            _signalBus.Unsubscribe<SwitchOffPlayerControlSignal>(SwitchOffPlayerControl);
             // _signalBus.Unsubscribe<PauseSignal>(DisablePlayerControl);
             // _signalBus.Unsubscribe<UnpauseSignal>(EnablePlayerControl);
         }
@@ -91,7 +81,7 @@ namespace Systems.InputSystem.Handler
         private void OnEnable()
         {
             _inputControls.Enable();
-            _inputControls.PlayerControl.Enable();
+            _inputControls.PlayerControl.Disable();
             _inputControls.UiControl.Enable();
             
             SubscribeToActions();
@@ -109,12 +99,16 @@ namespace Systems.InputSystem.Handler
 
         #endregion
 
-        #region Control Inputs
-        
-        private void AttackInput()
+        private void SwitchOnPlayerControl()
         {
-            _signalBus.Fire<AttackInputSignal>();
+            _inputControls.PlayerControl.Enable();
         }
+        private void SwitchOffPlayerControl()
+        {
+            _inputControls.PlayerControl.Disable();
+        }
+
+        #region Control Inputs
         
         private void StartJumpInput()
         {
@@ -142,11 +136,6 @@ namespace Systems.InputSystem.Handler
         }
         
         #endregion
-
-        private void SpawnEnemy()
-        {
-            _signalBus.Fire<SpawnEnemySignal>();
-        }
         
         #region Pause and Unpause Controls
 

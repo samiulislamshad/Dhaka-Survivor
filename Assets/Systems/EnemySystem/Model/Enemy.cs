@@ -4,6 +4,7 @@ using Systems.EnemySystem.Interface;
 using Systems.EnemySystem.Service;
 using Systems.GameSystem.Config;
 using Systems.PlayerSystem.Signals;
+using Systems.PlayerSystem.Signals.GameSignals;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -37,7 +38,8 @@ namespace Systems.EnemySystem.Model
             
             IsDespawning = false;
             gameObject.SetActive(true);
-            col.includeLayers = LayerMask.GetMask("Player");
+            col.includeLayers = LayerMask.GetMask("Player", "Limit");
+            col.excludeLayers = LayerMask.GetMask();
             
             animator.Play("Idle");
 
@@ -63,6 +65,7 @@ namespace Systems.EnemySystem.Model
         private void OnTakeDamage(Collision2D collision)
         {
             col.excludeLayers = LayerMask.GetMask("Player");
+            col.includeLayers = LayerMask.GetMask("Limit");
             animator.Play("Death");
             SignalBus.Fire<PlayerSpecialJumpSignal>();
         }

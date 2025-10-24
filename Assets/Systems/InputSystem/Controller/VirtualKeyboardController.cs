@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Systems.GameSystem.Config;
 using Systems.InputSystem.Model;
 using Systems.InputSystem.View;
+using Systems.PlayerSystem.Signals.GameSignals;
 using UniRx;
+using UnityEngine.EventSystems;
+using Zenject;
 
 namespace Systems.InputSystem.Controller
 {
@@ -12,16 +15,19 @@ namespace Systems.InputSystem.Controller
     {
         private GameConfig _config;
         private VirtualKeyboardView _view;
+        private SignalBus _signalBus;
         private CompositeDisposable _disposable;
 
         private ReactiveProperty<string> _userName;
         private const int MaxLength = 20;
+        private const int MinLength = 3;
         private readonly List<string> _specialKeys = new() {"Submit", "Cancel", "Delete"};
 
-        public VirtualKeyboardController(GameConfig config, VirtualKeyboardView view)
+        public VirtualKeyboardController(GameConfig config, VirtualKeyboardView view, SignalBus signalBus)
         {
             _config = config;
             _view = view;
+            _signalBus = signalBus;
 
             _userName = new ReactiveProperty<string>("");
             _disposable = new CompositeDisposable();
@@ -34,6 +40,7 @@ namespace Systems.InputSystem.Controller
             _userName.Subscribe(value =>
             {
                 _view.userNameText.text = value;
+                _view.submitButton.interactable = _userName.Value.Length >= MinLength;
             }).AddTo(_disposable);
 
             _view.submitButton.OnClickAsObservable().Subscribe(_ =>
@@ -70,6 +77,7 @@ namespace Systems.InputSystem.Controller
 
         private void OnSubmit()
         {
+            if(_userName.Value.Length <= 0) return;
             var dateTime = DateTime.Now;
             var userData = new UserData
             {
@@ -87,18 +95,21 @@ namespace Systems.InputSystem.Controller
             _userName.Value = "";
             HideVirtualKeyboard();
         }
+        
+        #endregion
 
         public void ShowVirtualKeyboard()
         {
             _view.gameObject.SetActive(true);
+            _signalBus.Fire<SwitchOffPlayerControlSignal>();
+            EventSystem.current.SetSelectedGameObject(_view.deleteButton.gameObject);
         }
 
         public void HideVirtualKeyboard()
         {
             _view.gameObject.SetActive(false);
+            _signalBus.Fire<SwitchOnPlayerControlSignal>();
         }
-        
-        #endregion
 
         public void Dispose()
         {

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2054394565923994474
+--- !u!1 &526807258503102513
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4514017352283930941}
-  - component: {fileID: 1277284765828859340}
+  - component: {fileID: 7989105853027461264}
+  - component: {fileID: 127626359594421822}
   m_Layer: 0
   m_Name: Object
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4514017352283930941
+--- !u!4 &7989105853027461264
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054394565923994474}
+  m_GameObject: {fileID: 526807258503102513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.5, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalPosition: {x: 0, y: 7.5, z: 0}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 5420538898403400871}
+  m_Father: {fileID: 7763612571406495753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1277284765828859340
+--- !u!212 &127626359594421822
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054394565923994474}
+  m_GameObject: {fileID: 526807258503102513}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,10 +76,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1909727213
-  m_SortingLayer: 4
-  m_SortingOrder: 23
-  m_Sprite: {fileID: -6685189051171614691, guid: ae0d1af8fdcd85742a507753af446e22, type: 3}
+  m_SortingLayerID: -872141987
+  m_SortingLayer: 5
+  m_SortingOrder: 13
+  m_Sprite: {fileID: -8911251428918342384, guid: ed19385c61963b542886b6a60534fa7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &4986433003668715729
+--- !u!1 &8582341376581965365
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,41 +98,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5420538898403400871}
-  - component: {fileID: 605232394240135715}
+  - component: {fileID: 7763612571406495753}
+  - component: {fileID: 4006429123228661111}
   m_Layer: 0
-  m_Name: Building305
+  m_Name: Tree02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5420538898403400871
+--- !u!4 &7763612571406495753
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4986433003668715729}
+  m_GameObject: {fileID: 8582341376581965365}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60, y: -8, z: 0}
+  m_LocalPosition: {x: -2.87546, y: 3.06268, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4514017352283930941}
+  - {fileID: 7989105853027461264}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &605232394240135715
+--- !u!114 &4006429123228661111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4986433003668715729}
+  m_GameObject: {fileID: 8582341376581965365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ff49c70db804064b9a35531c5138f15, type: 3}
+  m_Script: {fileID: 11500000, guid: f5b8ba7eb19943309f55865aa135d925, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Systems.ParallaxSystem.Model.SecondLayerEnvironmentObject
-  parallaxSpeed: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::Systems.ParallaxSystem.Model.FirstLayerEnvironmentObject
+  parallaxSpeed: 1

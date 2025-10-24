@@ -85,7 +85,7 @@ namespace Systems.GameSystem.Manager
             if (_config.hasTimerStarted.Value)
                 _config.timer.Value += Time.fixedDeltaTime;
             if(_config.hasGameStarted.Value)
-                _config.gameSpeed.Value += Time.fixedDeltaTime/10 * 1.5f;
+                _config.gameSpeed.Value += Time.fixedDeltaTime/5 * 1.5f;
         }
 
         private void IncrementGameSpeed()

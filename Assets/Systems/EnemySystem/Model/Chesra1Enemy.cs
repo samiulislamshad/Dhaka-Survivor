@@ -1,4 +1,5 @@
 ﻿using Systems.EnemySystem.Enum;
+using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
 
 namespace Systems.EnemySystem.Model

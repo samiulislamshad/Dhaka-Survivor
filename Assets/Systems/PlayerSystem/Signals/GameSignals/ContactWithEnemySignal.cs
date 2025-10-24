@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Systems.EnemySystem
+namespace Systems.PlayerSystem.Signals.GameSignals
 {
     [Serializable]
     public class ContactWithEnemySignal

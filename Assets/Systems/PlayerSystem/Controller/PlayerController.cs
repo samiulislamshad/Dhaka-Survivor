@@ -2,6 +2,7 @@
 using Systems.GameSystem.Config;
 using Systems.PauseSystem.Signals;
 using Systems.PlayerSystem.Signals;
+using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
 using Zenject;
 
