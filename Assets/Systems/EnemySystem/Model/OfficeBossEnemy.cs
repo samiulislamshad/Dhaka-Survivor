@@ -3,14 +3,17 @@ using UnityEngine;
 
 namespace Systems.EnemySystem.Model
 {
-    public class RangedEnemy : Enemy
+    public class OfficeBossEnemy : Enemy
     {
-        public override EnemyType Type => EnemyType.Ranged;
-        private const float BaseEnemySpeed = 2f;
+        public override EnemyType Type => EnemyType.OfficeBoss;
 
         protected override void OnFixedUpdate()
         {
-            rb.MovePosition(rb.position + Vector2.left * (BaseEnemySpeed * Config.gameSpeed.Value * Time.fixedDeltaTime));
+            var finalSpeedX = GetCalculatedSpeedX();
+            var finalSpeedY = GetCalculatedSpeedY();
+        
+            var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.fixedDeltaTime * Config.enemySpeedMultiplier);
+            rb.MovePosition(rb.position + movement);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
@@ -25,4 +28,5 @@ namespace Systems.EnemySystem.Model
                 SignalBus.Fire<ContactWithEnemySignal>();
         }
     }
+
 }

@@ -2,8 +2,13 @@
 {
     public enum EnemyType
     {
-        Melee,
-        Ranged,
-        Aerial
+        Chesra1,
+        ChapriBiker,
+        Chesra2,
+        OfficeBoss,
+        Aunty,
+        Hojor,
+        Chesra3,
+        Minar
     }
 }

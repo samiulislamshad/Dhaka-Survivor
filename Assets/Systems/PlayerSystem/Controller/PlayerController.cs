@@ -35,7 +35,7 @@ namespace Systems.PlayerSystem.Controller
         private float crouchSpeed = 2.5f;
 
         [SerializeField] private float fastFallGravity = 50f; // Extra fast fall when crouching
-        [SerializeField] private float crouchScale = 0.5f;
+        // [SerializeField] private float crouchScale = 0.5f;
 
         [Header("Animation Settings")] [SerializeField]
         private Animator animator; // Reference to the Animator component
@@ -212,27 +212,7 @@ namespace Systems.PlayerSystem.Controller
             // Store current grounded state for next frame's landing detection
             _wasGrounded = isGrounded;
         }
-
-        /// <summary>
-        /// Sets the current animation state and updates the Animator
-        /// Prevents redundant state changes for performance
-        /// </summary>
-        /// <param name="newState">The animation state to transition to</param>
-        // private void SetAnimationState(PlayerAnimState newState)
-        // {
-        //     // Avoid setting the same state twice (optimization)
-        //     if (_currentAnimState == newState) return;
-        //
-        //     _currentAnimState = newState;
-        //
-        //     // Update Animator parameter if animator exists
-        //     if (animator != null)
-        //     {
-        //         animator.SetInteger(AnimStateHash, (int)newState);
-        //     }
-        // }
-
-        // ==================================================
+        
 
         #endregion
 
@@ -355,6 +335,8 @@ namespace Systems.PlayerSystem.Controller
             isDead = true;
             _signalBus.Fire<PlayerDeadSignal>();
             _signalBus.Fire<PauseSignal>();
+            _gameConfig.hasGameStarted.Value = false;
+            _gameConfig.hasTimerStarted.Value = false;
             _rb.linearVelocity = Vector2.zero;
             _rb.gravityScale = 0;
         }

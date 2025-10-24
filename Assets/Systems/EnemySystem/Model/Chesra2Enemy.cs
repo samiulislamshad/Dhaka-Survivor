@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Systems.EnemySystem.Model
 {
-    public class MeleeEnemy : Enemy
+    public class Chesra2Enemy : Enemy
     {
-        public override EnemyType Type => EnemyType.Melee;
+        public override EnemyType Type => EnemyType.Chesra2;
 
         protected override void OnFixedUpdate()
         {
@@ -23,9 +23,7 @@ namespace Systems.EnemySystem.Model
                 Debug.Log($"Triggered {other.gameObject.name}");
                 IsDespawning = true;
             }
-            
-            if(other.gameObject.CompareTag("Player"))
-                SignalBus.Fire<ContactWithEnemySignal>();
         }
+        
     }
 }

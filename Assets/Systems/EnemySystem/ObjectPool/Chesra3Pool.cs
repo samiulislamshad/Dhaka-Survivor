@@ -6,14 +6,14 @@ using Zenject;
 namespace Systems.EnemySystem.ObjectPool
 {
     [Serializable]
-    public class AerialEnemyPool : MonoMemoryPool<Vector3, AerialEnemy>
+    public class Chesra3Pool : MonoMemoryPool<Vector3, Chesra3Enemy>
     {
-        protected override void Reinitialize(Vector3 pos, AerialEnemy enemy)
+        protected override void Reinitialize(Vector3 pos, Chesra3Enemy enemy)
         {
             enemy.Initialize(pos);
         }
 
-        protected override void OnDespawned(AerialEnemy enemy)
+        protected override void OnDespawned(Chesra3Enemy enemy)
         {
             enemy.gameObject.SetActive(false);
         }

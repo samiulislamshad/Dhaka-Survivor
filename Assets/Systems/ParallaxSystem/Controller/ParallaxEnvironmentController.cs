@@ -32,13 +32,11 @@ namespace Systems.ParallaxSystem.Controller
         // Dictionary to track active environment objects by their GUID
         private Dictionary<string, ActiveEnvironmentObjectData> _activeEnvironmentObjects;
 
-        // ═══════════════════════════════════════════════════════════════════════════════
-        // NEWLY ADDED: Random spawning control variables
-        // ═══════════════════════════════════════════════════════════════════════════════
-        private bool _isRandomSpawning = false;
-        private float _firstLayerRandomSpawnWaitTime = 2f;
-        private float _secondLayerRandomSpawnWaitTime = 7f;
-        // ═══════════════════════════════════════════════════════════════════════════════
+       // Random Spawning variables
+        private bool _isRandomSpawning;
+        private float _firstLayerRandomSpawnWaitTime = 1.5f;
+        private float _secondLayerRandomSpawnWaitTime = 5f;
+       
 
         public ParallaxEnvironmentController(ParallaxEnvironmentSpawner spawner, GameConfig gameConfig,
             ParallaxLayerConfig config, ParallaxEnvironmentView view)
@@ -59,26 +57,21 @@ namespace Systems.ParallaxSystem.Controller
             _isRandomSpawning = false;
             
             SubscribeToProperties();
+            
+            StartRandomSpawning(_config.firstParallaxLayer, _firstLayerRandomSpawnWaitTime,
+                _view.firstLayerSpawnPoint.transform.position).Forget();
+            StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
+                _view.secondLayerSpawnPoint.transform.position).Forget();
         }
 
         private void SubscribeToProperties()
         {
-            _gameConfig.hasGameStarted.Subscribe(value =>
-            {
-                if (value)
-                {
-                    StartRandomSpawning(_config.firstParallaxLayer, _firstLayerRandomSpawnWaitTime,
-                        _view.firstLayerSpawnPoint.transform.position).Forget();
-                    StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
-                        _view.secondLayerSpawnPoint.transform.position).Forget();
-                }
-                else
-                    StopRandomSpawning();
-            }).AddTo(_disposable);
+            
         }
 
         public void FixedTick()
         {
+            Debug.LogWarning($"HasGameStarted event: {_gameConfig.hasGameStarted}");
             if (!_gameConfig.hasGameStarted.Value) return;
             UpdateEnvironmentObjects();
             UpdateActiveObjectTimers();
@@ -323,10 +316,6 @@ namespace Systems.ParallaxSystem.Controller
             while (_isRandomSpawning)
             {
                 await SpawnRandomEnvironmentObject(parallaxLayer, spawnWaitTime, position);
-                // var secondLayerTask = SpawnRandomEnvironmentObject(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
-                //     _view.secondLayerSpawnPoint.transform.position);
-                
-                // await UniTask.WhenAll(firstLayerTask, secondLayerTask);
             }
         }
         

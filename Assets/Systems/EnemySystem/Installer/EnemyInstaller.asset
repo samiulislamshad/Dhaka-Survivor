@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7dee6e481674c6787edc5735670734c, type: 3}
   m_Name: EnemyInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Installer.EnemyInstaller
-  config: {fileID: 11400000, guid: 2748e0473f0d303439be82408fb0b1cf, type: 2}
-  meleeEnemyPrefab: {fileID: 7408599254762613024, guid: 618d1a8feb57fa640a0c37efbe34e61e, type: 3}
-  rangedEnemyPrefab: {fileID: 4426662724799184321, guid: ed035a1a23e6d1f4c9b82505a18be23d, type: 3}
-  aerialEnemyPrefab: {fileID: 3732078281177842944, guid: 1d1ceb7f350195d4f80172128b79e3f9, type: 3}
+  chesra1EnemyPrefab: {fileID: 7408599254762613024, guid: 618d1a8feb57fa640a0c37efbe34e61e, type: 3}
+  chapriBikerEnemyPrefab: {fileID: 4426662724799184321, guid: ed035a1a23e6d1f4c9b82505a18be23d, type: 3}
+  chesra2EnemyPrefab: {fileID: 3732078281177842944, guid: 1d1ceb7f350195d4f80172128b79e3f9, type: 3}
+  officeBossEnemyPrefab: {fileID: 6204459038322015982, guid: 2b664c4e62ce3434694b693a89ae57af, type: 3}
+  auntyEnemyPrefab: {fileID: 8108463194985562986, guid: 9dcf8aebf2730e140a6cec2f34c8cde0, type: 3}
+  chesra3EnemyPrefab: {fileID: 4517822049114383633, guid: c21fec2c2ac447f438265b80cddb5375, type: 3}
+  pagriBroEnemyPrefab: {fileID: 6770730453928046436, guid: 17a8fc990602f0b4fafe4d4e92055d75, type: 3}
+  minarEnemyPrefab: {fileID: 2543513339071928472, guid: 27626b7a98259c8408ee03e23df045ff, type: 3}

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4920029651320806090}
   - component: {fileID: 2441155197121391755}
   - component: {fileID: 7220984007408321848}
-  - component: {fileID: 7408599254762613024}
+  - component: {fileID: 2543513339071928472}
   m_Layer: 0
-  m_Name: Chesra1
+  m_Name: MinarEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 378859069733802224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.33708, y: -2.90627, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -69,7 +69,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.24541855, y: 1.1}
+  m_Offset: {x: 0.23185283, y: 1.1000001}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -79,7 +79,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.2144747, y: 3.377027}
+  m_Size: {x: 1.9107689, y: 3.377027}
   m_EdgeRadius: 0
 --- !u!50 &7220984007408321848
 Rigidbody2D:
@@ -108,7 +108,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7408599254762613024
+--- !u!114 &2543513339071928472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,9 +117,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 378859069733802224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb351b75ba24cedbb22c4c415703735, type: 3}
+  m_Script: {fileID: 11500000, guid: 0faf7bd0602c4e469c1521841740356f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Model.MeleeEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Model.MinarEnemy
+  animator: {fileID: 3153023657611193198}
   rb: {fileID: 7220984007408321848}
   moveSpeedX: 1
   moveSpeedY: 0
@@ -135,7 +136,7 @@ GameObject:
   - component: {fileID: 8588423568016090716}
   - component: {fileID: 3153023657611193198}
   m_Layer: 0
-  m_Name: Character
+  m_Name: Minar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: -585369155
   m_SortingLayer: 10
   m_SortingOrder: 5
-  m_Sprite: {fileID: -4741490835334504028, guid: 8fd9982ef73a7f548b6ca9a13d969ef6, type: 3}
+  m_Sprite: {fileID: -1839432523583469574, guid: 8fd9982ef73a7f548b6ca9a13d969ef6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -224,7 +225,7 @@ Animator:
   m_GameObject: {fileID: 528145709434403754}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 471c3f651851e9646a1c1859fc8bcbd3, type: 2}
+  m_Controller: {fileID: 9100000, guid: b81bfe64a26614b4ea43325594ad4278, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

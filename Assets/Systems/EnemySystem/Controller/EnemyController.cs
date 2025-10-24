@@ -29,6 +29,9 @@ namespace Systems.EnemySystem.Controller
         private List<int> _unlockedEnemies;
 
         private float _spawnTimer;
+        private const float InitialSpawnTime = 3f;
+        private float _changeRate = 10;
+        private float _spawnRate = 0.8f;
         private float _nextSpawnTime;
 
         public EnemyController(GameConfig config, EnemySpawner spawner, ParallaxEnvironmentView parallaxEnvironmentView, SignalBus signalBus)
@@ -41,20 +44,20 @@ namespace Systems.EnemySystem.Controller
             _disposable = new CompositeDisposable();
 
             _activeEnemies = new List<Enemy>();
-            _lockedEnemies = new List<int> { 2 };
-            _unlockedEnemies = new List<int> { 0, 1 };
+            _lockedEnemies = new List<int> { 1 };
+            _unlockedEnemies = new List<int> { 0 , 2 , 3 , 4 , 5 , 6 , 7 };
 
             _spawnTimer = 0f;
-            _nextSpawnTime = Random.Range(0.5f, 2f);
+            _nextSpawnTime = 2f;
 
             SubscribeToProperties();
         }
 
         public void FixedTick()
         {
-            Debug.Log($"spawnTimer: {_spawnTimer},  nextSpawnTime: {_nextSpawnTime}, enemies: {_activeEnemies.Count}");
             if (!_config.hasGameStarted.Value || !_config.hasTimerStarted.Value) return;
 
+            ModifySpawnTimer();
             _spawnTimer += Time.fixedDeltaTime;
 
             if (_spawnTimer >= _nextSpawnTime)
@@ -65,19 +68,24 @@ namespace Systems.EnemySystem.Controller
                 }
 
                 _spawnTimer = 0f;
-                _nextSpawnTime = Random.Range(0.5f, 2f);
             }
+        }
+
+        private void ModifySpawnTimer()
+        {
+            var steps = (int)(_config.timer.Value / _changeRate);
+            _nextSpawnTime = InitialSpawnTime * Mathf.Pow(_spawnRate, steps);
+            Debug.LogWarning($"Spawn Time Changed {_nextSpawnTime}");
         }
 
         private void SubscribeToProperties()
         {
-            // Optional: Adjust spawn rate based on game speed
-            _config.gameSpeed
-                .Subscribe(speed =>
-                {
-                    // Can add difficulty scaling here if needed
-                })
-                .AddTo(_disposable);
+            _config.timer.Subscribe(value =>
+            {
+                if(value < 30) return;
+                if(_lockedEnemies.Count <= 0) return;
+                _unlockedEnemies.Add(_lockedEnemies[0]);
+            }).AddTo(_disposable);
             
             _signalBus.Subscribe<UnregisterEnemySignal>(UnRegisterEnemy);
         }

@@ -6,14 +6,14 @@ using Zenject;
 namespace Systems.EnemySystem.ObjectPool
 {
     [Serializable]
-    public class RangedEnemyPool : MonoMemoryPool<Vector3, RangedEnemy>
+    public class OfficeBossPool : MonoMemoryPool<Vector3, OfficeBossEnemy>
     {
-        protected override void Reinitialize(Vector3 pos, RangedEnemy enemy)
+        protected override void Reinitialize(Vector3 pos, OfficeBossEnemy enemy)
         {
             enemy.Initialize(pos);
         }
 
-        protected override void OnDespawned(RangedEnemy enemy)
+        protected override void OnDespawned(OfficeBossEnemy enemy)
         {
             enemy.gameObject.SetActive(false);
         }

@@ -51,8 +51,6 @@ namespace Systems.GameSystem.Manager
             _config.timer = new ReactiveProperty<float>(0);
             _config.hasGameStarted = new ReactiveProperty<bool>(false);
             _config.hasTimerStarted = new ReactiveProperty<bool>(false);
-
-            // NEW: Initialize spawn settings
             _config.maxEnemies = new ReactiveProperty<int>(10);
 
             _disposable = new CompositeDisposable();

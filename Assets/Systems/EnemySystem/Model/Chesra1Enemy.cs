@@ -3,14 +3,16 @@ using UnityEngine;
 
 namespace Systems.EnemySystem.Model
 {
-    public class AerialEnemy : Enemy
+    public class Chesra1Enemy : Enemy
     {
-        public override EnemyType Type => EnemyType.Aerial;
+        public override EnemyType Type => EnemyType.Chesra1;
 
         protected override void OnFixedUpdate()
         {
-            var wave = Mathf.Sin(Timer * 3f) * 2f;
-            var movement = new Vector2(-Config.gameSpeed.Value * Time.fixedDeltaTime, wave * Time.fixedDeltaTime);
+            var finalSpeedX = GetCalculatedSpeedX();
+            var finalSpeedY = GetCalculatedSpeedY();
+        
+            var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.fixedDeltaTime * Config.enemySpeedMultiplier);
             rb.MovePosition(rb.position + movement);
         }
 
@@ -21,7 +23,9 @@ namespace Systems.EnemySystem.Model
                 Debug.Log($"Triggered {other.gameObject.name}");
                 IsDespawning = true;
             }
+            
+            if(other.gameObject.CompareTag("Player"))
+                SignalBus.Fire<ContactWithEnemySignal>();
         }
-        
     }
 }
