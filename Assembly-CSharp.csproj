@@ -49,6 +49,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Systems\GameSystem\Config\GameConfig.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\Chesra1Enemy.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Service\EnemyDamageDetector.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\View\ParallaxEnvironmentView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\FirstLayerEnvironmentObjectFactory.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\ObjectPooling\FirstLayerPool.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\RelativeObjectData.cs" />
+    <Compile Include="Assets\Systems\PlayerSystem\Signals\PlayerSpecialJumpSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ParallaxLayer.cs" />
     <Compile Include="Assets\Systems\GameSystem\Installer\GameInstaller.cs" />
     <Compile Include="Assets\Systems\SoundSystem\Installer\SoundInstaller.cs" />

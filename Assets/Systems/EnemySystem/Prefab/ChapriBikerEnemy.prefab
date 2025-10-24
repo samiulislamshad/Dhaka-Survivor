@@ -235,5 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Model.RangedEnemy
   animator: {fileID: 6563433470278342012}
   rb: {fileID: 2840582522472354468}
+  col: {fileID: 8699080963402357134}
+  enemyDamageDetector: {fileID: 0}
   moveSpeedX: 0.5
   moveSpeedY: 0

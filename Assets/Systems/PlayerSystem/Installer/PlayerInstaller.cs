@@ -23,6 +23,7 @@ namespace Systems.PlayerSystem.Installer
 
             Container.DeclareSignal<ContactWithEnemySignal>();
             Container.DeclareSignal<PlayerDeadSignal>();
+            Container.DeclareSignal<PlayerSpecialJumpSignal>();
 
             Container.BindInterfacesAndSelfTo<PlayerController>().FromComponentInNewPrefab(playerController).AsSingle().NonLazy();
         }

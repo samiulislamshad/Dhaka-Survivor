@@ -104,7 +104,7 @@ namespace Systems.PlayerSystem.Controller
             _wasGrounded = true; // Assume player starts on ground
             _landingTimer = 0f; // No landing animation at start
 
-            SubscribeToActions();
+            SubscribeToSignals();
             // SetAnimationState(PlayerAnimState.Idle);
             animator.Play("idle");
         }
@@ -113,13 +113,14 @@ namespace Systems.PlayerSystem.Controller
 
         #region Subscribe and Unsubscribe
 
-        private void SubscribeToActions()
+        private void SubscribeToSignals()
         {
             _signalBus.Subscribe<StartJumpInputSignal>(OnJumpPerformed);
             _signalBus.Subscribe<StopJumpInputSignal>(OnJumpCanceled);
             _signalBus.Subscribe<StartCrouchInputSignal>(OnCrouchPerformed);
             _signalBus.Subscribe<StopCrouchInputSignal>(OnCrouchCanceled);
             _signalBus.Subscribe<ContactWithEnemySignal>(Death);
+            _signalBus.Subscribe<PlayerSpecialJumpSignal>(PerformSecondJump);
         }
 
         private void UnsubscribeFromActions()
@@ -129,6 +130,7 @@ namespace Systems.PlayerSystem.Controller
             _signalBus.Unsubscribe<StartCrouchInputSignal>(OnCrouchPerformed);
             _signalBus.Unsubscribe<StopCrouchInputSignal>(OnCrouchCanceled);
             _signalBus.Unsubscribe<ContactWithEnemySignal>(Death);
+            _signalBus.Unsubscribe<PlayerSpecialJumpSignal>(PerformSecondJump);
         }
 
         #endregion
@@ -307,6 +309,16 @@ namespace Systems.PlayerSystem.Controller
             jumpGravity = jumpForceWhenReleased;
             _jumpHeld = false;
             isJumping = false;
+        }
+
+        #endregion
+
+        #region Second Jump
+
+        private void PerformSecondJump()
+        {
+            _rb.linearVelocity = Vector2.zero;
+            _rb.linearVelocityY = jumpForce;
         }
 
         #endregion

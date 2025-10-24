@@ -146,6 +146,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1377176389529724093}
+  - {fileID: 1806571324759883311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3815872004774599550
@@ -235,5 +236,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Model.AerialEnemy
   animator: {fileID: 1965812143743838109}
   rb: {fileID: 8323200349497473079}
+  col: {fileID: 3815872004774599550}
+  enemyDamageDetector: {fileID: 738053734930846311}
   moveSpeedX: 1
   moveSpeedY: 0
+--- !u!1001 &1121082242565673826
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6507855017593549914}
+    m_Modifications:
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420442688589850482, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+      propertyPath: m_Name
+      value: EnemyDamageDetector
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+--- !u!114 &738053734930846311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 410097676711100677, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+  m_PrefabInstance: {fileID: 1121082242565673826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c67d28241b484b2a9b8cf2efc5ddc5c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Service.EnemyDamageDetector
+--- !u!4 &1806571324759883311 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1629416104861904205, guid: 1f5bbb19a682d7d42b1ac0e5beba754f, type: 3}
+  m_PrefabInstance: {fileID: 1121082242565673826}
+  m_PrefabAsset: {fileID: 0}
