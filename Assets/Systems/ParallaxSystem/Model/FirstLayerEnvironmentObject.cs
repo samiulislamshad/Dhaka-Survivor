@@ -27,7 +27,7 @@ namespace Systems.ParallaxSystem.Model
         public override bool ShouldDespawn()
         {
             // Implement despawn logic based on camera position or other criteria
-            return transform.position.x < -60f; // Example condition
+            return transform.position.x < -100f; // Example condition
         }
         
         public float GetParallaxSpeed() => parallaxSpeed;

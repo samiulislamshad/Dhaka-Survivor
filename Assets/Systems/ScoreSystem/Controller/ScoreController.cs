@@ -90,7 +90,6 @@ namespace Systems.ScoreSystem.Controller
             SceneManager.LoadScene("Leaderboard");
             _view.runEndScorePanel.SetActive(false);
             _signalBus.Fire<UnpauseSignal>();
-            SceneManager.UnloadSceneAsync("Game");
         }
 
         public void Dispose()

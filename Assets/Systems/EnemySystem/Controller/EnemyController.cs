@@ -17,7 +17,7 @@ namespace Systems.EnemySystem.Controller
     public class EnemyController : IDisposable, IFixedTickable
     {
         private readonly SignalBus _signalBus;
-        
+
         private GameConfig _config;
         private ParallaxEnvironmentView _parallaxEnvironmentView;
 
@@ -34,7 +34,8 @@ namespace Systems.EnemySystem.Controller
         private float _spawnRate = 0.8f;
         private float _nextSpawnTime;
 
-        public EnemyController(GameConfig config, EnemySpawner spawner, ParallaxEnvironmentView parallaxEnvironmentView, SignalBus signalBus)
+        public EnemyController(GameConfig config, EnemySpawner spawner, ParallaxEnvironmentView parallaxEnvironmentView,
+            SignalBus signalBus)
         {
             _config = config;
             _spawner = spawner;
@@ -45,7 +46,7 @@ namespace Systems.EnemySystem.Controller
 
             _activeEnemies = new List<Enemy>();
             _lockedEnemies = new List<int> { 1 };
-            _unlockedEnemies = new List<int> { 0 , 2 , 3 , 4 , 5 , 6 , 7 };
+            _unlockedEnemies = new List<int> { 0, 2, 3, 4, 5, 6, 7 };
 
             _spawnTimer = 0f;
             _nextSpawnTime = 2f;
@@ -75,18 +76,17 @@ namespace Systems.EnemySystem.Controller
         {
             var steps = (int)(_config.timer.Value / _changeRate);
             _nextSpawnTime = InitialSpawnTime * Mathf.Pow(_spawnRate, steps);
-            Debug.LogWarning($"Spawn Time Changed {_nextSpawnTime}");
         }
 
         private void SubscribeToProperties()
         {
             _config.timer.Subscribe(value =>
             {
-                if(value < 30) return;
-                if(_lockedEnemies.Count <= 0) return;
+                if (value < 30) return;
+                if (_lockedEnemies.Count <= 0) return;
                 _unlockedEnemies.Add(_lockedEnemies[0]);
             }).AddTo(_disposable);
-            
+
             _signalBus.Subscribe<UnregisterEnemySignal>(UnRegisterEnemy);
         }
 
@@ -120,7 +120,7 @@ namespace Systems.EnemySystem.Controller
             if (enemy == null) return;
             RegisterEnemy(enemy);
         }
-        
+
 
         public void Dispose()
         {

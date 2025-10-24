@@ -32,11 +32,11 @@ namespace Systems.ParallaxSystem.Controller
         // Dictionary to track active environment objects by their GUID
         private Dictionary<string, ActiveEnvironmentObjectData> _activeEnvironmentObjects;
 
-       // Random Spawning variables
+        // Random Spawning variables
         private bool _isRandomSpawning;
         private float _firstLayerRandomSpawnWaitTime = 1.5f;
         private float _secondLayerRandomSpawnWaitTime = 5f;
-       
+
 
         public ParallaxEnvironmentController(ParallaxEnvironmentSpawner spawner, GameConfig gameConfig,
             ParallaxLayerConfig config, ParallaxEnvironmentView view)
@@ -55,23 +55,16 @@ namespace Systems.ParallaxSystem.Controller
             _activeEnvironmentObjects = new Dictionary<string, ActiveEnvironmentObjectData>();
 
             _isRandomSpawning = false;
-            
-            SubscribeToProperties();
-            
+
             StartRandomSpawning(_config.firstParallaxLayer, _firstLayerRandomSpawnWaitTime,
                 _view.firstLayerSpawnPoint.transform.position).Forget();
             StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
                 _view.secondLayerSpawnPoint.transform.position).Forget();
-        }
-
-        private void SubscribeToProperties()
-        {
-            
+            SpawnFirstLayerObjects();
         }
 
         public void FixedTick()
         {
-            Debug.LogWarning($"HasGameStarted event: {_gameConfig.hasGameStarted}");
             if (!_gameConfig.hasGameStarted.Value) return;
             UpdateEnvironmentObjects();
             UpdateActiveObjectTimers();
@@ -94,8 +87,7 @@ namespace Systems.ParallaxSystem.Controller
             {
                 var obj = objects[i];
                 obj.OnFixedUpdate(gameSpeed);
-
-                // Check if object should despawn
+                
                 if (obj.ShouldDespawn())
                 {
                     objects.RemoveAt(i);
@@ -277,38 +269,16 @@ namespace Systems.ParallaxSystem.Controller
             return obj;
         }
 
-        private async UniTaskVoid SpawnFirstLayerObjects()
+        private void SpawnFirstLayerObjects()
         {
-            await UniTask.Delay(2000);
-
-            foreach (var envObj in _config.firstParallaxLayer.environmentObjects)
-            {
-                for (var i = 0; i < 3; i++)
-                {
-                    var spawnPosition = new Vector3(UnityEngine.Random.Range(0, 5), UnityEngine.Random.Range(0, 5), 0);
-                    var firstLayerObject = _spawner.SpawnById(envObj.id, envObj.layerType, spawnPosition);
-                    firstLayerObject.OnDespawnSignal.Subscribe(OnEnvironmentObjectDespawned).AddTo(_disposable);
-
-                    if (firstLayerObject == null) continue;
-
-                    // Generate unique GUID for this instance
-                    string guid = Guid.NewGuid().ToString();
-                    firstLayerObject.Guid = guid;
-
-                    // Create and track active data
-                    var activeData = new ActiveEnvironmentObjectData(envObj);
-                    _activeEnvironmentObjects[guid] = activeData;
-
-                    if (_firstLayerEnvironmentObjects.Contains(firstLayerObject)) continue;
-                    _firstLayerEnvironmentObjects.Add(firstLayerObject);
-                    firstLayerObject.gameObject.SetActive(true);
-                }
-            }
+            var envData = GetEnvironmentObjectDataById("StartingChunk");
+            var envObj = SpawnEnvironmentObject(envData, new Vector3(100, -8));
         }
 
         #region Random Spawning
-        
-        private async UniTaskVoid StartRandomSpawning(ParallaxLayer parallaxLayer,float spawnWaitTime, Vector3 position)
+
+        private async UniTaskVoid StartRandomSpawning(ParallaxLayer parallaxLayer, float spawnWaitTime,
+            Vector3 position)
         {
             await UniTask.Delay(1000);
             _isRandomSpawning = true;
@@ -318,7 +288,7 @@ namespace Systems.ParallaxSystem.Controller
                 await SpawnRandomEnvironmentObject(parallaxLayer, spawnWaitTime, position);
             }
         }
-        
+
         private async UniTask SpawnRandomEnvironmentObject(ParallaxLayer parallaxLayer, float randomSpawnWaitTime,
             Vector3 randomSpawnPosition)
         {
@@ -380,7 +350,7 @@ namespace Systems.ParallaxSystem.Controller
             if (spawnedObject == null) return null;
 
             // Generate unique GUID for this instance
-            string guid = System.Guid.NewGuid().ToString();
+            var guid = Guid.NewGuid().ToString();
             spawnedObject.Guid = guid;
 
             // Subscribe to this object's despawn signal
