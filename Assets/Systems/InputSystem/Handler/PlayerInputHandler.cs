@@ -9,13 +9,8 @@ namespace Systems.InputSystem.Handler
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        // private InputMaster _inputControls;
-
         [Inject] private readonly SignalBus _signalBus;
         [Inject] private InputMaster _inputControls;
-        
-        // private InputActionMap keyboardMap;
-        // private InputActionMap gamepadMap;
         
         private Action<InputAction.CallbackContext> _startJumpInputAction;
         private Action<InputAction.CallbackContext> _stopJumpInputAction;
@@ -27,11 +22,6 @@ namespace Systems.InputSystem.Handler
         
         
         #region Initializers
-
-        // private void Awake()
-        // {
-        //     _inputControls = new InputMaster();
-        // }
 
         #region Subscribe and Unsubscribe
 
@@ -55,8 +45,6 @@ namespace Systems.InputSystem.Handler
             
             _signalBus.Subscribe<SwitchOnPlayerControlSignal>(SwitchOnPlayerControl);
             _signalBus.Subscribe<SwitchOffPlayerControlSignal>(SwitchOffPlayerControl);
-            // _signalBus.Subscribe<PauseSignal>(DisablePlayerControl);
-            // _signalBus.Subscribe<UnpauseSignal>(EnablePlayerControl);
         }
 
         private void UnSubscribeToActions()
@@ -71,8 +59,6 @@ namespace Systems.InputSystem.Handler
             
             _signalBus.Unsubscribe<SwitchOnPlayerControlSignal>(SwitchOnPlayerControl);
             _signalBus.Unsubscribe<SwitchOffPlayerControlSignal>(SwitchOffPlayerControl);
-            // _signalBus.Unsubscribe<PauseSignal>(DisablePlayerControl);
-            // _signalBus.Unsubscribe<UnpauseSignal>(EnablePlayerControl);
         }
 
         #endregion

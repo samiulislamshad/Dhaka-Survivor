@@ -19,21 +19,24 @@ namespace Systems.LeaderBoardSystem.Controller
         {
             _model = model;
             _canvasView = canvasView;
-
+            
+            _canvasView.eventSystem.SetSelectedGameObject(_canvasView.mainMenuButton.gameObject);
             _disposable = new CompositeDisposable();
 
             SubscribeToProperties();
-            
-            _eventSystem = EventSystem.current;
-            _eventSystem.SetSelectedGameObject(_canvasView.mainMenuButton.gameObject);
         }
 
         private void SubscribeToProperties()
         {
-            _canvasView.mainMenuButton.OnClickAsObservable().Subscribe(_ =>
-            {
-                SceneManager.LoadScene("Game");
-            }).AddTo(_disposable);
+            _canvasView.mainMenuButton
+                .OnClickAsObservable()
+                .Subscribe(_ => { SceneManager.LoadScene("Game"); }).AddTo(_disposable);
+
+            Observable.EveryUpdate()
+                .Where(_ =>
+                    _canvasView.eventSystem.currentSelectedGameObject != _canvasView.mainMenuButton.gameObject)
+                .Subscribe(_ => { _eventSystem.SetSelectedGameObject(_canvasView.mainMenuButton.gameObject); })
+                .AddTo(_disposable);
         }
 
         public void Dispose()

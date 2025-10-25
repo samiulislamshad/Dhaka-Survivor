@@ -75,7 +75,10 @@ namespace Systems.EnemySystem.Controller
         private void ModifySpawnTimer()
         {
             var steps = (int)(_config.timer.Value / _changeRate);
-            _nextSpawnTime = InitialSpawnTime * Mathf.Pow(_spawnRate, steps);
+            var baseSpawnTime = InitialSpawnTime * Mathf.Pow(_spawnRate, steps);
+    
+            // Add ±20% variability
+            _nextSpawnTime = baseSpawnTime * Random.Range(0.8f, 1.2f);
         }
 
         private void SubscribeToProperties()
@@ -109,19 +112,41 @@ namespace Systems.EnemySystem.Controller
 
         #endregion
 
+        // public void SpawnEnemy()
+        // {
+        //     if (_unlockedEnemies.Count == 0) return;
+        //
+        //     var randomIndex = Random.Range(0, _unlockedEnemies.Count);
+        //     var enemyType = (EnemyType)_unlockedEnemies[randomIndex];
+        //     var enemy = _spawner.Spawn(enemyType, _parallaxEnvironmentView.firstLayerSpawnPoint.position);
+        //
+        //     if (enemy == null) return;
+        //     RegisterEnemy(enemy);
+        // }
+        
         public void SpawnEnemy()
         {
             if (_unlockedEnemies.Count == 0) return;
 
-            var randomIndex = Random.Range(0, _unlockedEnemies.Count);
-            var enemyType = (EnemyType)_unlockedEnemies[randomIndex];
-            var enemy = _spawner.Spawn(enemyType, _parallaxEnvironmentView.firstLayerSpawnPoint.position);
+            // Randomly decide group size (1, 2, or 3)
+            int groupSize = Random.Range(1, 4); // 1, 2, or 3
+    
+            for (int i = 0; i < groupSize; i++)
+            {
+                var randomIndex = Random.Range(0, _unlockedEnemies.Count);
+                var enemyType = (EnemyType)_unlockedEnemies[randomIndex];
+        
+                // Offset enemies horizontally so they don't spawn on top of each other
+                Vector3 spawnPosition = _parallaxEnvironmentView.firstLayerSpawnPoint.position;
+                spawnPosition.x += i * 2f; // Adjust spacing as needed
+        
+                var enemy = _spawner.Spawn(enemyType, spawnPosition);
 
-            if (enemy == null) return;
-            RegisterEnemy(enemy);
+                if (enemy == null) continue;
+                RegisterEnemy(enemy);
+            }
         }
-
-
+        
         public void Dispose()
         {
             _disposable?.Dispose();

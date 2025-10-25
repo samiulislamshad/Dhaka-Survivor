@@ -3,8 +3,7 @@ using Systems.EnemySystem.Enum;
 using Systems.EnemySystem.Interface;
 using Systems.EnemySystem.Service;
 using Systems.GameSystem.Config;
-using Systems.PlayerSystem.Signals;
-using Systems.PlayerSystem.Signals.GameSignals;
+using Systems.ScoreSystem.Signal;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -16,7 +15,7 @@ namespace Systems.EnemySystem.Model
         [Inject] protected GameConfig Config;
         [Inject] protected SignalBus SignalBus;
         
-        protected CompositeDisposable disposable = new();
+        private CompositeDisposable _disposable = new();
 
         public abstract EnemyType Type { get; }
         public Animator animator;
@@ -24,8 +23,11 @@ namespace Systems.EnemySystem.Model
         [SerializeField] protected Rigidbody2D rb;
         [SerializeField] private Collider2D col;
         [SerializeField] protected EnemyDamageDetector enemyDamageDetector;
-        
+
+        protected bool IsDead;
         protected bool IsDespawning;
+        private const int Score = 20;
+        private AddScoreSignal _scoreSignal;
 
         [Header("Movement Settings")]
         [SerializeField] protected float moveSpeedX = 1f;
@@ -33,9 +35,11 @@ namespace Systems.EnemySystem.Model
 
         public virtual void Initialize(Vector3 position)
         {
-            disposable = new CompositeDisposable();
+            _disposable = new CompositeDisposable();
             transform.position = position;
-            
+            _scoreSignal = new AddScoreSignal(Score);
+
+            IsDead = false;
             IsDespawning = false;
             gameObject.SetActive(true);
             col.includeLayers = LayerMask.GetMask("Player", "Limit");
@@ -46,7 +50,7 @@ namespace Systems.EnemySystem.Model
             if (enemyDamageDetector != null)
             {
                 enemyDamageDetector.gameObject.SetActive(true);
-                enemyDamageDetector.OnCollisionEnter2d.Subscribe(OnTakeDamage).AddTo(disposable);
+                enemyDamageDetector.OnCollisionEnter2d.Subscribe(OnTakeDamage).AddTo(_disposable);
             }
         }
 
@@ -64,10 +68,13 @@ namespace Systems.EnemySystem.Model
 
         private void OnTakeDamage(Collision2D collision)
         {
+            IsDead = true;
             col.excludeLayers = LayerMask.GetMask("Player");
             col.includeLayers = LayerMask.GetMask("Limit");
             animator.Play("Death");
-            SignalBus.Fire<PlayerSpecialJumpSignal>();
+            
+            _scoreSignal = new AddScoreSignal(Score);
+            SignalBus.Fire(_scoreSignal);
         }
         
         protected float GetCalculatedSpeedX()
@@ -82,7 +89,7 @@ namespace Systems.EnemySystem.Model
 
         public void Dispose()
         {
-            disposable.Dispose();
+            _disposable.Dispose();
         }
 
         public virtual void OnDestroy()

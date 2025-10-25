@@ -154,13 +154,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 7880132151708644868, guid: fa54fb74d32179e49af2063b936d9425, type: 3}
-    - id: Building108
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 1094002559920700173, guid: ef357ba51125fd046bf68888f518667e, type: 3}
     - id: Building200
       name: 
       layerType: 0
@@ -195,13 +188,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 8703091763128994420, guid: 86ddbdd2e59d300489d463d3b3a3068b, type: 3}
-    - id: Building205
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 6942774377445506479, guid: 3f806323445ac0a44919a8569d8d832a, type: 3}
     - id: Building206
       name: 
       layerType: 0
@@ -233,23 +219,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 961075522771038680, guid: 9bd251f80761ecc4c8a82542b88de47e, type: 3}
-    - id: Building302
-      name: 
-      layerType: 0
-      crucialRelativeObjects:
-      - relativeObjectId: Dumpster01
-        distance: 10
-        relativeObjectName: 
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 2564787014884542317, guid: 257123fef1026cb4799e5347b871c3de, type: 3}
-    - id: Building303
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 5170074003865742516, guid: 3992c3b917b1f5442a48b241bd01d8b3, type: 3}
     - id: Building303
       name: 
       layerType: 0
@@ -281,13 +250,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 8025517025571936027, guid: ae6f8379c96a8ba43b50a43b5c283f49, type: 3}
-    - id: Building308
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 448364043178095952, guid: 1245132455e9cac4089d4645ee117795, type: 3}
     - id: Building400
       name: 
       layerType: 0

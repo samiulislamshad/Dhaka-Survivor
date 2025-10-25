@@ -116,6 +116,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\SecondLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\SecondLayerEnvironmentObject.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\Model\WindowAunty.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopCrouchInputSignal.cs" />
     <Compile Include="Assets\Systems\InputSystem\HelperScript\KeyboardFocusHelper.cs" />
     <Compile Include="Assets\Systems\InputSystem\Controller\VirtualKeyboardController.cs" />

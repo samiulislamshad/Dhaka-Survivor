@@ -7,17 +7,16 @@ namespace Systems.EnemySystem.Model
     public class PagriBroEnemy : Enemy
     {
         public override EnemyType Type => EnemyType.Hojor;
-        private const float BaseEnemySpeed = 2f;
 
         protected override void OnFixedUpdate()
         {
             var finalSpeedX = GetCalculatedSpeedX();
             var finalSpeedY = GetCalculatedSpeedY();
-        
+
             var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.fixedDeltaTime * Config.enemySpeedMultiplier);
             rb.MovePosition(rb.position + movement);
         }
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("Limit"))
@@ -25,10 +24,9 @@ namespace Systems.EnemySystem.Model
                 Debug.Log($"Triggered {other.gameObject.name}");
                 IsDespawning = true;
             }
-            
-            if(other.gameObject.CompareTag("Player"))
+
+            if (other.gameObject.CompareTag("Player") && !IsDead)
                 SignalBus.Fire<ContactWithEnemySignal>();
         }
     }
-
 }

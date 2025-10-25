@@ -7,7 +7,6 @@ namespace Systems.EnemySystem.Model
     public class AuntyEnemy : Enemy
     {
         public override EnemyType Type => EnemyType.Aunty;
-        private const float BaseEnemySpeed = 1f;
 
         protected override void OnFixedUpdate()
         {
@@ -26,7 +25,7 @@ namespace Systems.EnemySystem.Model
                 IsDespawning = true;
             }
             
-            if(other.gameObject.CompareTag("Player"))
+            if(other.gameObject.CompareTag("Player") && !IsDead)
                 SignalBus.Fire<ContactWithEnemySignal>();
         }
     }

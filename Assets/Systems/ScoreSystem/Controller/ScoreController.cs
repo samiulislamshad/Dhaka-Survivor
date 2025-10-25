@@ -19,8 +19,7 @@ namespace Systems.ScoreSystem.Controller
         private readonly ScoreCanvasView _view;
         private readonly GameConfig _gameConfig;
         private readonly SignalBus _signalBus;
-        private readonly SceneLoaderService _sceneLoaderService;
-        
+
         private readonly CompositeDisposable _disposable;
 
         private ReactiveProperty<int> _score;
@@ -30,8 +29,7 @@ namespace Systems.ScoreSystem.Controller
             _view = view;
             _gameConfig = gameConfig;
             _signalBus = signalBus;
-            _sceneLoaderService = sceneLoaderService;
-            
+
             _disposable = new CompositeDisposable();
             _score = new ReactiveProperty<int>(0);
 
@@ -83,6 +81,7 @@ namespace Systems.ScoreSystem.Controller
             _view.okayButton.interactable = true;
             _view.runStartScorePanel.SetActive(false);
             _view.runEndScorePanel.SetActive(true);
+            _view.playerScore.text = _score.Value.ToString();
             EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
             
             _view.animator.Play($"SadAnimation");

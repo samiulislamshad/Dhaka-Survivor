@@ -25,7 +25,7 @@ namespace Systems.EnemySystem.Model
                 IsDespawning = true;
             }
             
-            if(other.gameObject.CompareTag("Player"))
+            if(other.gameObject.CompareTag("Player") && !IsDead)
                 SignalBus.Fire<ContactWithEnemySignal>();
         }
         
