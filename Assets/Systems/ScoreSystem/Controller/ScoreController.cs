@@ -1,12 +1,12 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Services;
 using Systems.GameSystem.Config;
+using Systems.GameSystem.Signals;
 using Systems.PauseSystem.Signals;
-using Systems.PlayerSystem.Signals;
 using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -39,10 +39,15 @@ namespace Systems.ScoreSystem.Controller
 
         private void SubscribeToProperties()
         {
-            _gameConfig.hasGameStarted.Subscribe(value =>
-            {
-                _view.runStartScorePanel.SetActive(value);
-            }).AddTo(_disposable);
+            _gameConfig.timer
+                .Select(Mathf.FloorToInt)
+                .DistinctUntilChanged()
+                .Skip(1)
+                .Subscribe(_ => 
+                {
+                    _score.Value += 100; // Add 100 points per second
+                })
+                .AddTo(_disposable);
 
             _score.Subscribe(value =>
             {
@@ -59,12 +64,14 @@ namespace Systems.ScoreSystem.Controller
         {
             _signalBus.Subscribe<AddScoreSignal>(AddScore);
             _signalBus.Subscribe<PlayerDeadSignal>(ShowScoreBoard);
+            _signalBus.Subscribe<GameScreenSignal>(ShowPlayerScore);
         }
         
         private void UnsubscribeToSignals()
         {
             _signalBus.Unsubscribe<AddScoreSignal>(AddScore);
             _signalBus.Unsubscribe<PlayerDeadSignal>(ShowScoreBoard);
+            _signalBus.Unsubscribe<GameScreenSignal>(ShowPlayerScore);
         }
 
         private void AddScore(AddScoreSignal signal)
@@ -93,6 +100,11 @@ namespace Systems.ScoreSystem.Controller
             SceneManager.LoadScene("Leaderboard");
             _view.runEndScorePanel.SetActive(false);
             _signalBus.Fire<UnpauseSignal>();
+        }
+
+        private void ShowPlayerScore()
+        {
+            _view.runStartScorePanel.SetActive(true);
         }
 
         public void Dispose()

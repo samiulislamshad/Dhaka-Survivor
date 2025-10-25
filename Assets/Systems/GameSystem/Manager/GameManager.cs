@@ -4,6 +4,7 @@ using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
 using Systems.PlayerSystem.Signals;
+using Systems.ScoreSystem.Signal;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -92,39 +93,17 @@ namespace Systems.GameSystem.Manager
             _config.hasGameStarted.Value = true;
             _config.hasTimerStarted.Value = true;
         }
-
+        
+        private AddScoreSignal _addScoreSignal;
         private void FixedUpdate()
         {
             if (_config.hasTimerStarted.Value)
                 _config.timer.Value += Time.fixedDeltaTime;
+           
             if(_config.hasGameStarted.Value)
                 _config.gameSpeed.Value += Time.fixedDeltaTime/5 * 1.5f;
         }
-
-        #region Control Game Phase
-
-        private void OnMainMenuScreen()
-        {
-            _signalBus.Fire<MainMenuScreenSignal>();
-        }
-
-        private void OnNameInputScreen()
-        {
-            
-        }
-
-        private void OnGameScreen()
-        {
-            
-        }
-
-        private void OnScoreBoardScreen()
-        {
-            
-        }
-
-        #endregion
-
+        
         private void OnDestroy()
         {
             Dispose();
