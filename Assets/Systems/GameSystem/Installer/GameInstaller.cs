@@ -1,6 +1,7 @@
 ﻿using Services;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Manager;
+using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,15 @@ namespace Systems.GameSystem.Installer
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
+
+            Container.DeclareSignal<MainMenuScreenSignal>();
+            Container.DeclareSignal<NameInputSignal>();
+            Container.DeclareSignal<GameScreenSignal>();
+            Container.DeclareSignal<ScoreBoardSignal>();
+            
+            Container.Bind<InputMaster>()
+                .AsSingle()
+                .NonLazy();
             
             // Prefab
             Container.Bind<Camera>()

@@ -9,9 +9,10 @@ namespace Systems.InputSystem.Handler
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        private InputMaster _inputControls;
+        // private InputMaster _inputControls;
 
         [Inject] private readonly SignalBus _signalBus;
+        [Inject] private InputMaster _inputControls;
         
         // private InputActionMap keyboardMap;
         // private InputActionMap gamepadMap;
@@ -27,10 +28,10 @@ namespace Systems.InputSystem.Handler
         
         #region Initializers
 
-        private void Awake()
-        {
-            _inputControls = new InputMaster();
-        }
+        // private void Awake()
+        // {
+        //     _inputControls = new InputMaster();
+        // }
 
         #region Subscribe and Unsubscribe
 

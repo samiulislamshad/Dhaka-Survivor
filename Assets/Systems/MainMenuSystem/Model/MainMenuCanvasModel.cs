@@ -11,25 +11,25 @@ namespace Systems.MainMenuSystem.Model
     public class MainMenuCanvasModel : IDisposable
     {
         private readonly SceneLoaderService _sceneLoaderService;
-        private LoadingScreenController _loadingScreenController;
+        // private LoadingScreenController _loadingScreenController;
         private CompositeDisposable _disposable;
 
-        public MainMenuCanvasModel (LoadingScreenController loadingScreenController, 
+        public MainMenuCanvasModel (//LoadingScreenController loadingScreenController, 
             SceneLoaderService sceneLoaderService)
         {
-            _loadingScreenController = loadingScreenController;
+            // _loadingScreenController = loadingScreenController;
             _sceneLoaderService = sceneLoaderService;
 
             _disposable = new CompositeDisposable();
         }
 
-        public async UniTask StartNewGame()
-        {
-            _loadingScreenController.Initialize();
-            var currentScene = SceneManager.GetActiveScene();
-            await UniTask.Delay(2000);
-            await _sceneLoaderService.LoadSceneAsync("Game", currentScene.name);
-        }
+        // public async UniTask StartNewGame()
+        // {
+        //     _loadingScreenController.Initialize();
+        //     var currentScene = SceneManager.GetActiveScene();
+        //     await UniTask.Delay(2000);
+        //     await _sceneLoaderService.LoadSceneAsync("Game", currentScene.name);
+        // }
 
         private async UniTask ProgressBar()
         {

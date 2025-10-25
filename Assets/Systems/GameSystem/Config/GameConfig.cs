@@ -7,6 +7,7 @@ namespace Systems.GameSystem.Config
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Configs/GameConfig")]
     public class GameConfig : ScriptableObject
     {
+        public ReactiveProperty<GamePhase> gamePhase;
         public ReactiveProperty<float> gameSpeed;
         public ReactiveProperty<float> timer;
         public ReactiveProperty<bool> hasGameStarted;

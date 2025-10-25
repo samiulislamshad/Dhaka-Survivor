@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Systems.GameSystem.Config;
+using Systems.GameSystem.Signals;
 using Systems.InputSystem.Model;
 using Systems.InputSystem.View;
 using Systems.PlayerSystem.Signals.GameSignals;
 using UniRx;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Systems.InputSystem.Controller
@@ -22,6 +25,11 @@ namespace Systems.InputSystem.Controller
         private const int MaxLength = 20;
         private const int MinLength = 3;
         private readonly List<string> _specialKeys = new() {"Submit", "Cancel", "Delete"};
+        
+        // private List<Button> _allButtons;
+        private EventSystem _eventSystem;
+        
+        private IDisposable _updateKeyboardFocus;
 
         public VirtualKeyboardController(GameConfig config, VirtualKeyboardView view, SignalBus signalBus)
         {
@@ -31,8 +39,13 @@ namespace Systems.InputSystem.Controller
 
             _userName = new ReactiveProperty<string>("");
             _disposable = new CompositeDisposable();
+            _eventSystem = EventSystem.current;
             
             SubscribeToProperties();
+            SubscribeToSignals();
+
+            // _allButtons = GetAllButtons();
+            view.gameObject.SetActive(false);
         }
 
         private void SubscribeToProperties()
@@ -48,10 +61,10 @@ namespace Systems.InputSystem.Controller
                 OnSubmit();
             }).AddTo(_disposable);
             
-            _view.cancelButton.OnClickAsObservable().Subscribe(_ =>
-            {
-                OnCancel();
-            }).AddTo(_disposable);
+            // _view.cancelButton.OnClickAsObservable().Subscribe(_ =>
+            // {
+            //     OnCancel();
+            // }).AddTo(_disposable);
             
             _view.deleteButton.OnClickAsObservable().Subscribe(_ =>
             {
@@ -59,6 +72,16 @@ namespace Systems.InputSystem.Controller
             }).AddTo(_disposable);
             
             _view.InitializeAlphanumericButtons(_specialKeys, OnLetterPressed);
+        }
+
+        private void SubscribeToSignals()
+        {
+            _signalBus.Subscribe<NameInputSignal>(ShowVirtualKeyboard);
+        }
+
+        private void UnsubscribeFromSignals()
+        {
+            _signalBus.Unsubscribe<NameInputSignal>(ShowVirtualKeyboard);
         }
 
         #region Buttons
@@ -100,19 +123,61 @@ namespace Systems.InputSystem.Controller
 
         public void ShowVirtualKeyboard()
         {
+            if(_eventSystem == null)
+                _eventSystem = EventSystem.current;
+            
             _view.gameObject.SetActive(true);
             _signalBus.Fire<SwitchOffPlayerControlSignal>();
             EventSystem.current.SetSelectedGameObject(_view.deleteButton.gameObject);
+            _updateKeyboardFocus = Observable.EveryUpdate().Where(_ => 
+                _view.gameObject.activeInHierarchy && 
+                (_eventSystem == null || _eventSystem.currentSelectedGameObject == null))
+                .Subscribe(_ =>
+                {
+                    KeepFocusOnKeyboard();
+                });
         }
 
         public void HideVirtualKeyboard()
         {
             _view.gameObject.SetActive(false);
-            _signalBus.Fire<SwitchOnPlayerControlSignal>();
+            _updateKeyboardFocus.Dispose();
+            _signalBus.Fire<GameScreenSignal>();
         }
+
+        #region Utility
+
+        private void KeepFocusOnKeyboard()
+        {
+            if(!_view.gameObject.activeSelf) return;
+            
+            if (_eventSystem.currentSelectedGameObject == null)
+            {
+                _eventSystem.SetSelectedGameObject(_view.allButtons[0].gameObject);
+                return;
+            }
+
+            foreach (var button in _view.allButtons)
+            {
+                if(button.gameObject == _eventSystem.currentSelectedGameObject) return;
+                _eventSystem.SetSelectedGameObject(_view.allButtons[0].gameObject);
+            }
+        }
+
+        private List<Button> GetAllButtons()
+        {
+            var buttons = _view.GetComponentsInChildren<Button>().ToList();
+            // buttons.Add(_view.cancelButton);
+            buttons.Add(_view.submitButton);
+            buttons.Add(_view.deleteButton);
+            return buttons;
+        }
+
+        #endregion
 
         public void Dispose()
         {
+            UnsubscribeFromSignals();
             _disposable.Dispose();
         }
     }

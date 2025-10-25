@@ -1,10 +1,12 @@
 ﻿using System;
 using Systems.EnemySystem.Controller;
 using Systems.GameSystem.Config;
+using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
 using Systems.PlayerSystem.Signals;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Systems.GameSystem.Manager
@@ -15,6 +17,7 @@ namespace Systems.GameSystem.Manager
         private EnemyController _enemyController;
         private SignalBus _signalBus;
         private CompositeDisposable _disposable;
+        private InputMaster _inputMaster;
         
         [SerializeField] private StartGameCanvasView startGameCanvasView;
 
@@ -23,12 +26,14 @@ namespace Systems.GameSystem.Manager
             EnemyController enemyController,
             StartGameCanvasView view,
             SignalBus signalBus,
-            GameConfig config)
+            GameConfig config,
+            InputMaster inputMaster)
         {
             _enemyController = enemyController;
             _signalBus = signalBus;
             startGameCanvasView = view;
             _config = config;
+            _inputMaster = inputMaster;
 
             _disposable = new CompositeDisposable();
         }
@@ -38,11 +43,10 @@ namespace Systems.GameSystem.Manager
             InitializeGame();
         }
 
-        public void InitializeGame()
+        private void InitializeGame()
         {
             InitializeVariables();
-            SubscribeToProperties();
-            ShowPressToStartGame();
+            SubscribeToSignals();
         }
 
         private void InitializeVariables()
@@ -52,25 +56,34 @@ namespace Systems.GameSystem.Manager
             _config.hasGameStarted = new ReactiveProperty<bool>(false);
             _config.hasTimerStarted = new ReactiveProperty<bool>(false);
             _config.maxEnemies = new ReactiveProperty<int>(10);
+            _config.gamePhase = new ReactiveProperty<GamePhase>(GamePhase.MainMenuScreen);
 
             _disposable = new CompositeDisposable();
+            _config.gamePhase.Value = GamePhase.MainMenuScreen;
         }
 
-        private void SubscribeToProperties()
+        private void SubscribeToSignals()
         {
-            
+            _signalBus.Subscribe<GameScreenSignal>(ShowKeyMappingUi);
         }
 
-        private void ShowPressToStartGame()
+        private Action<InputAction.CallbackContext> _startGameInputAction;
+        private void ShowKeyMappingUi()
         {
             startGameCanvasView.startGamePanel.SetActive(true);
-            _signalBus.Subscribe<StartJumpInputSignal>(HidePressToStartGame);
+            _startGameInputAction = _ => HideKeyMappingUi();
+            _inputMaster.UiControl.Submit.performed += _startGameInputAction;
+            Debug.LogWarning($"Showing KeyMappingUi");
         }
 
-        private void HidePressToStartGame()
+        private void HideKeyMappingUi()
         {
-            _signalBus.Unsubscribe<StartJumpInputSignal>(HidePressToStartGame);
+            Debug.LogWarning($"Hiding KeyMappingUi");
             startGameCanvasView.startGamePanel.SetActive(false);
+            _inputMaster.UiControl.Submit.performed -= _startGameInputAction;
+            _inputMaster.Enable();
+            _inputMaster.PlayerControl.Enable();
+            _config.gamePhase.Value = GamePhase.GameScreen;
             StartGame();
         }
 
@@ -88,12 +101,29 @@ namespace Systems.GameSystem.Manager
                 _config.gameSpeed.Value += Time.fixedDeltaTime/5 * 1.5f;
         }
 
-        private void IncrementGameSpeed()
+        #region Control Game Phase
+
+        private void OnMainMenuScreen()
         {
-            if (!_config.hasGameStarted.Value) return;
-            if (!_config.hasTimerStarted.Value) return;
-            _config.gameSpeed.Value++;
+            _signalBus.Fire<MainMenuScreenSignal>();
         }
+
+        private void OnNameInputScreen()
+        {
+            
+        }
+
+        private void OnGameScreen()
+        {
+            
+        }
+
+        private void OnScoreBoardScreen()
+        {
+            
+        }
+
+        #endregion
 
         private void OnDestroy()
         {

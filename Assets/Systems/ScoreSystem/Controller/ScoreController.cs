@@ -81,8 +81,11 @@ namespace Systems.ScoreSystem.Controller
             _view.userName.text = _gameConfig.currentUserData.userName;
             _view.score.text = _score.Value.ToString();
             _view.okayButton.interactable = true;
+            _view.runStartScorePanel.SetActive(false);
             _view.runEndScorePanel.SetActive(true);
             EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
+            
+            _view.animator.Play($"SadAnimation");
         }
 
         private void HideScoreBoard()

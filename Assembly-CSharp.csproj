@@ -46,13 +46,18 @@
     <Analyzer Include="Y:\Unity Editors\6000.2.7f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Systems\GameSystem\Signals\NameInputSignal.cs" />
+    <Compile Include="Assets\Systems\LeaderBoardSystem\Model\LeaderBoardModel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Systems\GameSystem\Config\GameConfig.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\Chesra1Enemy.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Service\EnemyDamageDetector.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\View\ParallaxEnvironmentView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Systems\LeaderBoardSystem\Installer\LeaderBoardInstaller.cs" />
+    <Compile Include="Assets\Systems\GameSystem\Signals\MainMenuScreenSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\FirstLayerEnvironmentObjectFactory.cs" />
+    <Compile Include="Assets\Systems\LeaderBoardSystem\View\LeaderBoardCanvasView.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\ContactWithEnemySignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\MinarEnemy.cs" />
@@ -122,6 +127,8 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Model\EnvironmentObject.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Signals\UnpauseSignal.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\OfficeBossPool.cs" />
+    <Compile Include="Assets\Systems\GameSystem\GamePhase.cs" />
+    <Compile Include="Assets\Systems\LeaderBoardSystem\Controller\LeaderBoardController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -172,6 +179,7 @@
     <Compile Include="Assets\Systems\EnemySystem\Enum\EnemyState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\Systems\GameSystem\Signals\ScoreBoardSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Systems\InputSystem\Handler\PlayerInputHandler.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\View\MainMenuCanvasView.cs" />
@@ -181,6 +189,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Model\EnvironmentObjectData.cs" />
     <Compile Include="Assets\Services\EventSystemFocusSetter.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\TogglePauseInputSignal.cs" />
+    <Compile Include="Assets\Systems\GameSystem\Signals\GameScreenSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\Chesra2Pool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Enum\EnemyType.cs" />

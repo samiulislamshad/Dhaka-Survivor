@@ -6,6 +6,8 @@ namespace Systems.ScoreSystem
 {
     public class ScoreCanvasView : MonoBehaviour
     {
+        public Animator animator;
+        
         public GameObject runEndScorePanel;
         public GameObject runStartScorePanel;
         

@@ -1,8 +1,15 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Systems.GameSystem;
+using Systems.GameSystem.Config;
+using Systems.GameSystem.Signals;
+using Systems.InputSystem.Controller;
 using Systems.MainMenuSystem.Model;
 using Systems.MainMenuSystem.View;
 using UniRx;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Systems.MainMenuSystem.Controller
 {
@@ -11,31 +18,39 @@ namespace Systems.MainMenuSystem.Controller
     {
         private readonly MainMenuCanvasModel _model;
         private readonly MainMenuCanvasView _view;
-        
+        private InputMaster _inputMaster;
+        private SignalBus _signalBus;
+
         private CompositeDisposable _disposable;
 
-        public MainMenuCanvasController(MainMenuCanvasModel model, MainMenuCanvasView view)
+        public MainMenuCanvasController(MainMenuCanvasModel model, MainMenuCanvasView view, InputMaster inputMaster, GameConfig gameConfig, VirtualKeyboardController virtualKeyboardController, SignalBus signalBus)
         {
             _model = model;
             _view = view;
+            _inputMaster = inputMaster;
+            _signalBus = signalBus;
             _disposable = new CompositeDisposable();
             
-            SubscribeToProperties();
+            PressButtonToStart();
         }
+        
+        private Action<InputAction.CallbackContext> _pressButtonToStartAction;
 
-        private void SubscribeToProperties()
+        private void PressButtonToStart()
         {
-            _view.newGameButton.OnClickAsObservable().Subscribe(_ =>
-            {
-                StartNewGame().Forget();
-            }).AddTo(_disposable);
+            _inputMaster.Enable();
+            _inputMaster.UiControl.Enable();
+            _pressButtonToStartAction = _=> OnButtonPressed();
+            _inputMaster.UiControl.Submit.performed += _pressButtonToStartAction;
         }
 
-        public async UniTask StartNewGame()
+        private void OnButtonPressed()
         {
-            await _model.StartNewGame();
+            _view.gameObject.SetActive(false);
+            _signalBus.Fire<NameInputSignal>();
+            _inputMaster.UiControl.Submit.performed -= _pressButtonToStartAction;
         }
-
+        
         public void Dispose()
         {
             _disposable.Dispose();

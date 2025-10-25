@@ -9,8 +9,9 @@ namespace Systems.InputSystem.View
 {
     public class VirtualKeyboardView : MonoBehaviour
     {
+        public List<Button> allButtons;
         public Button submitButton;
-        public Button cancelButton;
+        // public Button cancelButton;
         public Button deleteButton;
 
         public TMP_Text userNameText;
@@ -45,7 +46,7 @@ namespace Systems.InputSystem.View
             var buttonColors = submitButton.colors;
             buttonColors.selectedColor = buttonSelectedColor;
             submitButton.colors = buttonColors;
-            cancelButton.colors = buttonColors;
+            // cancelButton.colors = buttonColors;
             deleteButton.colors = buttonColors;
             
             if(eventSystem == null)

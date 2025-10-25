@@ -1621,6 +1621,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9f09365c9a4750bdcfd6ed8fb59a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.InputSystem.View.VirtualKeyboardView
+  allButtons:
+  - {fileID: 5889951079424873142}
+  - {fileID: 6333666120888571512}
+  - {fileID: 6788540249472470253}
+  - {fileID: 3888683878977213514}
+  - {fileID: 3598050529249897546}
+  - {fileID: 6874128361383300344}
+  - {fileID: 3755803052408548835}
+  - {fileID: 8131453899721655239}
+  - {fileID: 2023286967939773025}
+  - {fileID: 9145689696770573254}
+  - {fileID: 6716180306054935841}
+  - {fileID: 7639607317655086054}
+  - {fileID: 8854699123583772695}
+  - {fileID: 4572465715159093443}
+  - {fileID: 1334328016869789954}
+  - {fileID: 8629744894253468791}
+  - {fileID: 8334682698420299917}
+  - {fileID: 6783754495559640703}
+  - {fileID: 7353474939555145049}
+  - {fileID: 2327149929340278146}
+  - {fileID: 3970068651164772089}
+  - {fileID: 6513135193850698633}
+  - {fileID: 3550181227782444645}
+  - {fileID: 8316391280229666453}
+  - {fileID: 8137657314677894090}
+  - {fileID: 9105062016744633001}
+  - {fileID: 8652655337914080047}
+  - {fileID: 5201741575832324919}
+  - {fileID: 8751743147590058192}
   submitButton: {fileID: 5201741575832324919}
   cancelButton: {fileID: 1123660223017562370}
   deleteButton: {fileID: 8751743147590058192}
@@ -7557,7 +7587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4162103197419586520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7573,9 +7603,9 @@ RectTransform:
   - {fileID: 9017449228853739083}
   m_Father: {fileID: 4736964990291642169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -50}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8271883441161926418
