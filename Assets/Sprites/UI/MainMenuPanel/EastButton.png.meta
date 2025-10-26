@@ -1,22 +1,46 @@
 fileFormatVersion: 2
-guid: 88be8639c594a3945b433d1e6f3d9e0a
+guid: d60171027176fbf46bc6ba5f05680f3d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2669142961033076756
-    second: Clouds_0
+      213: 232027803656969194
+    second: EastButton_0
   - first:
-      213: -3967920315399815954
-    second: Clouds_1
+      213: 5003768157169469850
+    second: EastButton_1
   - first:
-      213: -1749161583622989117
-    second: Clouds_2
+      213: 4666758003939644858
+    second: EastButton_2
   - first:
-      213: -5240784962635489071
-    second: Clouds_3
+      213: -8757708336169768969
+    second: EastButton_3
   - first:
-      213: 1327514091082312007
-    second: Clouds_4
+      213: -8694289102283347242
+    second: EastButton_4
+  - first:
+      213: 4954799768992389717
+    second: EastButton_5
+  - first:
+      213: -1765849136021192190
+    second: EastButton_6
+  - first:
+      213: -8765529665124049709
+    second: EastButton_7
+  - first:
+      213: 4859194059395195931
+    second: EastButton_8
+  - first:
+      213: -3831640012445660076
+    second: EastButton_9
+  - first:
+      213: 5977805528232855568
+    second: EastButton_10
+  - first:
+      213: 63436583193024520
+    second: EastButton_11
+  - first:
+      213: 5502338879398272322
+    second: EastButton_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,13 +76,13 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -125,111 +149,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Clouds_0
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 44
-        width: 50
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4106c1f9163ba0520800000000000000
-      internalID: 2669142961033076756
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Clouds_1
-      rect:
-        serializedVersion: 2
-        x: 213
-        y: 35
-        width: 63
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eecb98ffe7d1fe8c0800000000000000
-      internalID: -3967920315399815954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Clouds_2
+      name: EastButton_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 55
-        height: 24
+        width: 29
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3ca5461aecab9b7e0800000000000000
-      internalID: -1749161583622989117
+      spriteID: aebdcfede04583300800000000000000
+      internalID: 232027803656969194
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Clouds_3
+      name: EastButton_1
       rect:
         serializedVersion: 2
-        x: 138
-        y: 20
-        width: 48
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d027e5e7ddf447b0800000000000000
-      internalID: -5240784962635489071
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Clouds_4
-      rect:
-        serializedVersion: 2
-        x: 319
+        x: 29
         y: 0
-        width: 51
-        height: 22
+        width: 29
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 749694948074c6210800000000000000
-      internalID: 1327514091082312007
+      spriteID: a994f7ab0a4f07540800000000000000
+      internalID: 5003768157169469850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EastButton_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 0
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab59885dda7a3c040800000000000000
+      internalID: 4666758003939644858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EastButton_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 0
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f7af182bae567680800000000000000
+      internalID: -8757708336169768969
       vertices: []
       indices: 
       edges: []
@@ -238,7 +240,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: fbb82ac88c3ceda4f8b242be00244ef8
     internalID: 0
     vertices: []
     indices: 
@@ -246,13 +248,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":29.0,"y":25.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Clouds_0: 2669142961033076756
-      Clouds_1: -3967920315399815954
-      Clouds_2: -1749161583622989117
-      Clouds_3: -5240784962635489071
-      Clouds_4: 1327514091082312007
+      EastButton_0: 232027803656969194
+      EastButton_1: 5003768157169469850
+      EastButton_2: 4666758003939644858
+      EastButton_3: -8757708336169768969
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

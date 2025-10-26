@@ -34,8 +34,8 @@ namespace Systems.ParallaxSystem.Controller
 
         // Random Spawning variables
         private bool _isRandomSpawning;
-        private float _firstLayerRandomSpawnWaitTime = 1.5f;
-        private float _secondLayerRandomSpawnWaitTime = 5f;
+        private float _firstLayerRandomSpawnWaitTime = 8f;
+        private float _secondLayerRandomSpawnWaitTime = 3f;
 
 
         public ParallaxEnvironmentController(ParallaxEnvironmentSpawner spawner, GameConfig gameConfig,
@@ -60,7 +60,14 @@ namespace Systems.ParallaxSystem.Controller
                 _view.firstLayerSpawnPoint.transform.position).Forget();
             StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
                 _view.secondLayerSpawnPoint.transform.position).Forget();
-            SpawnFirstLayerObjects();
+            SpawnStartingChunk();
+        }
+
+        private void SubscribeToProperties()
+        {
+            Observable.Interval(TimeSpan.FromSeconds(5))
+                .Subscribe(_ => { _firstLayerRandomSpawnWaitTime *= 0.9f; })
+                .AddTo(_disposable);
         }
 
         public void FixedTick()
@@ -269,7 +276,7 @@ namespace Systems.ParallaxSystem.Controller
             return obj;
         }
 
-        private void SpawnFirstLayerObjects()
+        private void SpawnStartingChunk()
         {
             var envData = GetEnvironmentObjectDataById("StartingChunk");
             var envObj = SpawnEnvironmentObject(envData, new Vector3(100, -8));
