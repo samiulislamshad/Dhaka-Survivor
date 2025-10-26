@@ -285,6 +285,41 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 782577397025932343, guid: e8143356a67ab5543ad53205c4d94b25, type: 3}
+    - id: NorthStart
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 4066449403481925756, guid: 00b721d38edd48f4ebcca9afed862a8f, type: 3}
+    - id: PoshTower
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 100
+      prefab: {fileID: 8171690392068971309, guid: 4247193b7cf3d2e4aad2d3e92d2d1722, type: 3}
+    - id: Chunk101
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 1004166672756143302, guid: 2aae38f35892a0b4dab00e7301d15127, type: 3}
+    - id: Chunk102
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 5341994574535987545, guid: 204e27a1e32b579458e3aa586adc6b0a, type: 3}
+    - id: Chunk103
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 6014722485087410056, guid: 5e135fedb69cdaa489effa0daed4f171, type: 3}
   secondParallaxLayer:
     id: Second
     layerName: 

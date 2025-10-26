@@ -55,7 +55,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ScrollDirection: {r: -1, g: 0, b: 0, a: 0}
+    - _ScrollDirection: {r: -0.25, g: 0, b: 0, a: 0}
     - _ScrollOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
