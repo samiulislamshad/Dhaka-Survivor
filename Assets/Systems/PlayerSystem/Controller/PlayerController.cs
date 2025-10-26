@@ -1,4 +1,4 @@
-﻿using Systems.EnemySystem;
+﻿using Systems.AudioSystem.Handler;
 using Systems.GameSystem.Config;
 using Systems.PauseSystem.Signals;
 using Systems.PlayerSystem.Signals;
@@ -12,6 +12,9 @@ namespace Systems.PlayerSystem.Controller
     {
         private SignalBus _signalBus;
         [Inject] private GameConfig _gameConfig;
+
+        [SerializeField] private OneShotPlayer jumpSfx;
+        [SerializeField] private OneShotPlayer gameOverSfx;
 
         [Header("Jump Settings")] [SerializeField]
         private float jumpForceWhenHeld = 32f;
@@ -145,8 +148,7 @@ namespace Systems.PlayerSystem.Controller
         }
 
         #region Animation
-
-     
+        
         private void UpdateAnimation()
         {
             if (isDead) return;
@@ -254,6 +256,7 @@ namespace Systems.PlayerSystem.Controller
 
             if (jumpTimeCounter > 0)
             {
+                jumpSfx.PlayAudio();
                 _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce * jumpMultiplier);
                 jumpTimeCounter -= Time.deltaTime;
             }
@@ -316,10 +319,20 @@ namespace Systems.PlayerSystem.Controller
 
         #region Second Jump
 
+        [Header("Second Jump Settings")]
+        [SerializeField] private float secondJumpForce = 35f; // Higher for satisfying bounce
+        
         private void PerformSecondJump()
         {
-            _rb.linearVelocity = Vector2.zero;
-            _rb.linearVelocityY = jumpForce;
+            if (isDead) return;
+            if (isGrounded) return;
+            
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, secondJumpForce);
+            isJumping = true;
+            _jumpHeld = true;
+            jumpTimeCounter = maxJumpTime * 0.5f;
+            animator.Play("jump");
+            _landingTimer = 0f;
         }
 
         #endregion
@@ -352,6 +365,7 @@ namespace Systems.PlayerSystem.Controller
             _gameConfig.hasTimerStarted.Value = false;
             _rb.linearVelocity = Vector2.zero;
             _rb.gravityScale = 0;
+            gameOverSfx.PlayAudio();
         }
 
         #endregion

@@ -14,14 +14,11 @@ namespace Systems.ParallaxSystem.Model
             Id = data.id;
             Data = data;
             parallaxSpeed = 1f;
-
-            InitializeWindowAunty();
         }
 
         public override void Reinitialize(Vector3 pos)
         {
             transform.position = pos;
-            InitializeWindowAunty();
         }
 
         public override void OnFixedUpdate(float gameSpeed)
@@ -40,11 +37,18 @@ namespace Systems.ParallaxSystem.Model
             return transform.position.x < -100f; // Example condition
         }
 
-        private void InitializeWindowAunty()
+        public override void OnSpawned()
         {
+            base.OnSpawned();
             if (windowAunty == null) return;
-            if(!windowAunty.isDead) return;
-            windowAunty.Initialize();
+            windowAunty.Spawn();
+        }
+
+        public override void OnDespawned()
+        {
+            base.OnDespawned();
+            if(windowAunty == null) return;
+            windowAunty.Despawn();
         }
     }
 }

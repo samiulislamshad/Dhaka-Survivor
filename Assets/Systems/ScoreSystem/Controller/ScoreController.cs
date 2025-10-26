@@ -14,7 +14,7 @@ using Zenject;
 namespace Systems.ScoreSystem.Controller
 {
     [Serializable]
-    public class ScoreController : IDisposable
+    public class ScoreController : IDisposable, IFixedTickable
     {
         private readonly ScoreCanvasView _view;
         private readonly GameConfig _gameConfig;
@@ -23,8 +23,9 @@ namespace Systems.ScoreSystem.Controller
         private readonly CompositeDisposable _disposable;
 
         private ReactiveProperty<int> _score;
-        
-        public ScoreController(ScoreCanvasView view, GameConfig gameConfig, SignalBus signalBus, SceneLoaderService sceneLoaderService)
+        private float _lastTimerValue = 0;
+        public ScoreController(ScoreCanvasView view, GameConfig gameConfig, SignalBus signalBus,
+            SceneLoaderService sceneLoaderService)
         {
             _view = view;
             _gameConfig = gameConfig;
@@ -39,25 +40,22 @@ namespace Systems.ScoreSystem.Controller
 
         private void SubscribeToProperties()
         {
-            _gameConfig.timer
-                .Select(Mathf.FloorToInt)
-                .DistinctUntilChanged()
-                .Skip(1)
-                .Subscribe(_ => 
+            Observable.EveryFixedUpdate()
+                .Subscribe(_ =>
                 {
-                    _score.Value += 100; // Add 100 points per second
+                    float currentTimer = _gameConfig.timer.Value;
+        
+                    if (currentTimer - _lastTimerValue >= 1)
+                    {
+                        _score.Value += 100;
+                        _lastTimerValue = currentTimer;
+                    }
                 })
                 .AddTo(_disposable);
 
-            _score.Subscribe(value =>
-            {
-                _view.playerScore.text = value.ToString();
-            }).AddTo(_disposable);
+            _score.Subscribe(value => { _view.playerScore.text = value.ToString(); }).AddTo(_disposable);
 
-            _view.okayButton.OnClickAsObservable().Subscribe(_ =>
-            {
-                HideScoreBoard();
-            }).AddTo(_disposable);
+            _view.okayButton.OnClickAsObservable().Subscribe(_ => { HideScoreBoard(); }).AddTo(_disposable);
         }
 
         private void SubscribeToSignals()
@@ -66,7 +64,7 @@ namespace Systems.ScoreSystem.Controller
             _signalBus.Subscribe<PlayerDeadSignal>(ShowScoreBoard);
             _signalBus.Subscribe<GameScreenSignal>(ShowPlayerScore);
         }
-        
+
         private void UnsubscribeToSignals()
         {
             _signalBus.Unsubscribe<AddScoreSignal>(AddScore);
@@ -82,7 +80,7 @@ namespace Systems.ScoreSystem.Controller
         private void ShowScoreBoard()
         {
             _gameConfig.currentUserData.score = _score.Value.ToString();
-            
+
             _view.userName.text = _gameConfig.currentUserData.userName;
             _view.score.text = _score.Value.ToString();
             _view.okayButton.interactable = true;
@@ -90,7 +88,7 @@ namespace Systems.ScoreSystem.Controller
             _view.runEndScorePanel.SetActive(true);
             _view.playerScore.text = _score.Value.ToString();
             EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
-            
+
             _view.animator.Play($"SadAnimation");
         }
 
@@ -111,6 +109,11 @@ namespace Systems.ScoreSystem.Controller
         {
             UnsubscribeToSignals();
             _disposable.Dispose();
+        }
+
+        public void FixedTick()
+        {
+            
         }
     }
 }

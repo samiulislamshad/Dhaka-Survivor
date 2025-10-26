@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.ParallaxSystem.Model.FirstLayerEnvironmentObject
   parallaxSpeed: 1
-  windowAunty: {fileID: 0}
+  windowAunty: {fileID: 6285177007845943793}
 --- !u!1 &2800256912323569576
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,3 +200,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5903553315519106283, guid: 61d09e39109a4f04984b53b58dadb4da, type: 3}
   m_PrefabInstance: {fileID: 1982020505753716856}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6285177007845943793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5528417127282876809, guid: 61d09e39109a4f04984b53b58dadb4da, type: 3}
+  m_PrefabInstance: {fileID: 1982020505753716856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d373c14351224decbf7fab256795332c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Model.WindowAunty

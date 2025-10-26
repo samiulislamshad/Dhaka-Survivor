@@ -74,12 +74,10 @@ namespace Systems.GameSystem.Manager
             startGameCanvasView.startGamePanel.SetActive(true);
             _startGameInputAction = _ => HideKeyMappingUi();
             _inputMaster.UiControl.Submit.performed += _startGameInputAction;
-            Debug.LogWarning($"Showing KeyMappingUi");
         }
 
         private void HideKeyMappingUi()
         {
-            Debug.LogWarning($"Hiding KeyMappingUi");
             startGameCanvasView.startGamePanel.SetActive(false);
             _inputMaster.UiControl.Submit.performed -= _startGameInputAction;
             _inputMaster.Enable();

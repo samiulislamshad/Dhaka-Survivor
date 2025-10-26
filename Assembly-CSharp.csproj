@@ -94,7 +94,6 @@
     <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\SwitchOnPlayerControlSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ParallaxLayer.cs" />
     <Compile Include="Assets\Systems\GameSystem\Installer\GameInstaller.cs" />
-    <Compile Include="Assets\Systems\SoundSystem\Installer\SoundInstaller.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartCrouchInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Service\EnemySpawner.cs" />
@@ -117,6 +116,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\SecondLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\SecondLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\WindowAunty.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\Manager\AudioManager.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopCrouchInputSignal.cs" />
     <Compile Include="Assets\Systems\InputSystem\HelperScript\KeyboardFocusHelper.cs" />
     <Compile Include="Assets\Systems\InputSystem\Controller\VirtualKeyboardController.cs" />
@@ -125,6 +125,7 @@
     <Compile Include="Assets\Systems\PauseSystem\Signals\PauseSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\ThirdLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\Controller\AudioController.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\EnvironmentObject.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Signals\UnpauseSignal.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\OfficeBossPool.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Assets\Systems\EnemySystem\Signals\UnregisterEnemySignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\Installer\MainMenuCanvasInstaller.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\Handler\SfxPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\OfficeBossEnemy.cs" />
@@ -148,6 +150,8 @@
     <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\PlayerDeadSignal.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Installer\LoadingScreenInstaller.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\ThirdLayerEnvironmentObjectFactory.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\Installer\AudioInstaller.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\Handler\OneShotPlayer.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\FourthLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\AuntyPool.cs" />
@@ -159,6 +163,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopJumpInputSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Installer\ParallaxEnvironmentInstaller.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\View\AudioView.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Interface\IEnemy.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Interface\IEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Config\ParallaxLayerConfig.cs" />
@@ -167,6 +172,7 @@
     <Compile Include="Assets\Systems\InputSystem\View\VirtualKeyboardView.cs" />
     <Compile Include="Assets\Systems\EnemySystem\ObjectPool\Chesra3Pool.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\FirstLayerEnvironmentObject.cs" />
+    <Compile Include="Assets\Systems\AudioSystem\Handler\BackgroundMusicPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Handler\ParallaxShaderEffectController.cs" />

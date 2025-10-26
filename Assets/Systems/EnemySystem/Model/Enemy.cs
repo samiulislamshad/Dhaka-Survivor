@@ -1,8 +1,10 @@
 ﻿using System;
+using Systems.AudioSystem.Handler;
 using Systems.EnemySystem.Enum;
 using Systems.EnemySystem.Interface;
 using Systems.EnemySystem.Service;
 using Systems.GameSystem.Config;
+using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
 using UnityEngine;
@@ -17,12 +19,14 @@ namespace Systems.EnemySystem.Model
         
         private CompositeDisposable _disposable = new();
 
-        public abstract EnemyType Type { get; }
+        public abstract EnemyType Type { get; } 
         public Animator animator;
         
         [SerializeField] protected Rigidbody2D rb;
         [SerializeField] private Collider2D col;
         [SerializeField] protected EnemyDamageDetector enemyDamageDetector;
+        
+        [SerializeField] private OneShotPlayer deathOneShotPlayer;
 
         protected bool IsDead;
         protected bool IsDespawning;
@@ -72,9 +76,10 @@ namespace Systems.EnemySystem.Model
             col.excludeLayers = LayerMask.GetMask("Player");
             col.includeLayers = LayerMask.GetMask("Limit");
             animator.Play("Death");
-            
+            SignalBus.Fire<PlayerSpecialJumpSignal>();
             _scoreSignal = new AddScoreSignal(Score);
             SignalBus.Fire(_scoreSignal);
+            deathOneShotPlayer.PlayAudio();
         }
         
         protected float GetCalculatedSpeedX()

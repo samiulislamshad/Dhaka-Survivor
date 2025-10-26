@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Systems.AudioSystem.Handler;
 using Systems.EnemySystem.Service;
 using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
@@ -15,27 +15,34 @@ namespace Systems.EnemySystem.Model
         [SerializeField] private EnemyDamageDetector enemyDamageDetector;
         
         [SerializeField] private int scoreValue;
+        [SerializeField] private OneShotPlayer deathSound;
         private bool _alreadyCalledOnce;
         
         [Inject] private SignalBus _signalBus;
         private AddScoreSignal _addScoreSignal;
-        private IDisposable _disposable;
+        private CompositeDisposable _disposable;
         
         public bool isDead;
 
         private void Start()
         {
             _addScoreSignal = new AddScoreSignal(0);
-            _disposable = new CompositeDisposable();
         }
 
-        public void Initialize()
+        public void Spawn()
         {
             isDead = false;
             _alreadyCalledOnce = false;
             animator.Play($"ClosedWindow");
-            col.includeLayers = LayerMask.GetMask("Player");
-            _disposable = enemyDamageDetector.OnCollisionEnter2d.Subscribe(OnTakeDamage);
+            col.isTrigger = true;
+            _disposable = new CompositeDisposable();
+            enemyDamageDetector.OnCollisionEnter2d.Subscribe(OnTakeDamage).AddTo(_disposable);
+        }
+
+        public void Despawn()
+        {
+            col.isTrigger = false;
+            _disposable?.Dispose();
         }
 
         public void OnUpdate()
@@ -50,11 +57,11 @@ namespace Systems.EnemySystem.Model
         private void OnTakeDamage(Collision2D collision)
         {
             isDead = true;
+            col.isTrigger = false;
             animator.Play("Death");
-            col.includeLayers = LayerMask.GetMask();
             _addScoreSignal.score = scoreValue;
             _signalBus.Fire(_addScoreSignal);
-            _disposable.Dispose();
+            deathSound.PlayAudio();
         }
         
         private void OnTriggerEnter2D(Collider2D other)

@@ -44,6 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11886cda5dc4a858c52dfe47a9f56bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.GameSystem.Manager.GameManager
-  hasGameStarted: 0
-  hasTimerStarted: 0
-  timer: 0
+  startGameCanvasView: {fileID: 0}
