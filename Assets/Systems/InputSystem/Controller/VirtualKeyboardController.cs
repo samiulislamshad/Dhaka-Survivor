@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.InputSystem.Model;
@@ -24,11 +25,10 @@ namespace Systems.InputSystem.Controller
         private CompositeDisposable _disposable;
 
         private ReactiveProperty<string> _userName;
-        private const int MaxLength = 20;
+        private const int MaxLength = 15;
         private const int MinLength = 3;
         private readonly List<string> _specialKeys = new() {"Submit", "Cancel", "Delete"};
         
-        // private List<Button> _allButtons;
         private EventSystem _eventSystem;
         
         private IDisposable _updateKeyboardFocus;
@@ -45,8 +45,7 @@ namespace Systems.InputSystem.Controller
             
             SubscribeToProperties();
             SubscribeToSignals();
-
-            // _allButtons = GetAllButtons();
+            
             view.gameObject.SetActive(false);
         }
 
@@ -60,13 +59,8 @@ namespace Systems.InputSystem.Controller
 
             _view.submitButton.OnClickAsObservable().Subscribe(_ =>
             {
-                OnSubmit();
+                OnSubmit().Forget();
             }).AddTo(_disposable);
-            
-            // _view.cancelButton.OnClickAsObservable().Subscribe(_ =>
-            // {
-            //     OnCancel();
-            // }).AddTo(_disposable);
             
             _view.deleteButton.OnClickAsObservable().Subscribe(_ =>
             {
@@ -100,7 +94,7 @@ namespace Systems.InputSystem.Controller
             _userName.Value = _userName.Value[..^1];
         }
 
-        private void OnSubmit()
+        private async UniTaskVoid OnSubmit()
         {
             if(_userName.Value.Length <= 0) return;
             var dateTime = DateTime.Now;
@@ -111,6 +105,7 @@ namespace Systems.InputSystem.Controller
             };
             
             _config.currentUserData = userData;
+            await UniTask.Delay(100);
             HideVirtualKeyboard();
         }
 
