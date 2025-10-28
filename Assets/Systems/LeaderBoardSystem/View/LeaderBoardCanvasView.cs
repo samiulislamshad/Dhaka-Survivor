@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Systems.InputSystem.Model;
 using UniRx;
 using UnityEngine;
@@ -17,31 +16,33 @@ namespace Systems.LeaderBoardSystem.View
         public float spacing = 5f;
         public float elementHeight = 100f;
 
-        private List<UserDataView> elementPool = new List<UserDataView>();
-        private Queue<UserDataView> availableElements = new Queue<UserDataView>();
-        private Dictionary<int, UserDataView> activeElements = new Dictionary<int, UserDataView>();
+        [SerializeField] private List<UserDataView> elementPool = new();
+        private readonly Queue<UserDataView> _availableElements = new();
+        private readonly Dictionary<int, UserDataView> _activeElements = new();
 
         // Sticky element for current player when outside visible range
-        private UserDataView stickyElement;
-        private bool isShowingStickyElement = false;
+        private UserDataView _stickyElement;
+        private bool _isShowingStickyElement;
 
         // Events
-        public Subject<Unit> onViewInitialized = new Subject<Unit>();
-        public Subject<float> onScrollValueChanged = new Subject<float>();
+        public readonly Subject<Unit> OnViewInitialized = new();
+        public readonly Subject<float> OnScrollValueChanged = new();
 
-        private int totalItems;
-        private float contentHeight;
-        private int currentPlayerRank = -1;
+        private int _totalItems;
+        private float _contentHeight;
+        private int _currentPlayerRank = -1;
 
-        void Awake()
+        private void Awake()
         {
             RemoveLayoutComponents();
+
+            _isShowingStickyElement = false;
         }
 
         public void Initialize(int totalItems, int currentPlayerRank)
         {
-            this.totalItems = totalItems;
-            this.currentPlayerRank = currentPlayerRank;
+            _totalItems = totalItems;
+            _currentPlayerRank = currentPlayerRank;
 
             RemoveLayoutComponents();
             ConfigureScrollRect();
@@ -51,7 +52,7 @@ namespace Systems.LeaderBoardSystem.View
 
             Debug.Log($"LeaderBoardView initialized with {totalItems} items, current player rank: {currentPlayerRank}");
 
-            onViewInitialized.OnNext(Unit.Default);
+            OnViewInitialized.OnNext(Unit.Default);
         }
 
         private void RemoveLayoutComponents()
@@ -89,7 +90,7 @@ namespace Systems.LeaderBoardSystem.View
                 SetupElementRectTransform(elementView.RectTransform);
 
                 elementPool.Add(elementView);
-                availableElements.Enqueue(elementView);
+                _availableElements.Enqueue(elementView);
                 elementObj.SetActive(false);
             }
         }
@@ -98,14 +99,14 @@ namespace Systems.LeaderBoardSystem.View
         {
             // Create a separate element for the sticky indicator
             var stickyObj = Instantiate(elementPrefab, scrollViewContent);
-            stickyElement = stickyObj.GetComponent<UserDataView>();
+            _stickyElement = stickyObj.GetComponent<UserDataView>();
 
-            if (stickyElement == null)
+            if (_stickyElement == null)
             {
-                stickyElement = stickyObj.AddComponent<UserDataView>();
+                _stickyElement = stickyObj.AddComponent<UserDataView>();
             }
 
-            SetupElementRectTransform(stickyElement.RectTransform);
+            SetupElementRectTransform(_stickyElement.RectTransform);
             stickyObj.SetActive(false);
         }
 
@@ -128,7 +129,7 @@ namespace Systems.LeaderBoardSystem.View
             scrollViewContent.anchoredPosition = Vector2.zero;
 
             scrollRect.onValueChanged.AsObservable()
-                .Subscribe(value => onScrollValueChanged.OnNext(value.y))
+                .Subscribe(value => OnScrollValueChanged.OnNext(value.y))
                 .AddTo(this);
         }
 
@@ -138,11 +139,11 @@ namespace Systems.LeaderBoardSystem.View
             if (userData == null) return;
 
             // Update sticky element visibility based on current player position
-            UpdateStickyElement(startIndex, endIndex, userData, scrollPosition);
+            UpdateStickyElement(startIndex, endIndex, userData);
 
             // Return elements that are no longer visible
             var keysToRemove = new List<int>();
-            foreach (var kvp in activeElements)
+            foreach (var kvp in _activeElements)
             {
                 if (kvp.Key < startIndex || kvp.Key > endIndex)
                 {
@@ -153,78 +154,77 @@ namespace Systems.LeaderBoardSystem.View
 
             foreach (var key in keysToRemove)
             {
-                activeElements.Remove(key);
+                _activeElements.Remove(key);
             }
 
             // Get elements for visible indices
             for (int i = startIndex; i <= endIndex; i++)
             {
-                if (i >= 0 && i < userData.Count && !activeElements.ContainsKey(i))
+                if (i >= 0 && i < userData.Count && !_activeElements.ContainsKey(i))
                 {
                     var element = GetElementFromPool();
                     if (element != null)
                     {
                         SetupElementPosition(element, i, userData[i]);
-                        activeElements[i] = element;
+                        _activeElements[i] = element;
                     }
                 }
             }
         }
 
-        private void UpdateStickyElement(int startIndex, int endIndex, List<UserData> userData, float scrollPosition)
+        private void UpdateStickyElement(int startIndex, int endIndex, List<UserData> userData)
         {
-            if (currentPlayerRank <= 0 || currentPlayerRank > userData.Count) return;
+            if (_currentPlayerRank <= 0 || _currentPlayerRank > userData.Count) return;
 
             var currentPlayerData = userData.Find(user => user.isCurrentPlayer);
             if (currentPlayerData == null) return;
 
-            bool isCurrentPlayerVisible = (currentPlayerRank >= startIndex && currentPlayerRank <= endIndex);
+            bool isCurrentPlayerVisible = (_currentPlayerRank >= startIndex && _currentPlayerRank <= endIndex);
 
             if (isCurrentPlayerVisible)
             {
                 // Current player is in visible range, hide sticky element
-                if (isShowingStickyElement)
+                if (_isShowingStickyElement)
                 {
-                    stickyElement.gameObject.SetActive(false);
-                    isShowingStickyElement = false;
+                    _stickyElement.gameObject.SetActive(false);
+                    _isShowingStickyElement = false;
                 }
             }
             else
             {
                 // Current player is outside visible range, show sticky element
-                if (!isShowingStickyElement)
+                if (!_isShowingStickyElement)
                 {
-                    stickyElement.gameObject.SetActive(true);
-                    isShowingStickyElement = true;
+                    _stickyElement.gameObject.SetActive(true);
+                    _isShowingStickyElement = true;
                 }
 
                 // Position sticky element and update its data
-                PositionStickyElement(startIndex, endIndex, currentPlayerData, scrollPosition);
+                PositionStickyElement(startIndex, endIndex, currentPlayerData);
             }
         }
 
-        private void PositionStickyElement(int startIndex, int endIndex, UserData currentPlayerData,
-            float scrollPosition)
+        private void PositionStickyElement(int startIndex, int endIndex, UserData currentPlayerData)
         {
-            float stickyYPosition = 0f;
-            string positionText = "";
+            var stickyYPosition = 0f;
+            var positionText = "";
 
-            if (currentPlayerRank < startIndex)
+            if (_currentPlayerRank < startIndex)
             {
                 // Current player is above the visible range - show at top
                 stickyYPosition = 0f;
-                positionText = $"↑ Rank {currentPlayerRank} is above";
+                positionText = $"↑ Rank {_currentPlayerRank} is above";
             }
-            else if (currentPlayerRank > endIndex)
+            else if (_currentPlayerRank > endIndex)
             {
                 // Current player is below the visible range - show at bottom
                 float viewportHeight = scrollRect.viewport.rect.height;
                 stickyYPosition = -viewportHeight + elementHeight;
-                positionText = $"↓ Rank {currentPlayerRank} is below";
+                positionText = $"↓ Rank {_currentPlayerRank} is below";
             }
 
             // Position the sticky element within the viewport (not in content)
-            RectTransform stickyRect = stickyElement.RectTransform;
+            RectTransform stickyRect = _stickyElement.RectTransform;
             stickyRect.SetParent(scrollRect.viewport);
             stickyRect.anchoredPosition = new Vector2(0, stickyYPosition);
             stickyRect.SetParent(scrollViewContent); // Return to content for proper ordering
@@ -232,20 +232,20 @@ namespace Systems.LeaderBoardSystem.View
             // Create a modified data for the sticky indicator
             var stickyData = new UserData(
                 currentPlayerData.rank,
-                positionText,
+                currentPlayerData.userName,
                 currentPlayerData.score,
                 currentPlayerData.userId,
                 true
             );
 
-            stickyElement.UpdateElement(stickyData, true);
+            _stickyElement.UpdateElement(stickyData, true);
         }
 
         private UserDataView GetElementFromPool()
         {
-            if (availableElements.Count > 0)
+            if (_availableElements.Count > 0)
             {
-                return availableElements.Dequeue();
+                return _availableElements.Dequeue();
             }
 
             return null;
@@ -254,7 +254,7 @@ namespace Systems.LeaderBoardSystem.View
         private void ReturnElementToPool(UserDataView element)
         {
             element.gameObject.SetActive(false);
-            availableElements.Enqueue(element);
+            _availableElements.Enqueue(element);
         }
 
         private void SetupElementPosition(UserDataView element, int index, UserData userData)
@@ -262,34 +262,34 @@ namespace Systems.LeaderBoardSystem.View
             float yPos = -index * (elementHeight + spacing);
             element.RectTransform.anchoredPosition = new Vector2(0, yPos);
             element.gameObject.SetActive(true);
-            element.UpdateElement(userData, false);
+            element.UpdateElement(userData);
         }
 
         public void RefreshContentSize(int newTotalItems)
         {
-            totalItems = newTotalItems;
+            _totalItems = newTotalItems;
             CalculateAndSetContentSize();
         }
 
         private void CalculateAndSetContentSize()
         {
-            contentHeight = totalItems * (elementHeight + spacing);
-            scrollViewContent.sizeDelta = new Vector2(0, contentHeight);
+            _contentHeight = _totalItems * (elementHeight + spacing);
+            scrollViewContent.sizeDelta = new Vector2(0, _contentHeight);
         }
 
         public void ClearAllElements()
         {
-            foreach (var kvp in activeElements)
+            foreach (var kvp in _activeElements)
             {
                 ReturnElementToPool(kvp.Value);
             }
 
-            activeElements.Clear();
+            _activeElements.Clear();
 
-            if (stickyElement != null)
+            if (_stickyElement != null)
             {
-                stickyElement.gameObject.SetActive(false);
-                isShowingStickyElement = false;
+                _stickyElement.gameObject.SetActive(false);
+                _isShowingStickyElement = false;
             }
         }
 

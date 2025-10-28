@@ -506,9 +506,9 @@ MonoBehaviour:
   userNameText: {fileID: 9138982307848134877}
   scoreText: {fileID: 5350846415604375097}
   backgroundImage: {fileID: 1112797227969860585}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  currentPlayerColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  stickyIndicatorColor: {r: 0, g: 0.5471698, b: 0.5471698, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 0}
+  currentPlayerColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.78039217}
+  stickyIndicatorColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1573798405034418621
 MonoBehaviour:
   m_ObjectHideFlags: 0

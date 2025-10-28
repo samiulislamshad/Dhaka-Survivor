@@ -32,7 +32,7 @@ namespace Systems.LeaderBoardSystem.Controller
     {
         model.InitializeWithTestData();
         
-        view.onViewInitialized
+        view.OnViewInitialized
             .Subscribe(_ => SetupRecyclableScrollView())
             .AddTo(disposables);
         
@@ -68,7 +68,7 @@ namespace Systems.LeaderBoardSystem.Controller
         Debug.Log($"- Visible item count: {visibleItemCount}");
         Debug.Log($"- Current player rank: {model.currentPlayerRank.Value}");
         
-        view.onScrollValueChanged
+        view.OnScrollValueChanged
             .Subscribe(OnScrollValueChanged)
             .AddTo(disposables);
         
