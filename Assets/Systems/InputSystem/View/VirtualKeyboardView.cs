@@ -14,8 +14,7 @@ namespace Systems.InputSystem.View
         public Button deleteButton;
 
         public TMP_Text userNameText;
-
-        // [SerializeField] private Color buttonSelectedColor;
+        
         [SerializeField] private EventSystem eventSystem;
 
         public void InitializeAlphanumericButtons(List<string> specialKeys, Action<string> callback)
@@ -33,19 +32,11 @@ namespace Systems.InputSystem.View
                 var label = btn.GetComponentInChildren<TMP_Text>();
 
                 if (label == null) continue;
-                var key = label.text;
+                var key = label.text.Trim();
 
                 if (specialKeys.Contains(key)) continue;
                 btn.onClick.AddListener(() => callback(key));
-                // var colors = btn.colors;
-                // colors.selectedColor = buttonSelectedColor;
-                // btn.colors = colors;
             }
-            
-            // var buttonColors = submitButton.colors;
-            // buttonColors.selectedColor = buttonSelectedColor;
-            // submitButton.colors = buttonColors;
-            // deleteButton.colors = buttonColors;
             
             if(eventSystem == null)
                 eventSystem = FindFirstObjectByType<EventSystem>();

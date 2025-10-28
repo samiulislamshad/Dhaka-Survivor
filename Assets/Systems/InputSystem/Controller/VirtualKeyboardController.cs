@@ -160,15 +160,6 @@ namespace Systems.InputSystem.Controller
             }
         }
 
-        private List<Button> GetAllButtons()
-        {
-            var buttons = _view.GetComponentsInChildren<Button>().ToList();
-            // buttons.Add(_view.cancelButton);
-            buttons.Add(_view.submitButton);
-            buttons.Add(_view.deleteButton);
-            return buttons;
-        }
-
         #endregion
 
         public void Dispose()

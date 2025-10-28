@@ -17,13 +17,6 @@ MonoBehaviour:
     layerName: 
     layerType: 0
     environmentObjects:
-    - id: Building400
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 2476948109621556220, guid: 069bc5303dd4a604c9e620a0de6eceae, type: 3}
     - id: BuildingChunk1
       name: 
       layerType: 0
@@ -52,20 +45,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 782577397025932343, guid: e8143356a67ab5543ad53205c4d94b25, type: 3}
-    - id: NorthStart
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 100
-      prefab: {fileID: 4066449403481925756, guid: 00b721d38edd48f4ebcca9afed862a8f, type: 3}
-    - id: PoshTower
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 100
-      prefab: {fileID: 8171690392068971309, guid: 4247193b7cf3d2e4aad2d3e92d2d1722, type: 3}
     - id: Chunk101
       name: 
       layerType: 0
@@ -94,13 +73,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 6490453424080645573, guid: 1650688a100b25d4c9043169740dbce2, type: 3}
-    - id: Wall02
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 1734736063267254201, guid: 96bd2e9f1237f18448bf6860daefe25d, type: 3}
     - id: Chunk104
       name: 
       layerType: 0
