@@ -38,6 +38,8 @@ namespace Systems.AudioSystem.Manager
             audioSource.clip = mainMenuClip[Random.Range(0, mainMenuClip.Count)];
             audioSource.Play();
         }
+
+        public void StopMainMenuMusic() => audioSource.Stop();
         
         private void PlayGameScreenMusic()
         {

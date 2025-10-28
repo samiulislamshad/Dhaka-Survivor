@@ -256,7 +256,6 @@ namespace Systems.PlayerSystem.Controller
 
             if (jumpTimeCounter > 0)
             {
-                jumpSfx.PlayAudio();
                 _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce * jumpMultiplier);
                 jumpTimeCounter -= Time.deltaTime;
             }
@@ -299,6 +298,7 @@ namespace Systems.PlayerSystem.Controller
             jumpGravity = jumpGravityWhenHeld;
             isJumping = true;
             _jumpHeld = true;
+            jumpSfx.PlayAudio();
             jumpTimeCounter = maxJumpTime;
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
             

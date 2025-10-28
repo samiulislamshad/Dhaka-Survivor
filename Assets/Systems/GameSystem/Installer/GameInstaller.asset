@@ -15,4 +15,5 @@ MonoBehaviour:
   gameManager: {fileID: 7867651302580867691, guid: 66b09a5544cb7fe46a4e5b900f2d0065, type: 3}
   gameConfig: {fileID: 11400000, guid: 2748e0473f0d303439be82408fb0b1cf, type: 2}
   startGameCanvasView: {fileID: 506757500756925717, guid: 3411372b395fd964f82f047195c34f0a, type: 3}
+  audioManager: {fileID: 6023200773276593741, guid: 9cf51504431aab14b9f38f8913b01d3f, type: 3}
   mainCameraPrefab: {fileID: 5045208482305175501, guid: fd70b96fcce4aea45b631b84684ec1fc, type: 3}

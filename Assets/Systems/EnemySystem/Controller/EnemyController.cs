@@ -90,11 +90,12 @@ namespace Systems.EnemySystem.Controller
 
         private void SubscribeToProperties()
         {
-            _config.timer.Subscribe(value =>
+            Observable.EveryUpdate().Subscribe(value =>
             {
-                if (value < 30) return;
+                if (value <= 50) return;
                 if (_lockedEnemies.Count <= 0) return;
                 _unlockedEnemies.Add(_lockedEnemies[0]);
+                _lockedEnemies.RemoveAt(0);
             }).AddTo(_disposable);
 
             _signalBus.Subscribe<UnregisterEnemySignal>(UnRegisterEnemy);

@@ -1,4 +1,5 @@
 ﻿using Services;
+using Systems.AudioSystem.Manager;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Manager;
 using Systems.GameSystem.Signals;
@@ -14,6 +15,7 @@ namespace Systems.GameSystem.Installer
         [SerializeField] private GameManager gameManager;
         [SerializeField] private GameConfig gameConfig;
         [SerializeField] private StartGameCanvasView startGameCanvasView;
+        [SerializeField] private AudioManager audioManager;
         [SerializeField] private Camera mainCameraPrefab;
         
         public override void InstallBindings()
@@ -35,6 +37,8 @@ namespace Systems.GameSystem.Installer
                 .FromComponentInNewPrefab(mainCameraPrefab)
                 .AsSingle()
                 .NonLazy();
+
+            Container.Bind<AudioManager>().FromComponentInNewPrefab(audioManager).AsSingle().NonLazy();
             
             // Services
             Container.BindInterfacesAndSelfTo<SceneLoaderService>().AsSingle();

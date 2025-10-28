@@ -1,8 +1,10 @@
 ﻿using System;
+using Systems.AudioSystem.Manager;
 using Systems.EnemySystem.Controller;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
+using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
 using UnityEngine;
@@ -18,6 +20,7 @@ namespace Systems.GameSystem.Manager
         private SignalBus _signalBus;
         private CompositeDisposable _disposable;
         private InputMaster _inputMaster;
+        private AudioManager _audioManager;
         
         [SerializeField] private StartGameCanvasView startGameCanvasView;
 
@@ -27,13 +30,15 @@ namespace Systems.GameSystem.Manager
             StartGameCanvasView view,
             SignalBus signalBus,
             GameConfig config,
-            InputMaster inputMaster)
+            InputMaster inputMaster,
+            AudioManager audioManager)
         {
             _enemyController = enemyController;
             _signalBus = signalBus;
             startGameCanvasView = view;
             _config = config;
             _inputMaster = inputMaster;
+            _audioManager = audioManager;
 
             _disposable = new CompositeDisposable();
         }
@@ -65,6 +70,13 @@ namespace Systems.GameSystem.Manager
         private void SubscribeToSignals()
         {
             _signalBus.Subscribe<GameScreenSignal>(ShowKeyMappingUi);
+            _signalBus.Subscribe<PlayerDeadSignal>(OnPlayerDeath);
+        }
+
+        private void UnsubscribeFromSignals()
+        {
+            _signalBus.Unsubscribe<GameScreenSignal>(ShowKeyMappingUi);
+            _signalBus.Unsubscribe<PlayerDeadSignal>(OnPlayerDeath);
         }
 
         private Action<InputAction.CallbackContext> _startGameInputAction;
@@ -100,6 +112,11 @@ namespace Systems.GameSystem.Manager
             if(_config.hasGameStarted.Value)
                 _config.gameSpeed.Value += Time.fixedDeltaTime/5 * 1.5f;
         }
+
+        private void OnPlayerDeath()
+        {
+            _audioManager.StopMainMenuMusic();
+        }
         
         private void OnDestroy()
         {
@@ -108,6 +125,7 @@ namespace Systems.GameSystem.Manager
 
         public void Dispose()
         {
+            UnsubscribeFromSignals();
             _disposable?.Dispose();
             _enemyController?.Dispose();
         }

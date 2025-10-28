@@ -101,6 +101,20 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 1734736063267254201, guid: 96bd2e9f1237f18448bf6860daefe25d, type: 3}
+    - id: Chunk104
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 7581719315097254825, guid: aaf5e640912dfd54a90678a72a888555, type: 3}
+    - id: Chunk105
+      name: 
+      layerType: 0
+      crucialRelativeObjects: []
+      preferredRelativeObjects: []
+      estimatedSpawnTime: 20
+      prefab: {fileID: 9022304049305322967, guid: 65f2dbc181ab71a46b788f655085e4e6, type: 3}
   secondParallaxLayer:
     id: Second
     layerName: 

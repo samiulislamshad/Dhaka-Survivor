@@ -17,14 +17,20 @@ namespace Systems.EnemySystem.Model
         protected override void OnFixedUpdate()
         {
             rb.MovePosition(rb.position + Vector2.left * (BaseEnemySpeed * Config.gameSpeed.Value * Time.fixedDeltaTime));
+            
             PlaySfx();
         }
         
         public override string GetEnemyName() => "ChapriBiker";
 
-        private const float Points = 25f;
+        private const float Points = 50f;
         private void PlaySfx()
         {
+            if (IsDead)
+            {
+                if(bikeSfx.IsPlaying())
+                    bikeSfx.StopSfx();
+            }
             var pos = transform.position;
             if (!(pos.x <= Points) || !(pos.x >= -Points))
             {
