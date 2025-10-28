@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0515f3f6db64e7f915af9790184707a, type: 3}
   m_Name: LeaderBoardInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.LeaderBoardSystem.Installer.LeaderBoardInstaller
-  canvasView: {fileID: 1224365106029780352, guid: d665d390166cff049b230436f578bf86, type: 3}
+  canvasView: {fileID: 1205757184831160768, guid: d665d390166cff049b230436f578bf86, type: 3}

@@ -1,13 +1,10 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
-using Systems.GameSystem;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.InputSystem.Controller;
 using Systems.MainMenuSystem.Model;
 using Systems.MainMenuSystem.View;
 using UniRx;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 

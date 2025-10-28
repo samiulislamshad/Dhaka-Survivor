@@ -6,7 +6,6 @@ using Systems.PauseSystem.Signals;
 using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Zenject;

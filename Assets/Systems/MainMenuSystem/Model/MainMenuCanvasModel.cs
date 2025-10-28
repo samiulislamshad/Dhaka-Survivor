@@ -1,9 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Services;
-using Systems.LoadingScreenSystem.Controller;
 using UniRx;
-using UnityEngine.SceneManagement;
 
 namespace Systems.MainMenuSystem.Model
 {

@@ -1,6 +1,4 @@
-﻿using Systems.LeaderBoardSystem.Controller;
-using Systems.LeaderBoardSystem.Model;
-using Systems.LeaderBoardSystem.View;
+﻿using Systems.LeaderBoardSystem.View;
 using UnityEngine;
 using Zenject;
 
@@ -14,13 +12,13 @@ namespace Systems.LeaderBoardSystem.Installer
         public override void InstallBindings()
         {
             // View
-            Container.Bind<LeaderBoardCanvasView>().FromComponentInNewPrefab(canvasView).AsSingle();
-            
-            // Model
-            Container.Bind<LeaderBoardModel>().AsSingle();
-            
-            // Controller
-            Container.Bind<LeaderBoardController>().AsSingle().NonLazy();
+            // Container.Bind<LeaderBoardCanvasView>().FromComponentInNewPrefab(canvasView).AsSingle();
+            //
+            // // Model
+            // Container.Bind<LeaderBoardModel>().AsSingle();
+            //
+            // // Controller
+            // Container.Bind<LeaderBoardController>().AsSingle().NonLazy();
         }
     }
 }

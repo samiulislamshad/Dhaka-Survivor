@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
@@ -10,6 +11,7 @@ using UniRx;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Systems.InputSystem.Controller
 {
@@ -102,13 +104,12 @@ namespace Systems.InputSystem.Controller
         {
             if(_userName.Value.Length <= 0) return;
             var dateTime = DateTime.Now;
-            var userData = new UserData
+            var userData = new UserData(Random.Range(0,50), _userName.Value, 0.ToString(), Guid.NewGuid().ToString())
             {
-                userName = _userName.Value,
-                date = dateTime.ToShortDateString(),
-                time = dateTime.ToShortTimeString()
+                date = dateTime.Date.ToString(CultureInfo.InvariantCulture),
+                time = dateTime.Hour.ToString().PadLeft(2, '0'),
             };
-
+            
             _config.currentUserData = userData;
             HideVirtualKeyboard();
         }

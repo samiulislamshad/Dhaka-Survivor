@@ -3,7 +3,6 @@ using Systems.EnemySystem.Controller;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
-using Systems.PlayerSystem.Signals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
 using UnityEngine;

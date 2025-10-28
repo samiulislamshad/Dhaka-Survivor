@@ -36,7 +36,7 @@ MonoBehaviour:
       layerType: 0
       crucialRelativeObjects: []
       preferredRelativeObjects: []
-      estimatedSpawnTime: 50
+      estimatedSpawnTime: 200
       prefab: {fileID: 718184539392834845, guid: 2305bbb9bd96991429e7de6bcc5e8c82, type: 3}
     - id: BuildingChunk2
       name: 
