@@ -1,4 +1,5 @@
-﻿using Systems.EnemySystem.Enum;
+﻿using Cysharp.Threading.Tasks;
+using Systems.EnemySystem.Enum;
 using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
 
@@ -15,7 +16,33 @@ namespace Systems.EnemySystem.Model
         
             var movement = new Vector2(-finalSpeedX, finalSpeedY) * (Time.fixedDeltaTime * Config.enemySpeedMultiplier);
             rb.MovePosition(rb.position + movement);
+            
+            ShowSpeechBubble();
         }
+        
+        #region Speech Bubble
+
+        private void ShowSpeechBubble()
+        {
+            if (!(transform.position.x <= 30)) return;
+            if (!canShowSpeechBubble) return;
+            if (HasShownSpeechBubble) return;
+            speechBubbleAnimator.Play("SpeechBubbleOn");
+            HasShownSpeechBubble = true;
+            canShowSpeechBubble = false;
+            HideSpeechBubble().Forget();
+        }
+
+        private async UniTaskVoid HideSpeechBubble()
+        {
+            await UniTask.WaitForSeconds(SpeechBubbleOffTime);
+            speechBubbleAnimator.Play("SpeechBubbleOff");
+        }
+
+        #endregion
+
+        
+        public override string GetEnemyName() => "Chesra3";
 
         private void OnTriggerEnter2D(Collider2D other)
         {

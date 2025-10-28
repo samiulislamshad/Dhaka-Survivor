@@ -28,6 +28,8 @@ namespace Systems.EnemySystem.Controller
         private List<int> _lockedEnemies;
         private List<int> _unlockedEnemies;
 
+        private Dictionary<string, int> _enemySpeechBubbles;
+
         private float _spawnTimer;
         private const float InitialSpawnTime = 3f;
         private float _changeRate = 10;
@@ -47,6 +49,11 @@ namespace Systems.EnemySystem.Controller
             _activeEnemies = new List<Enemy>();
             _lockedEnemies = new List<int> { 1 };
             _unlockedEnemies = new List<int> { 0, 2, 3, 4, 5, 6, 7 };
+
+            _enemySpeechBubbles = new Dictionary<string, int>
+            {
+                ["Aunty"] = 2, ["OfficeBoss"] = 2, ["Chesra1"] = 3, ["Chesra2"] = 4, ["Chesra3"] = 5,
+            };
 
             _spawnTimer = 0f;
             _nextSpawnTime = 2f;
@@ -126,6 +133,16 @@ namespace Systems.EnemySystem.Controller
                 spawnPosition.x += i * 2f;
                 var enemy = _spawner.Spawn(enemyType, spawnPosition);
                 if (enemy == null) continue;
+                var enemyName = enemy.GetEnemyName();
+                if (_enemySpeechBubbles.TryGetValue(enemyName, out var count))
+                {
+                    if (count > 0)
+                    {
+                        enemy.canShowSpeechBubble = true;
+                        _enemySpeechBubbles[enemyName]--;
+                    }
+                }
+                
                 RegisterEnemy(enemy);
             }
         }

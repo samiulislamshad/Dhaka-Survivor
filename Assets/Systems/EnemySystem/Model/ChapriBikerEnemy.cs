@@ -19,6 +19,8 @@ namespace Systems.EnemySystem.Model
             rb.MovePosition(rb.position + Vector2.left * (BaseEnemySpeed * Config.gameSpeed.Value * Time.fixedDeltaTime));
             PlaySfx();
         }
+        
+        public override string GetEnemyName() => "ChapriBiker";
 
         private const float Points = 25f;
         private void PlaySfx()

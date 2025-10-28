@@ -21,6 +21,7 @@ namespace Systems.EnemySystem.Model
 
         public abstract EnemyType Type { get; } 
         public Animator animator;
+        [SerializeField] protected Animator speechBubbleAnimator;
         
         [SerializeField] protected Rigidbody2D rb;
         [SerializeField] private Collider2D col;
@@ -32,6 +33,10 @@ namespace Systems.EnemySystem.Model
         protected bool IsDespawning;
         private const int Score = 20;
         private AddScoreSignal _scoreSignal;
+
+        public bool canShowSpeechBubble;
+        protected bool HasShownSpeechBubble;
+        protected int SpeechBubbleOffTime = 2000;
 
         [Header("Movement Settings")]
         [SerializeField] protected float moveSpeedX = 1f;
@@ -64,6 +69,7 @@ namespace Systems.EnemySystem.Model
         }
 
         protected abstract void OnFixedUpdate();
+        public abstract string GetEnemyName();
 
         public virtual bool ShouldDespawn()
         {

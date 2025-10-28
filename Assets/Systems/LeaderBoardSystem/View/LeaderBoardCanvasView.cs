@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Systems.InputSystem.Model;
 using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Systems.LeaderBoardSystem.View
 {
     public class LeaderBoardCanvasView : MonoBehaviour
     {
+        public EventSystem eventSystem;
+        public Button mainMenuButton;
+        
         [Header("References")] public RectTransform scrollViewContent;
         public ScrollRect scrollRect;
         public GameObject elementPrefab;
@@ -53,6 +58,12 @@ namespace Systems.LeaderBoardSystem.View
             Debug.Log($"LeaderBoardView initialized with {totalItems} items, current player rank: {currentPlayerRank}");
 
             OnViewInitialized.OnNext(Unit.Default);
+        }
+
+        private void Update()
+        {
+            if(!gameObject.activeInHierarchy) return;
+            eventSystem.SetSelectedGameObject(mainMenuButton.gameObject);
         }
 
         private void RemoveLayoutComponents()

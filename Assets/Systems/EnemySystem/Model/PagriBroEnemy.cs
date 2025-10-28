@@ -17,6 +17,8 @@ namespace Systems.EnemySystem.Model
             rb.MovePosition(rb.position + movement);
         }
 
+        public override string GetEnemyName() => "PagriBro";
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("Limit"))

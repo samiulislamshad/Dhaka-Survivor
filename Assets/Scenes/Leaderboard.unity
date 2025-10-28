@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 773754244}
   - component: {fileID: 773754248}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: LeaderBoardCanvasView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,6 +389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f46fac4c1ab46d28253884703f1c2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.LeaderBoardSystem.View.LeaderBoardCanvasView
+  eventSystem: {fileID: 1786978328}
+  mainMenuButton: {fileID: 1960403799}
   scrollViewContent: {fileID: 620216982}
   scrollRect: {fileID: 2141465207}
   elementPrefab: {fileID: 6172591414038970832, guid: 78f34c955c3d9f94e9579bdc964d3ac8, type: 3}
@@ -432,8 +434,8 @@ Camera:
   m_GameObject: {fileID: 1011264510}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.23921569, g: 0.09803922, b: 0.24705882, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -455,7 +457,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 200
   field of view: 60
   orthographic: 1
   orthographic size: 5
@@ -826,7 +828,7 @@ GameObject:
   - component: {fileID: 1960403797}
   - component: {fileID: 1960403799}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
