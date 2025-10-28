@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Services;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
@@ -42,13 +43,10 @@ namespace Systems.ScoreSystem.Controller
             Observable.EveryFixedUpdate()
                 .Subscribe(_ =>
                 {
-                    float currentTimer = _gameConfig.timer.Value;
-        
-                    if (currentTimer - _lastTimerValue >= 1)
-                    {
-                        _score.Value += 100;
-                        _lastTimerValue = currentTimer;
-                    }
+                    var currentTimer = _gameConfig.timer.Value;
+                    if (!(currentTimer - _lastTimerValue >= 1)) return;
+                    _score.Value += 100;
+                    _lastTimerValue = currentTimer;
                 })
                 .AddTo(_disposable);
 
@@ -79,16 +77,24 @@ namespace Systems.ScoreSystem.Controller
         private void ShowScoreBoard()
         {
             _gameConfig.currentUserData.score = _score.Value.ToString();
-
-            _view.userName.text = _gameConfig.currentUserData.userName;
-            _view.score.text = _score.Value.ToString();
-            _view.okayButton.interactable = true;
             _view.runStartScorePanel.SetActive(false);
             _view.runEndScorePanel.SetActive(true);
             _view.playerScore.text = _score.Value.ToString();
-            EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
-
+            
             _view.animator.Play($"SadAnimation");
+            ShowScore().Forget();
+        }
+
+        private async UniTaskVoid ShowScore()
+        {
+            await UniTask.Delay(2000,DelayType.UnscaledDeltaTime);
+            _view.scorePanel.SetActive(true);
+            _view.userName.text = _gameConfig.currentUserData.userName;
+            _view.score.text = _score.Value.ToString();
+            await UniTask.Delay(2000,DelayType.UnscaledDeltaTime);
+            _view.okayButton.gameObject.SetActive(true);
+            _view.okayButton.interactable = true;
+            EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
         }
 
         private void HideScoreBoard()
