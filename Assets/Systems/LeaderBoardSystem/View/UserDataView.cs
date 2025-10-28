@@ -2,6 +2,7 @@
 using Systems.InputSystem.Model;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Systems.LeaderBoardSystem.View
 {
@@ -12,6 +13,12 @@ namespace Systems.LeaderBoardSystem.View
         public TextMeshProUGUI rankText;
         public TextMeshProUGUI userNameText;
         public TextMeshProUGUI scoreText;
+        public Image backgroundImage;
+    
+        [Header("Colors")]
+        public Color normalColor = Color.white;
+        public Color currentPlayerColor = Color.yellow;
+        public Color stickyIndicatorColor = Color.cyan;
     
         private RectTransform rectTransform;
         public RectTransform RectTransform 
@@ -24,7 +31,7 @@ namespace Systems.LeaderBoardSystem.View
             }
         }
     
-        public void UpdateElement(UserData userData)
+        public void UpdateElement(UserData userData, bool isStickyIndicator = false)
         {
             if (rankText != null)
                 rankText.text = userData.rank.ToString();
@@ -34,6 +41,22 @@ namespace Systems.LeaderBoardSystem.View
             
             if (scoreText != null)
                 scoreText.text = userData.score;
-        }
-    }
+        
+            // Set background color based on state
+            if (backgroundImage != null)
+            {
+                if (isStickyIndicator)
+                {
+                    backgroundImage.color = stickyIndicatorColor;
+                }
+                else if (userData.isCurrentPlayer)
+                {
+                    backgroundImage.color = currentPlayerColor;
+                }
+                else
+                {
+                    backgroundImage.color = normalColor;
+                }
+            }
+        }    }
 }

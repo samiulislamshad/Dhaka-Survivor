@@ -11,13 +11,15 @@ namespace Systems.InputSystem.Model
         public string userId;
         public string date;
         public string time;
-        
-        public UserData(int rank, string userName, string score, string userId = "")
+        public bool isCurrentPlayer; // Add this flag
+    
+        public UserData(int rank, string userName, string score, string userId = "", bool isCurrentPlayer = false)
         {
             this.rank = rank;
             this.userName = userName;
             this.score = score;
             this.userId = userId;
+            this.isCurrentPlayer = isCurrentPlayer;
         }
     }
 }

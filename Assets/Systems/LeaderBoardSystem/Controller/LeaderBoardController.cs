@@ -21,6 +21,7 @@ namespace Systems.LeaderBoardSystem.Controller
     private int visibleItemCount;
     private int currentStartIndex = 0;
     private int currentEndIndex = 0;
+    private float currentScrollPosition = 0f;
     
     void Start()
     {
@@ -29,41 +30,33 @@ namespace Systems.LeaderBoardSystem.Controller
     
     private void Initialize()
     {
-        // Initialize model with test data
         model.InitializeWithTestData();
         
-        // Wait for view to be initialized
         view.onViewInitialized
             .Subscribe(_ => SetupRecyclableScrollView())
             .AddTo(disposables);
         
-        // Initialize view
-        view.Initialize(model.totalUserCount.Value);
+        view.Initialize(model.totalUserCount.Value, model.currentPlayerRank.Value);
     }
     
     private void SetupRecyclableScrollView()
     {
-        // Use Coroutine to wait for layout calculation
         StartCoroutine(SetupAfterLayout());
     }
     
     private System.Collections.IEnumerator SetupAfterLayout()
     {
-        // Wait for end of frame to ensure layout is calculated
         yield return new WaitForEndOfFrame();
         
-        // Force layout rebuild
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(view.scrollRect.viewport as RectTransform);
         
-        // Now calculate visible items with proper viewport height
         float viewportHeight = view.scrollRect.viewport.rect.height;
         float elementHeightWithSpacing = view.GetElementHeightWithSpacing();
         
-        // If viewport height is still 0, use a default fallback
         if (viewportHeight <= 0)
         {
-            viewportHeight = 600f; // Fallback height
+            viewportHeight = 600f;
             Debug.LogWarning($"Viewport height was 0, using fallback: {viewportHeight}");
         }
         
@@ -73,30 +66,28 @@ namespace Systems.LeaderBoardSystem.Controller
         Debug.Log($"- Viewport height: {viewportHeight}");
         Debug.Log($"- Element height + spacing: {elementHeightWithSpacing}");
         Debug.Log($"- Visible item count: {visibleItemCount}");
-        Debug.Log($"- Total items: {model.totalUserCount.Value}");
+        Debug.Log($"- Current player rank: {model.currentPlayerRank.Value}");
         
-        // Subscribe to scroll events
         view.onScrollValueChanged
             .Subscribe(OnScrollValueChanged)
             .AddTo(disposables);
         
-        // Subscribe to data changes
         model.userDataList
             .Subscribe(OnUserDataChanged)
             .AddTo(disposables);
         
-        // Initial update - show first batch of elements
         UpdateVisibleElements(0);
     }
     
     private void OnScrollValueChanged(float scrollValue)
     {
+        currentScrollPosition = scrollValue;
+        
         if (model.userDataList.Value == null || model.userDataList.Value.Count == 0) return;
         
         float contentHeight = view.scrollViewContent.rect.height;
         float viewportHeight = view.scrollRect.viewport.rect.height;
         
-        // Recalculate viewport height if needed
         if (viewportHeight <= 0)
         {
             viewportHeight = (view.scrollRect.viewport as RectTransform).rect.height;
@@ -104,16 +95,12 @@ namespace Systems.LeaderBoardSystem.Controller
         
         if (contentHeight <= viewportHeight) 
         {
-            // All items fit in viewport
             UpdateVisibleElements(0);
             return;
         }
         
-        // Calculate visible range based on scroll position
-        float scrollPosition = (1f - scrollValue) * (contentHeight - viewportHeight);
-        int newStartIndex = Mathf.FloorToInt(scrollPosition / view.GetElementHeightWithSpacing());
-        
-        // Add buffer for smoother scrolling
+        float scrollPos = (1f - scrollValue) * (contentHeight - viewportHeight);
+        int newStartIndex = Mathf.FloorToInt(scrollPos / view.GetElementHeightWithSpacing());
         newStartIndex = Mathf.Max(0, newStartIndex - 1);
         
         UpdateVisibleElements(newStartIndex);
@@ -121,33 +108,21 @@ namespace Systems.LeaderBoardSystem.Controller
     
     private void UpdateVisibleElements(int startIndex)
     {
-        if (model.userDataList.Value == null) 
-        {
-            Debug.LogWarning("User data list is null!");
-            return;
-        }
+        if (model.userDataList.Value == null) return;
         
         startIndex = Mathf.Clamp(startIndex, 0, model.userDataList.Value.Count - 1);
         int endIndex = Mathf.Clamp(startIndex + visibleItemCount - 1, 0, model.userDataList.Value.Count - 1);
         
-        Debug.Log($"Updating visible elements: {startIndex} to {endIndex}, Total active: {endIndex - startIndex + 1}");
-        
-        // Always update to ensure elements are properly positioned
         currentStartIndex = startIndex;
         currentEndIndex = endIndex;
         
-        view.UpdateVisibleElements(startIndex, endIndex, model.userDataList.Value);
+        view.UpdateVisibleElements(startIndex, endIndex, model.userDataList.Value, currentScrollPosition);
     }
     
     private void OnUserDataChanged(List<UserData> userData)
     {
-        if (userData == null)
-        {
-            Debug.LogError("User data is null!");
-            return;
-        }
+        if (userData == null) return;
         
-        Debug.Log($"User data updated: {userData.Count} items");
         view.RefreshContentSize(userData.Count);
         UpdateVisibleElements(currentStartIndex);
     }
