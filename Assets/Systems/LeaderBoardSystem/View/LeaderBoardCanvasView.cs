@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Systems.InputSystem.Model;
+using Systems.LeaderBoardSystem.Signal;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -63,8 +64,40 @@ namespace Systems.LeaderBoardSystem.View
 
         private void Update()
         {
-            if(!gameObject.activeInHierarchy) return;
-            eventSystem.SetSelectedGameObject(mainMenuButton.gameObject);
+            if (!gameObject.activeInHierarchy) return;
+        
+            // Only set focus if nothing is selected or we're not scrolling
+            if (eventSystem.currentSelectedGameObject == null && !isScrollFocused)
+            {
+                eventSystem.SetSelectedGameObject(mainMenuButton.gameObject);
+            }
+        }
+        
+        
+        public bool isScrollFocused = false;
+
+        [SerializeField]
+        private float scrollSpeed;
+        public void HandleScrollInput(ScrollNavigationSignal signal)
+        {
+            var input = signal.scrollInput;
+            if (Mathf.Abs(input.y) > 0.1f)
+            {
+                isScrollFocused = true;
+            
+                // Scroll the content
+                float scrollAmount = input.y * Time.deltaTime * scrollSpeed;
+                scrollRect.verticalNormalizedPosition = Mathf.Clamp01(
+                    scrollRect.verticalNormalizedPosition + scrollAmount
+                );
+            
+                // Optional: Clear selection while scrolling
+                eventSystem.SetSelectedGameObject(null);
+            }
+            else
+            {
+                isScrollFocused = false;
+            }
         }
 
         private void RemoveLayoutComponents()

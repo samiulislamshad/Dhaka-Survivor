@@ -140,6 +140,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Systems\MainMenuSystem\Installer\MainMenuCanvasInstaller.cs" />
     <Compile Include="Assets\Systems\AudioSystem\Handler\SfxPlayer.cs" />
+    <Compile Include="Assets\Systems\LeaderBoardSystem\Signal\ScrollNavigationSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\OfficeBossEnemy.cs" />

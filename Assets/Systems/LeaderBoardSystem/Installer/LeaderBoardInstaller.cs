@@ -3,6 +3,7 @@ using Systems.LeaderBoardSystem.Controller;
 using Systems.LeaderBoardSystem.Manager;
 using Systems.LeaderBoardSystem.Model;
 using Systems.LeaderBoardSystem.Scriptable;
+using Systems.LeaderBoardSystem.Signal;
 using Systems.LeaderBoardSystem.View;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,7 +22,12 @@ namespace Systems.LeaderBoardSystem.Installer
         
         public override void InstallBindings()
         {
-
+            SignalBusInstaller.Install(Container);
+            
+            // Signals
+            Container.DeclareSignal<ScrollNavigationSignal>();
+            
+            Container.Bind<InputMaster>().AsSingle().NonLazy();
             Container.Bind<EventSystem>().FromComponentInNewPrefab(eventSystem).AsSingle();
             Container.Bind<GameConfig>().FromScriptableObject(gameConfig).AsSingle();
             Container.Bind<LeaderBoardScriptable>().FromScriptableObject(leaderBoardScriptable).AsSingle();

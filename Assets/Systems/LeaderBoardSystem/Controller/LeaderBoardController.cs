@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Systems.InputSystem.Model;
 using Systems.LeaderBoardSystem.Model;
+using Systems.LeaderBoardSystem.Signal;
 using Systems.LeaderBoardSystem.View;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
@@ -17,24 +19,60 @@ namespace Systems.LeaderBoardSystem.Controller
     public class LeaderBoardController : MonoBehaviour
     {
         [Header("Dependencies")] 
+        private InputMaster _inputMaster;
+        private SignalBus _signalBus;
         private LeaderBoardCanvasView _view;
         private LeaderBoardModel _model;
         private CompositeDisposable _disposables;
+        
+        private ScrollNavigationSignal _scrollNavigationSignal;
 
         private int _visibleItemCount;
         private int _currentStartIndex = 0;
         private int _currentEndIndex = 0;
         private float _currentScrollPosition = 0f;
+        
 
         [Inject]
-        private void InjectReference(LeaderBoardModel model, LeaderBoardCanvasView view)
+        private void InjectReference(LeaderBoardModel model,
+            LeaderBoardCanvasView view,
+            InputMaster inputMaster,
+            SignalBus signalBus)
         {
             _model = model;
             _view = view;
+            _inputMaster = inputMaster;
+            _signalBus = signalBus;
 
             _disposables = new CompositeDisposable();
             
+            SubscribeToSignals();
             SubscribeToProperties();
+        }
+
+        private void SubscribeToSignals()
+        {
+            _inputMaster.Enable();
+            _inputMaster.UiControl.Enable();
+            _inputMaster.UiControl.ScrollWheel.Enable();
+            _inputMaster.UiControl.ScrollWheel.performed += ScrollWheelInput;
+            
+            _signalBus.Subscribe<ScrollNavigationSignal>(_view.HandleScrollInput);
+        }
+        
+        private void UnsubscribeToSignals()
+        {
+            _inputMaster.UiControl.ScrollWheel.Disable();
+            _inputMaster.UiControl.ScrollWheel.performed -= ScrollWheelInput;
+            
+            _signalBus.Unsubscribe<ScrollNavigationSignal>(_view.HandleScrollInput);
+        }
+
+        private void ScrollWheelInput(InputAction.CallbackContext callbackContext)
+        {
+            _scrollNavigationSignal ??= new ScrollNavigationSignal(Vector2.zero);
+            _scrollNavigationSignal.scrollInput = callbackContext.ReadValue<Vector2>();
+            _signalBus.Fire(_scrollNavigationSignal);
         }
 
         private void SubscribeToProperties()
@@ -48,7 +86,7 @@ namespace Systems.LeaderBoardSystem.Controller
 
         private void Start()
         {
-            Initialize();
+            Initialize().Forget();
         }
 
         private async UniTaskVoid Initialize()
@@ -151,6 +189,7 @@ namespace Systems.LeaderBoardSystem.Controller
 
         public void OnDestroy()
         {
+            UnsubscribeToSignals();
             _disposables.Dispose();
         }
     }

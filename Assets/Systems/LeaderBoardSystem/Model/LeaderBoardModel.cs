@@ -36,33 +36,6 @@ namespace Systems.LeaderBoardSystem.Model
             return userDataList.Value.Find(user => user.isCurrentPlayer);
         }
 
-        // public async UniTask InitializeLeaderBoardData()
-        // {
-        //     await _manager.LoadLeaderBoardFromJsonAsync();
-        //     var userList = _scriptable.leaderBoardUsers.ToList();
-        //     var currentUser = _gameConfig.currentUserData.CloneViaSerialization();
-        //     userList.Add(currentUser);
-        //     
-        //     userDataList.Value = userList.OrderByDescending(user => user.score).ToList();
-        //
-        //     var userDatas = userDataList.Value;
-        //     for (var i = 0; i < userDatas.Count; i++)
-        //     {
-        //         userDatas[i].rank = i+1;
-        //         if (userDatas[i] != currentUser)
-        //         {
-        //             userDatas[i].isCurrentPlayer = false;
-        //             continue;
-        //         }
-        //         userDatas[i].isCurrentPlayer = true;
-        //         currentPlayerRank.Value = userDatas[i].rank;
-        //     }
-        //     
-        //     _scriptable.leaderBoardUsers = userDatas;
-        //     totalUserCount.Value = userDataList.Value.Count;
-        //     await _manager.SaveLeaderboardToJsonAsync();
-        // }
-
         public async UniTask InitializeLeaderBoardData()
         {
             // Load existing leaderboard data
@@ -137,45 +110,5 @@ namespace Systems.LeaderBoardSystem.Model
             UnityEngine.Debug.Log(
                 $"Leaderboard initialized. Total users: {totalUserCount.Value}, Current player rank: {currentPlayerRank.Value}");
         }
-
-        #region Sorting
-
-        public void SortByRank()
-        {
-            _scriptable.leaderBoardUsers.Sort((a, b) => a.rank.CompareTo(b.rank));
-        }
-
-        // Sort by score and update ranks
-        public void SortByScore()
-        {
-            // Sort by score descending (highest first)
-            _scriptable.leaderBoardUsers = _scriptable.leaderBoardUsers
-                .OrderByDescending(user => user.score)
-                .ToList();
-
-            // Update ranks based on sorted order
-            for (int i = 0; i < _scriptable.leaderBoardUsers.Count; i++)
-            {
-                _scriptable.leaderBoardUsers[i].rank = i + 1;
-            }
-        }
-
-        // Sort by multiple criteria (score, then time)
-        public void SortByScoreAndTime()
-        {
-            _scriptable.leaderBoardUsers = _scriptable.leaderBoardUsers
-                .OrderByDescending(user => user.score)
-                .ThenBy(user => user.date)
-                .ThenBy(user => user.time)
-                .ToList();
-
-            // Update ranks
-            for (int i = 0; i < _scriptable.leaderBoardUsers.Count; i++)
-            {
-                _scriptable.leaderBoardUsers[i].rank = i + 1;
-            }
-        }
-
-        #endregion
     }
 }
