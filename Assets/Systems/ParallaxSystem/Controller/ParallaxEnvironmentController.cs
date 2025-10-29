@@ -62,7 +62,7 @@ namespace Systems.ParallaxSystem.Controller
             // StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
             //     _view.secondLayerSpawnPoint.transform.position).Forget();
             SpawnStartingChunk();
-            _lastSpawnPosition = _view.firstLayerSpawnPoint.transform.position;
+            _lastSpawnPosition =  new Vector3(20,-8,0);
         }
 
         private void SubscribeToProperties()
