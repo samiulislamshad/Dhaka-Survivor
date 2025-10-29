@@ -66,13 +66,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
       prefab: {fileID: 6014722485087410056, guid: 5e135fedb69cdaa489effa0daed4f171, type: 3}
-    - id: Wall03
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 6490453424080645573, guid: 1650688a100b25d4c9043169740dbce2, type: 3}
     - id: Chunk104
       name: 
       layerType: 0

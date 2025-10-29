@@ -75,6 +75,7 @@
     <Compile Include="Assets\Systems\PlayerSystem\Controller\PlayerController.cs" />
     <Compile Include="Assets\Systems\LoadingScreenSystem\Controller\LoadingScreenController.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Controller\ParallaxEnvironmentController.cs" />
+    <Compile Include="Assets\Systems\ParallaxSystem\Handler\SecondLayerAssetSwitch.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Installer\PlayerInstaller.cs" />
     <Compile Include="Assets\Systems\InputSystem\Signal\SwitchToPlayerControlSignal.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\Enemy.cs" />

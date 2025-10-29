@@ -134,15 +134,15 @@ namespace Systems.EnemySystem.Controller
                 spawnPosition.x += i * 2f;
                 var enemy = _spawner.Spawn(enemyType, spawnPosition);
                 if (enemy == null) continue;
-                var enemyName = enemy.GetEnemyName();
-                if (_enemySpeechBubbles.TryGetValue(enemyName, out var count))
-                {
-                    if (count > 0)
-                    {
-                        enemy.canShowSpeechBubble = true;
-                        _enemySpeechBubbles[enemyName]--;
-                    }
-                }
+                // var enemyName = enemy.GetEnemyName();
+                // if (_enemySpeechBubbles.TryGetValue(enemyName, out var count))
+                // {
+                //     if (count > 0)
+                //     {
+                //         enemy.canShowSpeechBubble = true;
+                //         _enemySpeechBubbles[enemyName]--;
+                //     }
+                // }
                 
                 RegisterEnemy(enemy);
             }
