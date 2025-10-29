@@ -17,13 +17,6 @@ MonoBehaviour:
     layerName: 
     layerType: 0
     environmentObjects:
-    - id: BuildingChunk1
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 5452508424791973456, guid: 120feab549234c84ab99d317463011cf, type: 3}
     - id: StartingChunk
       name: 
       layerType: 0
@@ -31,20 +24,6 @@ MonoBehaviour:
       preferredRelativeObjects: []
       estimatedSpawnTime: 200
       prefab: {fileID: 718184539392834845, guid: 2305bbb9bd96991429e7de6bcc5e8c82, type: 3}
-    - id: BuildingChunk2
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 5341994574535987545, guid: 204e27a1e32b579458e3aa586adc6b0a, type: 3}
-    - id: BuildingChunk3
-      name: 
-      layerType: 0
-      crucialRelativeObjects: []
-      preferredRelativeObjects: []
-      estimatedSpawnTime: 20
-      prefab: {fileID: 782577397025932343, guid: e8143356a67ab5543ad53205c4d94b25, type: 3}
     - id: Chunk101
       name: 
       layerType: 0
@@ -58,7 +37,7 @@ MonoBehaviour:
       crucialRelativeObjects: []
       preferredRelativeObjects: []
       estimatedSpawnTime: 20
-      prefab: {fileID: 5341994574535987545, guid: 204e27a1e32b579458e3aa586adc6b0a, type: 3}
+      prefab: {fileID: 1328263242907991472, guid: 212c50b00a7f7c945b3e9159311e44a3, type: 3}
     - id: Chunk103
       name: 
       layerType: 0

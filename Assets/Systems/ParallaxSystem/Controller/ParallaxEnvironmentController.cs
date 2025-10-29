@@ -56,11 +56,13 @@ namespace Systems.ParallaxSystem.Controller
 
             _isRandomSpawning = false;
 
-            StartRandomSpawning(_config.firstParallaxLayer, _firstLayerRandomSpawnWaitTime,
-                _view.firstLayerSpawnPoint.transform.position).Forget();
+            // StartRandomSpawning(_config.firstParallaxLayer, _firstLayerRandomSpawnWaitTime,
+            //     _view.firstLayerSpawnPoint.transform.position).Forget();
+            
             // StartRandomSpawning(_config.secondParallaxLayer, _secondLayerRandomSpawnWaitTime,
             //     _view.secondLayerSpawnPoint.transform.position).Forget();
             SpawnStartingChunk();
+            _lastSpawnPosition = _view.firstLayerSpawnPoint.transform.position;
         }
 
         private void SubscribeToProperties()
@@ -76,6 +78,7 @@ namespace Systems.ParallaxSystem.Controller
             UpdateEnvironmentObjects();
             UpdateActiveObjectTimers();
             CheckAndSpawnRelativeObjects();
+            CheckForDistanceBasedSpawning();
         }
 
         private void UpdateEnvironmentObjects()
@@ -281,6 +284,56 @@ namespace Systems.ParallaxSystem.Controller
             var envData = GetEnvironmentObjectDataById("StartingChunk");
             var envObj = SpawnEnvironmentObject(envData, new Vector3(100, -8));
         }
+
+        #region Spawn Based On Distance
+
+        private float _distanceTraveledSinceLastSpawn = 0f;
+        private float _requiredGapDistance = 80f; // Your desired 50 unit gap
+        private Vector3 _lastSpawnPosition;
+        private void CheckForDistanceBasedSpawning()
+        {
+            if (!_gameConfig.hasGameStarted.Value) return;
+
+            // Calculate how much distance we've covered since last spawn
+            float distanceCovered = _gameConfig.gameSpeed.Value * Time.fixedDeltaTime;
+            _distanceTraveledSinceLastSpawn += distanceCovered;
+
+            // Check if we've traveled enough to require a new spawn
+            if (_distanceTraveledSinceLastSpawn >= _requiredGapDistance)
+            {
+                SpawnNextEnvironmentObject();
+                _distanceTraveledSinceLastSpawn = 0f;
+            }
+        }
+        
+        private void SpawnNextEnvironmentObject()
+        {
+            // Get a random environment object from the first layer
+            var randomObjectData = GetRandomEnvironmentObjectData(_config.firstParallaxLayer);
+            if (randomObjectData == null || randomObjectData.id == "StartingChunk")
+                return;
+
+            // Calculate spawn position (right of the last spawn position + gap)
+            Vector3 spawnPosition = _lastSpawnPosition + new Vector3(_requiredGapDistance, 0, 0);
+        
+            var spawnedObject = SpawnEnvironmentObject(randomObjectData, spawnPosition);
+
+            if (spawnedObject != null)
+            {
+                _lastSpawnPosition = spawnPosition;
+            
+                // Spawn relative objects if needed
+                if (HasCrucialOrPreferredObjects(randomObjectData))
+                {
+                    SpawnCrucialRelativeObjects(spawnedObject, randomObjectData,
+                        _activeEnvironmentObjects[spawnedObject.Guid]);
+                    SpawnPreferredRelativeObjects(spawnedObject, randomObjectData,
+                        _activeEnvironmentObjects[spawnedObject.Guid]);
+                }
+            }
+        }
+
+        #endregion
 
         #region Random Spawning
 
