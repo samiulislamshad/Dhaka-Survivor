@@ -628,6 +628,8 @@ MonoBehaviour:
   spacing: 0
   elementHeight: 80
   elementPool: []
+  isScrollFocused: 0
+  scrollSpeed: 0
 --- !u!1 &7513552112768035905
 GameObject:
   m_ObjectHideFlags: 0
