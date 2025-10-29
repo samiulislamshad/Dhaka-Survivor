@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Systems.InputSystem.Model;
 using Systems.LeaderBoardSystem.Model;
 using Systems.LeaderBoardSystem.View;
@@ -50,9 +51,9 @@ namespace Systems.LeaderBoardSystem.Controller
             Initialize();
         }
 
-        private void Initialize()
+        private async UniTaskVoid Initialize()
         {
-            _model.InitializeLeaderBoardData();
+            await _model.InitializeLeaderBoardData();
             _view.Initialize(_model.totalUserCount.Value, _model.currentPlayerRank.Value);
         }
         
