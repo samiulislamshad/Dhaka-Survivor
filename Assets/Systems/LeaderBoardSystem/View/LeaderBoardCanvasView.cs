@@ -5,12 +5,13 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Systems.LeaderBoardSystem.View
 {
     public class LeaderBoardCanvasView : MonoBehaviour
     {
-        public EventSystem eventSystem;
+        [Inject] public EventSystem eventSystem;
         public Button mainMenuButton;
         
         [Header("References")] public RectTransform scrollViewContent;

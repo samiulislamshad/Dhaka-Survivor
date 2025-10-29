@@ -40,7 +40,7 @@ namespace Systems.LeaderBoardSystem.View
                 userNameText.text = userData.userName;
             
             if (scoreText != null)
-                scoreText.text = userData.score;
+                scoreText.text = userData.score.ToString();
         
             // Set background color based on state
             if (backgroundImage != null)

@@ -76,7 +76,7 @@ namespace Systems.ScoreSystem.Controller
 
         private void ShowScoreBoard()
         {
-            _gameConfig.currentUserData.score = _score.Value.ToString();
+            _gameConfig.currentUserData.score = _score.Value;
             _view.runStartScorePanel.SetActive(false);
             _view.runEndScorePanel.SetActive(true);
             _view.playerScore.text = _score.Value.ToString();

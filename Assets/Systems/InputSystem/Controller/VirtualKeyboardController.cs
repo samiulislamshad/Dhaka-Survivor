@@ -98,7 +98,7 @@ namespace Systems.InputSystem.Controller
         {
             if(_userName.Value.Length <= 0) return;
             var dateTime = DateTime.Now;
-            var userData = new UserData(Random.Range(0,50), _userName.Value, 0.ToString(), Guid.NewGuid().ToString())
+            var userData = new UserData(Random.Range(0,50), _userName.Value, 0, Guid.NewGuid().ToString())
             {
                 date = dateTime.Date.ToString(CultureInfo.InvariantCulture),
                 time = dateTime.Hour.ToString().PadLeft(2, '0'),

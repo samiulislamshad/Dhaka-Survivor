@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0515f3f6db64e7f915af9790184707a, type: 3}
   m_Name: LeaderBoardInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.LeaderBoardSystem.Installer.LeaderBoardInstaller
-  canvasView: {fileID: 1205757184831160768, guid: d665d390166cff049b230436f578bf86, type: 3}
+  eventSystem: {fileID: 7778707342939168458, guid: 58ab4f7246d053148a8ff2115a529b82, type: 3}
+  canvasView: {fileID: 8949348642882022179, guid: d665d390166cff049b230436f578bf86, type: 3}
+  leaderBoardScriptable: {fileID: 11400000, guid: ec3237b8818c164459f234c052e81758, type: 2}
+  controller: {fileID: 3011536161902616064, guid: a61f6647dde763747b3ed1756ff478f7, type: 3}
+  gameConfig: {fileID: 11400000, guid: 2748e0473f0d303439be82408fb0b1cf, type: 2}

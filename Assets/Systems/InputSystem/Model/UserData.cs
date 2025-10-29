@@ -7,13 +7,13 @@ namespace Systems.InputSystem.Model
     {
         public int rank;
         public string userName;
-        public string score;
+        public int score;
         public string userId;
         public string date;
         public string time;
-        public bool isCurrentPlayer; // Add this flag
+        public bool isCurrentPlayer;
     
-        public UserData(int rank, string userName, string score, string userId = "", bool isCurrentPlayer = false)
+        public UserData(int rank, string userName, int score, string userId = "", bool isCurrentPlayer = false)
         {
             this.rank = rank;
             this.userName = userName;

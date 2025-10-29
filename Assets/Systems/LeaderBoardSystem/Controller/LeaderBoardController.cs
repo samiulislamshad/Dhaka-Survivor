@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Systems.InputSystem.Model;
 using Systems.LeaderBoardSystem.Model;
@@ -7,58 +8,76 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Systems.LeaderBoardSystem.Controller
 {
     [Serializable]
     public class LeaderBoardController : MonoBehaviour
     {
-        [Header("Dependencies")] public LeaderBoardCanvasView view;
+        [Header("Dependencies")] 
+        private LeaderBoardCanvasView _view;
+        private LeaderBoardModel _model;
+        private CompositeDisposable _disposables;
 
-        private LeaderBoardModel model = new LeaderBoardModel();
-        private CompositeDisposable disposables = new CompositeDisposable();
+        private int _visibleItemCount;
+        private int _currentStartIndex = 0;
+        private int _currentEndIndex = 0;
+        private float _currentScrollPosition = 0f;
 
-        private int visibleItemCount;
-        private int currentStartIndex = 0;
-        private int currentEndIndex = 0;
-        private float currentScrollPosition = 0f;
+        [Inject]
+        private void InjectReference(LeaderBoardModel model, LeaderBoardCanvasView view)
+        {
+            _model = model;
+            _view = view;
 
-        void Start()
+            _disposables = new CompositeDisposable();
+            
+            SubscribeToProperties();
+        }
+
+        private void SubscribeToProperties()
+        {
+            _view.mainMenuButton.OnClickAsObservable().Subscribe(_ => { OnBackToMainMenu(); }).AddTo(_disposables);
+            
+            _view.OnViewInitialized
+                .Subscribe(_ => SetupRecyclableScrollView())
+                .AddTo(_disposables);
+        }
+
+        private void Start()
         {
             Initialize();
-
-            view.mainMenuButton.OnClickAsObservable().Subscribe(_ =>
-            {
-                view.mainMenuButton.interactable = false;
-                SceneManager.LoadScene("Game");
-            }).AddTo(disposables);
         }
 
         private void Initialize()
         {
-            model.InitializeWithTestData();
-
-            view.OnViewInitialized
-                .Subscribe(_ => SetupRecyclableScrollView())
-                .AddTo(disposables);
-
-            view.Initialize(model.totalUserCount.Value, model.currentPlayerRank.Value);
+            _model.InitializeLeaderBoardData();
+            _view.Initialize(_model.totalUserCount.Value, _model.currentPlayerRank.Value);
         }
+        
+        private void OnBackToMainMenu()
+        {
+            _view.mainMenuButton.interactable = false;
+            SceneManager.LoadScene("Game");
+        }
+
+        #region Recyclable Scroll View
 
         private void SetupRecyclableScrollView()
         {
             StartCoroutine(SetupAfterLayout());
         }
 
-        private System.Collections.IEnumerator SetupAfterLayout()
+        private IEnumerator SetupAfterLayout()
         {
             yield return new WaitForEndOfFrame();
 
             Canvas.ForceUpdateCanvases();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(view.scrollRect.viewport as RectTransform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_view.scrollRect.viewport as RectTransform);
 
-            float viewportHeight = view.scrollRect.viewport.rect.height;
-            float elementHeightWithSpacing = view.GetElementHeightWithSpacing();
+            float viewportHeight = _view.scrollRect.viewport.rect.height;
+            float elementHeightWithSpacing = _view.GetElementHeightWithSpacing();
 
             if (viewportHeight <= 0)
             {
@@ -66,37 +85,31 @@ namespace Systems.LeaderBoardSystem.Controller
                 Debug.LogWarning($"Viewport height was 0, using fallback: {viewportHeight}");
             }
 
-            visibleItemCount = Mathf.CeilToInt(viewportHeight / elementHeightWithSpacing) + 2;
+            _visibleItemCount = Mathf.CeilToInt(viewportHeight / elementHeightWithSpacing) + 2;
 
-            Debug.Log($"Recyclable Scroll View Setup:");
-            Debug.Log($"- Viewport height: {viewportHeight}");
-            Debug.Log($"- Element height + spacing: {elementHeightWithSpacing}");
-            Debug.Log($"- Visible item count: {visibleItemCount}");
-            Debug.Log($"- Current player rank: {model.currentPlayerRank.Value}");
-
-            view.OnScrollValueChanged
+            _view.OnScrollValueChanged
                 .Subscribe(OnScrollValueChanged)
-                .AddTo(disposables);
+                .AddTo(_disposables);
 
-            model.userDataList
+            _model.userDataList
                 .Subscribe(OnUserDataChanged)
-                .AddTo(disposables);
+                .AddTo(_disposables);
 
             UpdateVisibleElements(0);
         }
 
         private void OnScrollValueChanged(float scrollValue)
         {
-            currentScrollPosition = scrollValue;
+            _currentScrollPosition = scrollValue;
 
-            if (model.userDataList.Value == null || model.userDataList.Value.Count == 0) return;
+            if (_model.userDataList.Value == null || _model.userDataList.Value.Count == 0) return;
 
-            float contentHeight = view.scrollViewContent.rect.height;
-            float viewportHeight = view.scrollRect.viewport.rect.height;
+            var contentHeight = _view.scrollViewContent.rect.height;
+            var viewportHeight = _view.scrollRect.viewport.rect.height;
 
             if (viewportHeight <= 0)
             {
-                viewportHeight = (view.scrollRect.viewport as RectTransform).rect.height;
+                viewportHeight = (_view.scrollRect.viewport as RectTransform).rect.height;
             }
 
             if (contentHeight <= viewportHeight)
@@ -105,8 +118,8 @@ namespace Systems.LeaderBoardSystem.Controller
                 return;
             }
 
-            float scrollPos = (1f - scrollValue) * (contentHeight - viewportHeight);
-            int newStartIndex = Mathf.FloorToInt(scrollPos / view.GetElementHeightWithSpacing());
+            var scrollPos = (1f - scrollValue) * (contentHeight - viewportHeight);
+            var newStartIndex = Mathf.FloorToInt(scrollPos / _view.GetElementHeightWithSpacing());
             newStartIndex = Mathf.Max(0, newStartIndex - 1);
 
             UpdateVisibleElements(newStartIndex);
@@ -114,28 +127,30 @@ namespace Systems.LeaderBoardSystem.Controller
 
         private void UpdateVisibleElements(int startIndex)
         {
-            if (model.userDataList.Value == null) return;
+            if (_model.userDataList.Value == null) return;
 
-            startIndex = Mathf.Clamp(startIndex, 0, model.userDataList.Value.Count - 1);
-            int endIndex = Mathf.Clamp(startIndex + visibleItemCount - 1, 0, model.userDataList.Value.Count - 1);
+            startIndex = Mathf.Clamp(startIndex, 0, _model.userDataList.Value.Count - 1);
+            var endIndex = Mathf.Clamp(startIndex + _visibleItemCount - 1, 0, _model.userDataList.Value.Count - 1);
 
-            currentStartIndex = startIndex;
-            currentEndIndex = endIndex;
+            _currentStartIndex = startIndex;
+            _currentEndIndex = endIndex;
 
-            view.UpdateVisibleElements(startIndex, endIndex, model.userDataList.Value, currentScrollPosition);
+            _view.UpdateVisibleElements(startIndex, endIndex, _model.userDataList.Value, _currentScrollPosition);
         }
 
         private void OnUserDataChanged(List<UserData> userData)
         {
             if (userData == null) return;
 
-            view.RefreshContentSize(userData.Count);
-            UpdateVisibleElements(currentStartIndex);
+            _view.RefreshContentSize(userData.Count);
+            UpdateVisibleElements(_currentStartIndex);
         }
 
-        void OnDestroy()
+        #endregion
+
+        public void OnDestroy()
         {
-            disposables.Dispose();
+            _disposables.Dispose();
         }
     }
 }
