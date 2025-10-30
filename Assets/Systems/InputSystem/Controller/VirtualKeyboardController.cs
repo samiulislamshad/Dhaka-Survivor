@@ -124,7 +124,7 @@ namespace Systems.InputSystem.Controller
             
             _view.gameObject.SetActive(true);
             _signalBus.Fire<SwitchOffPlayerControlSignal>();
-            EventSystem.current.SetSelectedGameObject(_view.deleteButton.gameObject);
+            _eventSystem.SetSelectedGameObject(_view.allButtons[0].gameObject);
             _updateKeyboardFocus = Observable.EveryUpdate().Where(_ => 
                 _view.gameObject.activeInHierarchy && 
                 (_eventSystem == null || _eventSystem.currentSelectedGameObject == null))

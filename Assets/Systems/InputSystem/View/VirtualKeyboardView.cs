@@ -40,7 +40,7 @@ namespace Systems.InputSystem.View
             
             if(eventSystem == null)
                 eventSystem = FindFirstObjectByType<EventSystem>();
-            eventSystem.SetSelectedGameObject(buttons[0].gameObject);
+            eventSystem.SetSelectedGameObject(allButtons[0].gameObject);
         }
     }
 }
