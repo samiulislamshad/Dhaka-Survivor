@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Systems.GameSystem;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.InputSystem.Model;
@@ -23,6 +24,7 @@ namespace Systems.InputSystem.Controller
         private VirtualKeyboardView _view;
         private SignalBus _signalBus;
         private CompositeDisposable _disposable;
+        private GameConfig _gameConfig;
 
         private ReactiveProperty<string> _userName;
         private const int MaxLength = 15;
@@ -33,11 +35,12 @@ namespace Systems.InputSystem.Controller
         
         private IDisposable _updateKeyboardFocus;
 
-        public VirtualKeyboardController(GameConfig config, VirtualKeyboardView view, SignalBus signalBus)
+        public VirtualKeyboardController(GameConfig config, VirtualKeyboardView view, SignalBus signalBus, GameConfig gameConfig)
         {
             _config = config;
             _view = view;
             _signalBus = signalBus;
+            _gameConfig = gameConfig;
 
             _userName = new ReactiveProperty<string>("");
             _disposable = new CompositeDisposable();
@@ -119,6 +122,7 @@ namespace Systems.InputSystem.Controller
 
         public void ShowVirtualKeyboard()
         {
+            _gameConfig.gamePhase.Value = GamePhase.NameInputScreen;
             if(_eventSystem == null)
                 _eventSystem = EventSystem.current;
             

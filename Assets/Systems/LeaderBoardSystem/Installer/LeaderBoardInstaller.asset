@@ -17,3 +17,4 @@ MonoBehaviour:
   leaderBoardScriptable: {fileID: 11400000, guid: ec3237b8818c164459f234c052e81758, type: 2}
   controller: {fileID: 3011536161902616064, guid: a61f6647dde763747b3ed1756ff478f7, type: 3}
   gameConfig: {fileID: 11400000, guid: 2748e0473f0d303439be82408fb0b1cf, type: 2}
+  inactivityWarningUI: {fileID: 7528682799077319714, guid: c21aaf776ac89754f83fd935562612ce, type: 3}

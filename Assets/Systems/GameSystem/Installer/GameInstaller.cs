@@ -2,6 +2,7 @@
 using Systems.AudioSystem.Manager;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Manager;
+using Systems.GameSystem.Service;
 using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Systems.GameSystem.Installer
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private Camera mainCameraPrefab;
         
+        [SerializeField] private InactivityWarningUI inactivityWarningUI;
+        
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
@@ -26,6 +29,10 @@ namespace Systems.GameSystem.Installer
             Container.DeclareSignal<NameInputSignal>();
             Container.DeclareSignal<GameScreenSignal>();
             Container.DeclareSignal<ScoreBoardSignal>();
+
+            // Inactivity Detector
+            Container.Bind<InactivityWarningUI>().FromComponentInNewPrefab(inactivityWarningUI).AsSingle();
+            Container.BindInterfacesAndSelfTo<GameInactivityDetector>().AsSingle();
             
             Container.Bind<InputMaster>()
                 .AsSingle()

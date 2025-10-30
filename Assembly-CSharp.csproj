@@ -95,6 +95,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Model\RelativeObjectData.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\SwitchOnPlayerControlSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\ParallaxLayer.cs" />
+    <Compile Include="Assets\Systems\GameSystem\View\InactivityWarningUI.cs" />
     <Compile Include="Assets\Systems\GameSystem\Installer\GameInstaller.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StartCrouchInputSignal.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Assets\Systems\GameSystem\View\StartGameCanvasView.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\SecondLayerEnvironmentObjectCustomFactory.cs" />
+    <Compile Include="Assets\Systems\GameSystem\Service\GameInactivityDetector.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\SecondLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\WindowAunty.cs" />
     <Compile Include="Assets\Systems\AudioSystem\Manager\AudioManager.cs" />

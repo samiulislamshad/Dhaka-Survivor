@@ -65,6 +65,7 @@ namespace Systems.GameSystem.Manager
 
             _disposable = new CompositeDisposable();
             _config.gamePhase.Value = GamePhase.MainMenuScreen;
+            Time.timeScale = 1;
         }
 
         private void SubscribeToSignals()
@@ -82,14 +83,14 @@ namespace Systems.GameSystem.Manager
         private Action<InputAction.CallbackContext> _startGameInputAction;
         private void ShowKeyMappingUi()
         {
-            startGameCanvasView.startGamePanel.SetActive(true);
+            startGameCanvasView.gameObject.SetActive(true);
             _startGameInputAction = _ => HideKeyMappingUi();
             _inputMaster.UiControl.Submit.performed += _startGameInputAction;
         }
 
         private void HideKeyMappingUi()
         {
-            startGameCanvasView.startGamePanel.SetActive(false);
+            startGameCanvasView.gameObject.SetActive(false);
             _inputMaster.UiControl.Submit.performed -= _startGameInputAction;
             _inputMaster.Enable();
             _inputMaster.PlayerControl.Enable();
