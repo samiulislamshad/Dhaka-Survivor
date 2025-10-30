@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Services;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
+using Systems.LeaderBoardSystem.Manager;
+using Systems.LeaderBoardSystem.Scriptable;
 using Systems.PauseSystem.Signals;
 using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
@@ -19,17 +22,26 @@ namespace Systems.ScoreSystem.Controller
         private readonly ScoreCanvasView _view;
         private readonly GameConfig _gameConfig;
         private readonly SignalBus _signalBus;
+        
+        private readonly LeaderboardManager _leaderboardManager;
+        private LeaderBoardScriptable _leaderBoardScriptable;
 
         private readonly CompositeDisposable _disposable;
 
         private ReactiveProperty<int> _score;
         private float _lastTimerValue = 0;
-        public ScoreController(ScoreCanvasView view, GameConfig gameConfig, SignalBus signalBus,
-            SceneLoaderService sceneLoaderService)
+        public ScoreController(ScoreCanvasView view, 
+            GameConfig gameConfig, 
+            SignalBus signalBus,
+            SceneLoaderService sceneLoaderService, 
+            LeaderboardManager leaderboardManager, 
+            LeaderBoardScriptable leaderBoardScriptable)
         {
             _view = view;
             _gameConfig = gameConfig;
             _signalBus = signalBus;
+            _leaderboardManager = leaderboardManager;
+            _leaderBoardScriptable = leaderBoardScriptable;
 
             _disposable = new CompositeDisposable();
             _score = new ReactiveProperty<int>(0);
@@ -108,6 +120,16 @@ namespace Systems.ScoreSystem.Controller
         private void ShowPlayerScore()
         {
             _view.runStartScorePanel.SetActive(true);
+            ShowHighScore().Forget();
+        }
+
+        private async UniTaskVoid ShowHighScore()
+        {
+            await _leaderboardManager.LoadLeaderBoardFromJsonAsync();
+            var leaderBoard = _leaderBoardScriptable.leaderBoardUsers.ToList();
+            var sorted = leaderBoard.OrderByDescending(user => user.score).ToList();
+            var highScore = sorted[0].score;
+            _view.highScore.text = highScore.ToString();
         }
 
         public void Dispose()

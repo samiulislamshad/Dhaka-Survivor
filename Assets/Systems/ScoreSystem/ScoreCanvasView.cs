@@ -19,7 +19,9 @@ namespace Systems.ScoreSystem
         public GameObject scorePanel;
         public Button okayButton;
 
-        [Header("Run Start Score Panel")] public TMP_Text playerScore;
+        [Header("Run Start Score Panel")] 
+        public TMP_Text playerScore;
+        public TMP_Text highScore;
 
     }
 }

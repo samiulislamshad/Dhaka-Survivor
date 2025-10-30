@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ScoreInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.ScoreSystem.Installer.ScoreInstaller
   scoreCanvasView: {fileID: 7425439964281552566, guid: e0ada75661f2f644ca76f99b38ab7a7e, type: 3}
+  leaderBoardScriptable: {fileID: 11400000, guid: ec3237b8818c164459f234c052e81758, type: 2}

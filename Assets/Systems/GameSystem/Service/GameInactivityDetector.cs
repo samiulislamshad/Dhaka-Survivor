@@ -21,13 +21,9 @@ namespace Systems.GameSystem.Service
         private float _inactivityWarningTime = 5f;
         private string _mainMenuSceneName = "Game";
     
-        // private readonly Subject<Unit> _onWarning = new();
-    
         private float _timeSinceLastInput;
         private bool _warningShown;
         
-        // private IObservable<Unit> OnWarning => _onWarning;
-
         public GameInactivityDetector(GameConfig gameConfig, 
             InactivityWarningUI inactivityWarningUI)
         {
@@ -43,7 +39,6 @@ namespace Systems.GameSystem.Service
         public void Tick()
         {
             if(_gameConfig.gamePhase.Value == GamePhase.MainMenuScreen) return;
-            Debug.LogWarning($"Timer Left: {_timeSinceLastInput}");
             if (CheckForGamepadInput())
             {
                 ResetTimer();
@@ -68,7 +63,6 @@ namespace Systems.GameSystem.Service
 
         private static bool CheckForGamepadInput()
         {
-            Debug.LogWarning($"Checking for Gamepad input");
             if (Gamepad.current == null) return false;
 
             foreach (var control in Gamepad.current.allControls)
@@ -88,12 +82,10 @@ namespace Systems.GameSystem.Service
         {
             _timeSinceLastInput = 0f;
             _warningShown = false;
-            Debug.LogWarning($"Resetting timer");
         }
 
         public void Dispose()
         {
-            // _onWarning?.Dispose();
             _disposable.Dispose();
         }
     }
