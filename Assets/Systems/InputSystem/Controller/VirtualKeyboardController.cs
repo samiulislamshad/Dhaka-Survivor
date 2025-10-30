@@ -124,10 +124,16 @@ namespace Systems.InputSystem.Controller
             
             _view.gameObject.SetActive(true);
             _signalBus.Fire<SwitchOffPlayerControlSignal>();
+            FocusKey().Forget();
+        }
+
+        private async UniTaskVoid FocusKey()
+        {
+            await UniTask.Delay(1000);
             _eventSystem.SetSelectedGameObject(_view.allButtons[0].gameObject);
             _updateKeyboardFocus = Observable.EveryUpdate().Where(_ => 
-                _view.gameObject.activeInHierarchy && 
-                (_eventSystem == null || _eventSystem.currentSelectedGameObject == null))
+                    _view.gameObject.activeInHierarchy && 
+                    (_eventSystem == null || _eventSystem.currentSelectedGameObject == null))
                 .Subscribe(_ =>
                 {
                     KeepFocusOnKeyboard();
