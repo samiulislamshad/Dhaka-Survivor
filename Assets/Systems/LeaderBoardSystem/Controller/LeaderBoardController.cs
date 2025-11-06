@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Systems.GameSystem.Config;
 using Systems.InputSystem.Model;
 using Systems.LeaderBoardSystem.Model;
 using Systems.LeaderBoardSystem.Signal;
@@ -23,6 +24,7 @@ namespace Systems.LeaderBoardSystem.Controller
         private SignalBus _signalBus;
         private LeaderBoardCanvasView _view;
         private LeaderBoardModel _model;
+        private GameConfig _gameConfig;
         private CompositeDisposable _disposables;
         
         private ScrollNavigationSignal _scrollNavigationSignal;
@@ -37,12 +39,14 @@ namespace Systems.LeaderBoardSystem.Controller
         private void InjectReference(LeaderBoardModel model,
             LeaderBoardCanvasView view,
             InputMaster inputMaster,
-            SignalBus signalBus)
+            SignalBus signalBus,
+            GameConfig gameConfig)
         {
             _model = model;
             _view = view;
             _inputMaster = inputMaster;
             _signalBus = signalBus;
+            _gameConfig = gameConfig;
 
             _disposables = new CompositeDisposable();
             
@@ -78,6 +82,7 @@ namespace Systems.LeaderBoardSystem.Controller
         private void SubscribeToProperties()
         {
             _view.mainMenuButton.OnClickAsObservable().Subscribe(_ => { OnBackToMainMenu(); }).AddTo(_disposables);
+            _view.retryButton.OnClickAsObservable().Subscribe(_ => { OnRetry(); }).AddTo(_disposables);
             
             _view.OnViewInitialized
                 .Subscribe(_ => SetupRecyclableScrollView())
@@ -98,6 +103,13 @@ namespace Systems.LeaderBoardSystem.Controller
         private void OnBackToMainMenu()
         {
             _view.mainMenuButton.interactable = false;
+            SceneManager.LoadScene("Game");
+        }
+
+        private void OnRetry()
+        {
+            _view.retryButton.interactable = false;
+            _gameConfig.isRetrying.Value = true;
             SceneManager.LoadScene("Game");
         }
 

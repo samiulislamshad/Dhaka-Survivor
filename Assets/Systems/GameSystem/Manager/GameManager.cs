@@ -41,10 +41,7 @@ namespace Systems.GameSystem.Manager
             _audioManager = audioManager;
 
             _disposable = new CompositeDisposable();
-        }
-
-        private void Awake()
-        {
+            
             InitializeGame();
         }
 
@@ -64,8 +61,17 @@ namespace Systems.GameSystem.Manager
             _config.gamePhase = new ReactiveProperty<GamePhase>(GamePhase.MainMenuScreen);
 
             _disposable = new CompositeDisposable();
-            _config.gamePhase.Value = GamePhase.MainMenuScreen;
             Time.timeScale = 1;
+
+            // if (_config.isRetrying.Value)
+            // {
+            //     _config.gamePhase.Value = GamePhase.GameScreen;
+            //     _signalBus.Fire<GameScreenSignal>();
+            // }
+            // else
+            // {
+            //     _config.gamePhase.Value = GamePhase.MainMenuScreen;
+            // }
         }
 
         private void SubscribeToSignals()

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Systems.InputSystem.Model;
 using Systems.LeaderBoardSystem.Signal;
 using UniRx;
@@ -14,6 +13,7 @@ namespace Systems.LeaderBoardSystem.View
     {
         [Inject] public EventSystem eventSystem;
         public Button mainMenuButton;
+        public Button retryButton;
         
         [Header("References")] public RectTransform scrollViewContent;
         public ScrollRect scrollRect;

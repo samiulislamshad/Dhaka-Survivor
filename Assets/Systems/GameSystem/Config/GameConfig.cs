@@ -8,6 +8,8 @@ namespace Systems.GameSystem.Config
     public class GameConfig : ScriptableObject
     {
         public ReactiveProperty<GamePhase> gamePhase;
+        public ReactiveProperty<bool> isRetrying = new();
+        
         public ReactiveProperty<float> gameSpeed;
         public ReactiveProperty<float> timer;
         public ReactiveProperty<bool> hasGameStarted;

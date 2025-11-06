@@ -1,4 +1,6 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
+using Systems.GameSystem;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.InputSystem.Controller;
@@ -17,6 +19,7 @@ namespace Systems.MainMenuSystem.Controller
         private readonly MainMenuCanvasView _view;
         private InputMaster _inputMaster;
         private SignalBus _signalBus;
+        private GameConfig _gameConfig;
 
         private CompositeDisposable _disposable;
 
@@ -25,13 +28,32 @@ namespace Systems.MainMenuSystem.Controller
             _model = model;
             _view = view;
             _inputMaster = inputMaster;
+            _gameConfig = gameConfig;
             _signalBus = signalBus;
             _disposable = new CompositeDisposable();
-            
-            PressButtonToStart();
+
+            if (gameConfig.isRetrying.Value)
+            {
+                gameConfig.isRetrying.Value = false;
+                TransitionToGameScreen().Forget();
+            }
+            else
+            {
+                PressButtonToStart();
+            }
         }
         
         private Action<InputAction.CallbackContext> _pressButtonToStartAction;
+
+        private async UniTaskVoid TransitionToGameScreen()
+        {
+            _inputMaster.Enable();
+            _inputMaster.UiControl.Enable();
+            _view.gameObject.SetActive(false);
+            await UniTask.Delay(2000);
+            _gameConfig.gamePhase.Value = GamePhase.GameScreen;
+            _signalBus.Fire<GameScreenSignal>();
+        }
 
         private void PressButtonToStart()
         {

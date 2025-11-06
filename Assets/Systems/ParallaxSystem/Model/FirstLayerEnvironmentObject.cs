@@ -27,7 +27,7 @@ namespace Systems.ParallaxSystem.Model
             transform.Translate(movement);
             
             if(windowAunty != null)
-                if(transform.position.x <= 20)
+                if(transform.position.x <= 15)
                     windowAunty.OnUpdate();
         }
 
