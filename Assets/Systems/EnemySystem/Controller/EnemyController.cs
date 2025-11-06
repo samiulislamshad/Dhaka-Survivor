@@ -4,6 +4,7 @@ using Systems.EnemySystem.Enum;
 using Systems.EnemySystem.Model;
 using Systems.EnemySystem.Service;
 using Systems.EnemySystem.Signals;
+using Systems.EnemySystem.View;
 using Systems.GameSystem.Config;
 using Systems.ParallaxSystem.View;
 using UniRx;
@@ -20,6 +21,7 @@ namespace Systems.EnemySystem.Controller
 
         private GameConfig _config;
         private ParallaxEnvironmentView _parallaxEnvironmentView;
+        private SpeechBubbleView _speechBubbleView;
 
         private EnemySpawner _spawner;
         private CompositeDisposable _disposable;
@@ -29,6 +31,7 @@ namespace Systems.EnemySystem.Controller
         private List<int> _unlockedEnemies;
 
         private Dictionary<string, int> _enemySpeechBubbles;
+        private float _speechBubbleTimer;
 
         private float _spawnTimer;
         private const float InitialSpawnTime = 3f;
@@ -37,12 +40,13 @@ namespace Systems.EnemySystem.Controller
         private float _nextSpawnTime;
 
         public EnemyController(GameConfig config, EnemySpawner spawner, ParallaxEnvironmentView parallaxEnvironmentView,
-            SignalBus signalBus)
+            SignalBus signalBus, SpeechBubbleView speechBubbleView)
         {
             _config = config;
             _spawner = spawner;
             _parallaxEnvironmentView = parallaxEnvironmentView;
             _signalBus = signalBus;
+            _speechBubbleView = speechBubbleView;
 
             _disposable = new CompositeDisposable();
 
@@ -64,6 +68,8 @@ namespace Systems.EnemySystem.Controller
         public void FixedTick()
         {
             if (!_config.hasGameStarted.Value || !_config.hasTimerStarted.Value) return;
+            if (_speechBubbleTimer > 0)
+                _speechBubbleTimer -= Time.fixedDeltaTime;
 
             ModifySpawnTimer();
             _spawnTimer += Time.fixedDeltaTime;
@@ -134,15 +140,15 @@ namespace Systems.EnemySystem.Controller
                 spawnPosition.x += i * 2f;
                 var enemy = _spawner.Spawn(enemyType, spawnPosition);
                 if (enemy == null) continue;
-                // var enemyName = enemy.GetEnemyName();
-                // if (_enemySpeechBubbles.TryGetValue(enemyName, out var count))
-                // {
-                //     if (count > 0)
-                //     {
-                //         enemy.canShowSpeechBubble = true;
-                //         _enemySpeechBubbles[enemyName]--;
-                //     }
-                // }
+                var enemyName = enemy.GetEnemyName();
+                if (_enemySpeechBubbles.TryGetValue(enemyName, out var count))
+                {
+                    if (count > 0 && _speechBubbleTimer <= 0)
+                    {
+                        _speechBubbleView.ShowSpeechBubble(enemyName);
+                        _speechBubbleTimer = 10f;
+                    }
+                }
                 
                 RegisterEnemy(enemy);
             }
