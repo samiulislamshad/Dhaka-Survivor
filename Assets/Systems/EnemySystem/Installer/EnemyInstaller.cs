@@ -3,6 +3,7 @@ using Systems.EnemySystem.Model;
 using Systems.EnemySystem.ObjectPool;
 using Systems.EnemySystem.Service;
 using Systems.EnemySystem.Signals;
+using Systems.EnemySystem.View;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +20,8 @@ namespace Systems.EnemySystem.Installer
         [SerializeField] private Chesra3Enemy chesra3EnemyPrefab;
         [SerializeField] private PagriBroEnemy pagriBroEnemyPrefab;
         [SerializeField] private MinarEnemy minarEnemyPrefab;
+
+        [SerializeField] private SpeechBubbleCanvasView speechBubbleCanvasView;
 
         public override void InstallBindings()
         {
@@ -67,6 +70,9 @@ namespace Systems.EnemySystem.Installer
                 .WithInitialSize(5)
                 .FromComponentInNewPrefab(minarEnemyPrefab)
                 .UnderTransformGroup("MinarEnemyPool");
+            
+            // View
+            Container.Bind<SpeechBubbleCanvasView>().FromComponentInNewPrefab(speechBubbleCanvasView).AsSingle();
 
             // Bind spawner service
             Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle();

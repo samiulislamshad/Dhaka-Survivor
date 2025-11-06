@@ -21,7 +21,7 @@ namespace Systems.EnemySystem.Controller
 
         private GameConfig _config;
         private ParallaxEnvironmentView _parallaxEnvironmentView;
-        private SpeechBubbleView _speechBubbleView;
+        private SpeechBubbleCanvasView _speechBubbleCanvasView;
 
         private EnemySpawner _spawner;
         private CompositeDisposable _disposable;
@@ -32,6 +32,7 @@ namespace Systems.EnemySystem.Controller
 
         private Dictionary<string, int> _enemySpeechBubbles;
         private float _speechBubbleTimer;
+        private float _speechBubbleSyncDelay;
 
         private float _spawnTimer;
         private const float InitialSpawnTime = 3f;
@@ -40,13 +41,13 @@ namespace Systems.EnemySystem.Controller
         private float _nextSpawnTime;
 
         public EnemyController(GameConfig config, EnemySpawner spawner, ParallaxEnvironmentView parallaxEnvironmentView,
-            SignalBus signalBus, SpeechBubbleView speechBubbleView)
+            SignalBus signalBus, SpeechBubbleCanvasView speechBubbleCanvasView)
         {
             _config = config;
             _spawner = spawner;
             _parallaxEnvironmentView = parallaxEnvironmentView;
             _signalBus = signalBus;
-            _speechBubbleView = speechBubbleView;
+            _speechBubbleCanvasView = speechBubbleCanvasView;
 
             _disposable = new CompositeDisposable();
 
@@ -54,9 +55,11 @@ namespace Systems.EnemySystem.Controller
             _lockedEnemies = new List<int> { 1 };
             _unlockedEnemies = new List<int> { 0, 2, 3, 4, 5, 6, 7 };
 
+            _speechBubbleTimer = 10f;
+            _speechBubbleSyncDelay = 10f;
             _enemySpeechBubbles = new Dictionary<string, int>
             {
-                ["Aunty"] = 2, ["OfficeBoss"] = 2, ["Chesra1"] = 3, ["Chesra2"] = 4, ["Chesra3"] = 5,
+                ["Aunty"] = 2, ["OfficeBoss"] = 2, ["Chesra2"] = 3, ["Chesra3"] = 2,
             };
 
             _spawnTimer = 0f;
@@ -145,8 +148,10 @@ namespace Systems.EnemySystem.Controller
                 {
                     if (count > 0 && _speechBubbleTimer <= 0)
                     {
-                        _speechBubbleView.ShowSpeechBubble(enemyName);
-                        _speechBubbleTimer = 10f;
+                        _speechBubbleCanvasView.ShowSpeechBubble(enemyName);
+                        _speechBubbleSyncDelay -= _config.gameSpeed.Value * 0.5f;
+                        _speechBubbleSyncDelay = Mathf.Clamp(_speechBubbleSyncDelay, 0, 10);
+                        _speechBubbleTimer = 10f + _speechBubbleSyncDelay;
                     }
                 }
                 

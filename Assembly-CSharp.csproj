@@ -129,7 +129,6 @@
     <Compile Include="Assets\Systems\PauseSystem\Signals\PauseSignal.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Factory\ThirdLayerEnvironmentObjectCustomFactory.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
-    <Compile Include="Assets\Systems\EnemySystem\View\SpeechBubbleView.cs" />
     <Compile Include="Assets\Systems\AudioSystem\Controller\AudioController.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Model\EnvironmentObject.cs" />
     <Compile Include="Assets\Systems\PauseSystem\Signals\UnpauseSignal.cs" />
@@ -184,6 +183,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\Handler\ParallaxShaderEffectController.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\GameSignals\SwitchOffPlayerControlSignal.cs" />
+    <Compile Include="Assets\Systems\EnemySystem\View\SpeechBubbleCanvasView.cs" />
     <Compile Include="Assets\Systems\ParallaxSystem\ObjectPooling\FourthLayerPool.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\ChapriBikerEnemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />

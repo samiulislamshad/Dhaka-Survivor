@@ -20,3 +20,4 @@ MonoBehaviour:
   chesra3EnemyPrefab: {fileID: 4517822049114383633, guid: c21fec2c2ac447f438265b80cddb5375, type: 3}
   pagriBroEnemyPrefab: {fileID: 6770730453928046436, guid: 17a8fc990602f0b4fafe4d4e92055d75, type: 3}
   minarEnemyPrefab: {fileID: 2543513339071928472, guid: 27626b7a98259c8408ee03e23df045ff, type: 3}
+  speechBubbleCanvasView: {fileID: 3140718116109252233, guid: 90feb884f76d5af4f8afa950c5e2c7f9, type: 3}
