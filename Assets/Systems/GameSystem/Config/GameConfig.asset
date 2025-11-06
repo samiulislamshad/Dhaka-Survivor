@@ -12,20 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29ce8cc50a1435397aa709a119202ff, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::Systems.EnemySystem.Config.EnemyConfig
+  gamePhase:
+    value: 2
+  isRetrying:
+    value: 0
   gameSpeed:
-    value: 32.423668
+    value: 14.169698
   timer:
-    value: 149.47511
+    value: 13.900127
   hasGameStarted:
-    value: 1
+    value: 0
   hasTimerStarted:
-    value: 1
+    value: 0
   currentUserData:
-    userName: HGFF
-    score: 
-    date: 10/22/2025
-    time: 4:37 PM
-    survivedTime: 
+    rank: 36
+    userName: WER
+    score: 1320
+    userId: 7c1beda4-b7e3-477f-84ea-1e4792b2a692
+    date: 11/07/2025 00:00:00
+    time: 04
+    isCurrentPlayer: 0
   maxEnemies:
     value: 10
   enemySpeedMultiplier: 1
