@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Services;
@@ -86,12 +87,15 @@ namespace Systems.ScoreSystem.Controller
             _score.Value += signal.score;
         }
 
+        private float _scoreToView;
+
         private void ShowScoreBoard()
         {
             _gameConfig.currentUserData.score = _score.Value;
             _view.runStartScorePanel.SetActive(false);
             _view.runEndScorePanel.SetActive(true);
-            _view.playerScore.text = _score.Value.ToString();
+            _scoreToView = _score.Value;
+            _view.playerScore.text = _scoreToView.ToString(CultureInfo.InvariantCulture);
             
             _view.animator.Play($"SadAnimation");
             ShowScore().Forget();
@@ -102,7 +106,7 @@ namespace Systems.ScoreSystem.Controller
             await UniTask.Delay(2000,DelayType.UnscaledDeltaTime);
             _view.scorePanel.SetActive(true);
             _view.userName.text = _gameConfig.currentUserData.userName;
-            _view.score.text = _score.Value.ToString();
+            _view.score.text = _scoreToView.ToString(CultureInfo.InvariantCulture); //_score.Value.ToString();
             await UniTask.Delay(2000,DelayType.UnscaledDeltaTime);
             _view.okayButton.gameObject.SetActive(true);
             _view.okayButton.interactable = true;

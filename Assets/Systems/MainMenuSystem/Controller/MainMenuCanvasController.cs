@@ -23,7 +23,12 @@ namespace Systems.MainMenuSystem.Controller
 
         private CompositeDisposable _disposable;
 
-        public MainMenuCanvasController(MainMenuCanvasModel model, MainMenuCanvasView view, InputMaster inputMaster, GameConfig gameConfig, VirtualKeyboardController virtualKeyboardController, SignalBus signalBus)
+        public MainMenuCanvasController(MainMenuCanvasModel model, 
+            MainMenuCanvasView view, 
+            InputMaster inputMaster, 
+            GameConfig gameConfig, 
+            VirtualKeyboardController virtualKeyboardController, 
+            SignalBus signalBus)
         {
             _model = model;
             _view = view;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.View;
 using UniRx;
@@ -38,27 +39,27 @@ namespace Systems.GameSystem.Service
 
         public void Tick()
         {
-            if(_gameConfig.gamePhase.Value == GamePhase.MainMenuScreen) return;
-            if (CheckForGamepadInput())
-            {
-                ResetTimer();
-                if(_inactivityWarningUI.gameObject.activeSelf)
-                    _inactivityWarningUI.gameObject.SetActive(false);
-                return;
-            }
-
-            _timeSinceLastInput += Time.unscaledDeltaTime;
-        
-            if (!_warningShown && _timeSinceLastInput >= _inactivityTime - _inactivityWarningTime)
-            {
-                _warningShown = true;
-                _inactivityWarningUI.gameObject.SetActive(true);
-            }
-        
-            if (_timeSinceLastInput >= _inactivityTime)
-            {
-                SceneManager.LoadScene(_mainMenuSceneName);
-            }
+            // if(_gameConfig.gamePhase.Value == GamePhase.MainMenuScreen) return;
+            // if (CheckForGamepadInput() || CheckForKeyboardInput())
+            // {
+            //     ResetTimer();
+            //     if(_inactivityWarningUI.gameObject.activeSelf)
+            //         _inactivityWarningUI.gameObject.SetActive(false);
+            //     return;
+            // }
+            //
+            // _timeSinceLastInput += Time.unscaledDeltaTime;
+            //
+            // if (!_warningShown && _timeSinceLastInput >= _inactivityTime - _inactivityWarningTime)
+            // {
+            //     _warningShown = true;
+            //     _inactivityWarningUI.gameObject.SetActive(true);
+            // }
+            //
+            // if (_timeSinceLastInput >= _inactivityTime)
+            // {
+            //     SceneManager.LoadScene(_mainMenuSceneName);
+            // }
         }
 
         private static bool CheckForGamepadInput()
@@ -72,6 +73,20 @@ namespace Systems.GameSystem.Service
                 if (control is StickControl stick && stick.ReadValue().magnitude > 0.1f)
                     return true;
                 if (control is AxisControl axis && Mathf.Abs(axis.ReadValue()) > 0.1f)
+                    return true;
+            }
+
+            return false;
+        }
+        
+        private static bool CheckForKeyboardInput()
+        {
+            if (Keyboard.current == null) return false;
+
+            // Check all keys for any pressed state
+            foreach (var key in Keyboard.current.allKeys)
+            {
+                if (key.isPressed)
                     return true;
             }
 

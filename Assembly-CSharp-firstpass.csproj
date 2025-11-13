@@ -43,13 +43,13 @@
   <ItemGroup>
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
     <Reference Include="UnityEngine">
-      <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
+      <HintPath>E:\unity\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>E:\unity\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>Y:\Unity Editors\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
+      <HintPath>E:\unity\6000.2.7f2\Editor\Data\Managed\UnityEngine\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
