@@ -121,6 +121,7 @@
     <Compile Include="Assets\Systems\ParallaxSystem\Model\SecondLayerEnvironmentObject.cs" />
     <Compile Include="Assets\Systems\EnemySystem\Model\WindowAunty.cs" />
     <Compile Include="Assets\Systems\AudioSystem\Manager\AudioManager.cs" />
+    <Compile Include="Assets\Systems\LeaderBoardSystem\Manager\PlayFabLeaderboardManager.cs" />
     <Compile Include="Assets\Systems\PlayerSystem\Signals\StopCrouchInputSignal.cs" />
     <Compile Include="Assets\Systems\InputSystem\HelperScript\KeyboardFocusHelper.cs" />
     <Compile Include="Assets\Systems\InputSystem\Controller\VirtualKeyboardController.cs" />
@@ -1218,6 +1219,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="PlayFabSDKEditor.csproj">
+      <Project>{23b31a9b-e83d-e795-c8bd-803dfa6afda6}</Project>
+      <Name>PlayFabSDKEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFab.csproj">
+      <Project>{e33f4cce-505b-d880-087f-82e581d59e2c}</Project>
+      <Name>PlayFab</Name>
+    </ProjectReference>
     <ProjectReference Include="Zenject-Editor.csproj">
       <Project>{80e114ab-d96e-8bcf-7fbf-0f86e220815f}</Project>
       <Name>Zenject-Editor</Name>

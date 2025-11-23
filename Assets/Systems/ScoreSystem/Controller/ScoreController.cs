@@ -18,13 +18,13 @@ using Zenject;
 namespace Systems.ScoreSystem.Controller
 {
     [Serializable]
-    public class ScoreController : IDisposable, IFixedTickable
+    public class ScoreController : IDisposable
     {
         private readonly ScoreCanvasView _view;
         private readonly GameConfig _gameConfig;
         private readonly SignalBus _signalBus;
         
-        private readonly LeaderboardManager _leaderboardManager;
+        private readonly PlayFabLeaderboardManager _leaderboardManager;
         private LeaderBoardScriptable _leaderBoardScriptable;
 
         private readonly CompositeDisposable _disposable;
@@ -35,7 +35,7 @@ namespace Systems.ScoreSystem.Controller
             GameConfig gameConfig, 
             SignalBus signalBus,
             SceneLoaderService sceneLoaderService, 
-            LeaderboardManager leaderboardManager, 
+            PlayFabLeaderboardManager leaderboardManager, 
             LeaderBoardScriptable leaderBoardScriptable)
         {
             _view = view;
@@ -129,9 +129,8 @@ namespace Systems.ScoreSystem.Controller
 
         private async UniTaskVoid ShowHighScore()
         {
-            await _leaderboardManager.LoadLeaderBoardFromJsonAsync();
-            var leaderBoard = _leaderBoardScriptable.leaderBoardUsers.ToList();
-            var sorted = leaderBoard.OrderByDescending(user => user.score).ToList();
+            var leaderboard = await _leaderboardManager.FetchLeaderboard(100);
+            var sorted = leaderboard.OrderByDescending(user => user.score).ToList();
             var highScore = sorted[0].score;
             _view.highScore.text = highScore.ToString();
         }
@@ -140,11 +139,6 @@ namespace Systems.ScoreSystem.Controller
         {
             UnsubscribeToSignals();
             _disposable.Dispose();
-        }
-
-        public void FixedTick()
-        {
-            
         }
     }
 }

@@ -62,16 +62,6 @@ namespace Systems.GameSystem.Manager
 
             _disposable = new CompositeDisposable();
             Time.timeScale = 1;
-
-            // if (_config.isRetrying.Value)
-            // {
-            //     _config.gamePhase.Value = GamePhase.GameScreen;
-            //     _signalBus.Fire<GameScreenSignal>();
-            // }
-            // else
-            // {
-            //     _config.gamePhase.Value = GamePhase.MainMenuScreen;
-            // }
         }
 
         private void SubscribeToSignals()
@@ -132,6 +122,8 @@ namespace Systems.GameSystem.Manager
 
         public void Dispose()
         {
+            _inputMaster.PlayerControl.Disable();
+            
             UnsubscribeFromSignals();
             _disposable?.Dispose();
             _enemyController?.Dispose();

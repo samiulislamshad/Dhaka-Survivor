@@ -45,6 +45,7 @@ namespace Systems.LeaderBoardSystem.Installer
             
             // Manager
             Container.Bind<LeaderboardManager>().AsSingle();
+            Container.Bind<PlayFabLeaderboardManager>().AsSingle();
             
             // Model
             Container.Bind<LeaderBoardModel>().AsSingle();

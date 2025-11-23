@@ -18,7 +18,7 @@ namespace Systems.ScoreSystem.Installer
             Container.DeclareSignal<AddScoreSignal>();
 
             Container.Bind<LeaderBoardScriptable>().FromScriptableObject(leaderBoardScriptable).AsSingle();
-            Container.Bind<LeaderboardManager>().AsSingle();
+            Container.Bind<PlayFabLeaderboardManager>().AsSingle();
             
             Container.Bind<ScoreCanvasView>().FromComponentInNewPrefab(scoreCanvasView).AsSingle();
 

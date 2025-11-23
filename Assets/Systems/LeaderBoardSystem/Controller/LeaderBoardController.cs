@@ -66,6 +66,7 @@ namespace Systems.LeaderBoardSystem.Controller
         
         private void UnsubscribeToSignals()
         {
+            _inputMaster.UiControl.Disable();
             _inputMaster.UiControl.ScrollWheel.Disable();
             _inputMaster.UiControl.ScrollWheel.performed -= ScrollWheelInput;
             
@@ -100,9 +101,10 @@ namespace Systems.LeaderBoardSystem.Controller
             _view.Initialize(_model.totalUserCount.Value, _model.currentPlayerRank.Value);
         }
         
-        private void OnBackToMainMenu()
+        private async UniTaskVoid OnBackToMainMenu()
         {
             _view.mainMenuButton.interactable = false;
+            await _model.AddPlayerDataToLeaderboard();
             SceneManager.LoadScene("Game");
         }
 

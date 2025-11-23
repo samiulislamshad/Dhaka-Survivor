@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayFab", "PlayFab.csproj", "{e33f4cce-505b-d880-087f-82e581d59e2c}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject", "Zenject.csproj", "{c105cc08-d041-f452-2427-04c8e13b2db3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{8888b7b7-0a9f-30ea-4399-1e675b8cbe60}"
@@ -21,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-TestFramework", "Ze
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-PoolMonitor-Editor", "Zenject-PoolMonitor-Editor.csproj", "{c9836b39-e327-a00f-655c-d835e04ad82e}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayFabSDKEditor", "PlayFabSDKEditor.csproj", "{23b31a9b-e83d-e795-c8bd-803dfa6afda6}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{2a345e57-161f-e1c2-eb0f-1bf4371142e1}"
 EndProject
 Global
@@ -28,6 +32,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{e33f4cce-505b-d880-087f-82e581d59e2c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{e33f4cce-505b-d880-087f-82e581d59e2c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c105cc08-d041-f452-2427-04c8e13b2db3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{c105cc08-d041-f452-2427-04c8e13b2db3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8888b7b7-0a9f-30ea-4399-1e675b8cbe60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -48,6 +54,8 @@ Global
 		{126e9a21-cae4-95c8-8b46-4a68ad1b1c31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c9836b39-e327-a00f-655c-d835e04ad82e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{c9836b39-e327-a00f-655c-d835e04ad82e}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23b31a9b-e83d-e795-c8bd-803dfa6afda6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23b31a9b-e83d-e795-c8bd-803dfa6afda6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2a345e57-161f-e1c2-eb0f-1bf4371142e1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2a345e57-161f-e1c2-eb0f-1bf4371142e1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
