@@ -14,6 +14,11 @@ namespace Systems.EnemySystem.Model
         private Vector2 _initialSfxPos;
         private Vector2 _finalSfxPos;
 
+        public override void Start()
+        {
+            SignalBus.Subscribe<PlayerDeadSignal>(StopSfx);
+        }
+
         protected override void OnFixedUpdate()
         {
             rb.MovePosition(rb.position + Vector2.left * (BaseEnemySpeed * Config.gameSpeed.Value * Time.fixedDeltaTime));
@@ -29,19 +34,21 @@ namespace Systems.EnemySystem.Model
             if (IsDead)
             {
                 if(bikeSfx.IsPlaying())
-                    bikeSfx.StopSfx();
+                    StopSfx();
             }
             var pos = transform.position;
             if (!(pos.x <= Points) || !(pos.x >= -Points))
             {
                 if(bikeSfx.IsPlaying())
-                    bikeSfx.StopSfx();
+                    StopSfx();
                 return;
             }
             var value = (pos.x + Points) / (Points - Points);
             bikeSfx.PlaySfx();
             bikeSfx.SetVolume(value);
         }
+
+        private void StopSfx() => bikeSfx.StopSfx();
         
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -53,6 +60,12 @@ namespace Systems.EnemySystem.Model
             
             if(other.gameObject.CompareTag("Player") && !IsDead)
                 SignalBus.Fire<ContactWithEnemySignal>();
+        }
+
+        public override void OnDestroy()
+        {
+            SignalBus.TryUnsubscribe<PlayerDeadSignal>(StopSfx);
+            base.OnDestroy();
         }
     }
 }

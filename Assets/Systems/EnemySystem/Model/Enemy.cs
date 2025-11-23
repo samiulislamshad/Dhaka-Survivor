@@ -63,6 +63,11 @@ namespace Systems.EnemySystem.Model
             }
         }
 
+        public virtual void Start()
+        {
+            
+        }
+
         private void FixedUpdate()
         {
             OnFixedUpdate();
