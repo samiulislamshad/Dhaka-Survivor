@@ -292,6 +292,7 @@ namespace Systems.PlayerSystem.Controller
 
         private void OnJumpPerformed(StartJumpInputSignal signal)
         {
+            if(isDead) return;
             if (!isGrounded || isCrouching) return;
 
             jumpForce = jumpForceWhenHeld;
