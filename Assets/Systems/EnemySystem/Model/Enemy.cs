@@ -63,11 +63,17 @@ namespace Systems.EnemySystem.Model
             }
         }
 
+        private void Start()
+        {
+            OnStart();
+        }
+
         private void FixedUpdate()
         {
             OnFixedUpdate();
         }
 
+        protected abstract void OnStart();
         protected abstract void OnFixedUpdate();
         public abstract string GetEnemyName();
 

@@ -8,6 +8,11 @@ namespace Systems.EnemySystem.Model
     {
         public override EnemyType Type => EnemyType.Hojor;
 
+        protected override void OnStart()
+        {
+            
+        }
+
         protected override void OnFixedUpdate()
         {
             var finalSpeedX = GetCalculatedSpeedX();

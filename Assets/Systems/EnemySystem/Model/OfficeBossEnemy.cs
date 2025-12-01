@@ -9,6 +9,11 @@ namespace Systems.EnemySystem.Model
     {
         public override EnemyType Type => EnemyType.OfficeBoss;
 
+        protected override void OnStart()
+        {
+            
+        }
+
         protected override void OnFixedUpdate()
         {
             var finalSpeedX = GetCalculatedSpeedX();
