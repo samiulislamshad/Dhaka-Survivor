@@ -1,4 +1,5 @@
-﻿using Systems.MainMenuSystem.Controller;
+﻿using Systems.GameSystem.Config;
+using Systems.MainMenuSystem.Controller;
 using Systems.MainMenuSystem.Model;
 using Systems.MainMenuSystem.View;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Systems.MainMenuSystem.Installer
             Container.BindInterfacesAndSelfTo<MainMenuCanvasModel>().AsSingle();
 
             //Controller
-            Container.BindInterfacesAndSelfTo<MainMenuCanvasController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MainMenuCanvasController>().AsSingle().NonLazy();
         }
     }
 }
