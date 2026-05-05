@@ -1974,6 +1974,7 @@ MonoBehaviour:
   submitButton: {fileID: 5201741575832324919}
   deleteButton: {fileID: 8751743147590058192}
   userNameText: {fileID: 4790745800475853207}
+  keyboardPanel: {fileID: 939912653632042269}
   eventSystem: {fileID: 0}
 --- !u!1 &2037246126233725572
 GameObject:

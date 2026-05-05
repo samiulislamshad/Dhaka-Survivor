@@ -1,6 +1,7 @@
-﻿using Systems.InputSystem.Controller;
+using Systems.InputSystem.Controller;
 using Systems.InputSystem.Signal;
 using Systems.InputSystem.View;
+using Systems.InputSystem.Service;
 using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
 using Zenject;
@@ -20,6 +21,8 @@ namespace Systems.InputSystem.Installer
             Container.DeclareSignal<SwitchOffPlayerControlSignal>();
             Container.DeclareSignal<SwitchOnPlayerControlSignal>();
             
+            Container.BindInterfacesAndSelfTo<InputDeviceDetector>().AsSingle().NonLazy();
+
             Container.Bind<VirtualKeyboardView>().FromComponentInNewPrefab(view).AsSingle();
 
             Container.Bind<VirtualKeyboardController>().AsSingle().NonLazy();

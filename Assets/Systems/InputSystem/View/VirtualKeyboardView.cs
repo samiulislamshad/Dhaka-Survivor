@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -14,6 +14,8 @@ namespace Systems.InputSystem.View
         public Button deleteButton;
 
         public TMP_Text userNameText;
+
+        public GameObject keyboardPanel;
         
         [SerializeField] private EventSystem eventSystem;
 
@@ -41,6 +43,22 @@ namespace Systems.InputSystem.View
             if(eventSystem == null)
                 eventSystem = FindFirstObjectByType<EventSystem>();
             eventSystem.SetSelectedGameObject(allButtons[0].gameObject);
+        }
+
+        public void ToggleVirtualKeyboardKeys(bool isVisible)
+        {
+            keyboardPanel.SetActive(isVisible);
+            // if (allButtons != null)
+            // {
+            //     foreach (var button in allButtons)
+            //     {
+            //         if (button != null) button.gameObject.SetActive(isVisible);
+            //     }
+            // }
+            //
+            // if (submitButton != null) submitButton.gameObject.SetActive(isVisible);
+            // if (deleteButton != null) deleteButton.gameObject.SetActive(isVisible);
+            
         }
     }
 }

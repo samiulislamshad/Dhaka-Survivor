@@ -19,7 +19,7 @@ namespace Systems.GameSystem.Installer
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private Camera mainCameraPrefab;
         
-        [SerializeField] private InactivityWarningUI inactivityWarningUI;
+        // [SerializeField] private InactivityWarningUI inactivityWarningUI;
         
         public override void InstallBindings()
         {
@@ -31,8 +31,8 @@ namespace Systems.GameSystem.Installer
             Container.DeclareSignal<ScoreBoardSignal>();
 
             // Inactivity Detector
-            Container.Bind<InactivityWarningUI>().FromComponentInNewPrefab(inactivityWarningUI).AsSingle();
-            Container.BindInterfacesAndSelfTo<GameInactivityDetector>().AsSingle();
+            // Container.Bind<InactivityWarningUI>().FromComponentInNewPrefab(inactivityWarningUI).AsSingle();
+            // Container.BindInterfacesAndSelfTo<GameInactivityDetector>().AsSingle();
             
             Container.Bind<InputMaster>()
                 .AsSingle()
