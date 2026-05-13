@@ -14,6 +14,7 @@ Shader "Custom/ScrollingSprite"
         [Header(Sprite Settings)]
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
         [PerRendererData] _AlphaTex ("External Alpha", 2D) = "white" {}
+        [PerRendererData] _EnableExternalAlpha ("Enable External Alpha", Float) = 0
     }
 
     SubShader
@@ -61,6 +62,7 @@ Shader "Custom/ScrollingSprite"
 
             sampler2D _MainTex;
             sampler2D _AlphaTex;
+            fixed _EnableExternalAlpha;
             fixed4 _Color;
             float _ScrollSpeedX;
             float _ScrollSpeedY;
