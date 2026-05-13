@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -14,6 +15,17 @@ namespace Systems.LeaderBoardSystem.Manager
         private string titleId = "6C475";
         private string currentPlayerId = "";
         private bool isLoggedIn = false;
+
+        /// <summary>PlayFab player entity id for the active session (after <see cref="LoginPlayer"/>).</summary>
+        public string CurrentPlayFabId => currentPlayerId;
+
+        public bool IsLoggedIn => isLoggedIn;
+
+        /// <summary>Serializes display-name + statistic writes so concurrent calls cannot reorder on the wire.</summary>
+        private readonly SemaphoreSlim _leaderboardWriteLock = new(1, 1);
+
+        /// <summary>PlayFab title display name length limit (keep headroom for uniqueness suffix).</summary>
+        private const int MaxDisplayNameLength = 25;
 
         public PlayFabLeaderboardManager()
         {
@@ -147,37 +159,49 @@ namespace Systems.LeaderBoardSystem.Manager
                 return false;
             }
 
-            // First, set the player's display name
-            await SetPlayerName(playerName);
-
-            // Then submit the score
-            var tcs = new UniTaskCompletionSource<bool>();
-
-            var request = new UpdatePlayerStatisticsRequest
+            await _leaderboardWriteLock.WaitAsync();
+            try
             {
-                Statistics = new List<StatisticUpdate>
+                // Must succeed before statistics: otherwise the leaderboard row keeps a default / numeric name.
+                var resolvedName = await TrySetDisplayNameWithRetries(playerName);
+                if (string.IsNullOrEmpty(resolvedName))
                 {
-                    new StatisticUpdate
-                    {
-                        StatisticName = "HighScore",
-                        Value = score
-                    }
+                    Debug.LogError("PlayFab display name could not be set; skipping statistic update to avoid anonymous-looking rows.");
+                    return false;
                 }
-            };
 
-            PlayFabClientAPI.UpdatePlayerStatistics(request,
-                result =>
-                {
-                    Debug.Log($"Player score submitted successfully: {playerName} - {score}");
-                    tcs.TrySetResult(true);
-                },
-                error =>
-                {
-                    Debug.LogError($"Failed to submit score: {error.GenerateErrorReport()}");
-                    tcs.TrySetResult(false);
-                });
+                var tcs = new UniTaskCompletionSource<bool>();
 
-            return await tcs.Task;
+                var request = new UpdatePlayerStatisticsRequest
+                {
+                    Statistics = new List<StatisticUpdate>
+                    {
+                        new StatisticUpdate
+                        {
+                            StatisticName = "HighScore",
+                            Value = score
+                        }
+                    }
+                };
+
+                PlayFabClientAPI.UpdatePlayerStatistics(request,
+                    _ =>
+                    {
+                        Debug.Log($"Player score submitted successfully: {resolvedName} - {score}");
+                        tcs.TrySetResult(true);
+                    },
+                    error =>
+                    {
+                        Debug.LogError($"Failed to submit score: {error.GenerateErrorReport()}");
+                        tcs.TrySetResult(false);
+                    });
+
+                return await tcs.Task;
+            }
+            finally
+            {
+                _leaderboardWriteLock.Release();
+            }
         }
 
         /// <summary>
@@ -298,10 +322,76 @@ namespace Systems.LeaderBoardSystem.Manager
             return await tcs.Task;
         }
 
-        // Helper method to set player name
-        private async UniTask<bool> SetPlayerName(string name)
+        private static string SanitizeDisplayNameBase(string raw)
         {
-            var tcs = new UniTaskCompletionSource<bool>();
+            if (string.IsNullOrWhiteSpace(raw))
+                return "Player";
+            var t = raw.Trim();
+            if (t.Length > MaxDisplayNameLength)
+                t = t.Substring(0, MaxDisplayNameLength);
+            return t;
+        }
+
+        private static string BuildDisplayNameCandidate(string baseName, int attempt)
+        {
+            baseName = SanitizeDisplayNameBase(baseName);
+            if (attempt <= 0)
+                return baseName;
+
+            var suffix = $"_{UnityEngine.Random.Range(10000, 99999)}";
+            var maxBaseLen = MaxDisplayNameLength - suffix.Length;
+            if (maxBaseLen < 1)
+                return suffix.TrimStart('_');
+            if (baseName.Length > maxBaseLen)
+                baseName = baseName.Substring(0, maxBaseLen);
+            return baseName + suffix;
+        }
+
+        private static bool ShouldRetryDisplayNameWithNewCandidate(PlayFabErrorCode code)
+        {
+            return code == PlayFabErrorCode.ProfaneDisplayName
+                   || code == PlayFabErrorCode.AllowNonUniquePlayerDisplayNamesDisableNotAllowed
+                   || code == PlayFabErrorCode.InvalidDisplayNameRandomSuffixLength
+                   || code == PlayFabErrorCode.InvalidUsername
+                   || code == PlayFabErrorCode.InvalidParams;
+        }
+
+        /// <summary>
+        /// Returns the display name PlayFab accepted, or null if all attempts failed.
+        /// </summary>
+        private async UniTask<string> TrySetDisplayNameWithRetries(string desiredName)
+        {
+            const int maxAttempts = 8;
+            for (var attempt = 0; attempt < maxAttempts; attempt++)
+            {
+                var candidate = BuildDisplayNameCandidate(desiredName, attempt);
+                var (ok, err) = await SetPlayerNameAsync(candidate);
+                if (ok)
+                    return candidate;
+
+                if (err == null)
+                    break;
+
+                Debug.LogWarning($"Display name '{candidate}' rejected: {err.GenerateErrorReport()}");
+
+                if (ShouldRetryDisplayNameWithNewCandidate(err.Error))
+                    continue;
+
+                if (err.Error == PlayFabErrorCode.ConnectionError && attempt + 1 < maxAttempts)
+                {
+                    await UniTask.Delay(TimeSpan.FromMilliseconds(250));
+                    continue;
+                }
+
+                break;
+            }
+
+            return null;
+        }
+
+        private async UniTask<(bool success, PlayFabError error)> SetPlayerNameAsync(string name)
+        {
+            var tcs = new UniTaskCompletionSource<(bool, PlayFabError)>();
 
             var request = new UpdateUserTitleDisplayNameRequest
             {
@@ -312,13 +402,9 @@ namespace Systems.LeaderBoardSystem.Manager
                 result =>
                 {
                     Debug.Log($"Display name set to: {result.DisplayName}");
-                    tcs.TrySetResult(true);
+                    tcs.TrySetResult((true, null));
                 },
-                error =>
-                {
-                    Debug.LogError($"Failed to set display name: {error.GenerateErrorReport()}");
-                    tcs.TrySetResult(false);
-                });
+                error => { tcs.TrySetResult((false, error)); });
 
             return await tcs.Task;
         }

@@ -140,10 +140,19 @@ namespace Systems.ScoreSystem.Controller
 
         private async UniTaskVoid ShowHighScore()
         {
+            var cu = _gameConfig.currentUserData;
+            if (cu != null && !string.IsNullOrEmpty(cu.userId))
+                await _leaderboardManager.LoginPlayer(cu.userId);
+
             var leaderboard = await _leaderboardManager.FetchLeaderboard(100);
+            if (leaderboard == null || leaderboard.Count == 0)
+            {
+                _view.highScore.text = "0";
+                return;
+            }
+
             var sorted = leaderboard.OrderByDescending(user => user.score).ToList();
-            var highScore = sorted[0].score;
-            _view.highScore.text = highScore.ToString();
+            _view.highScore.text = sorted[0].score.ToString(CultureInfo.InvariantCulture);
         }
 
         public void Dispose()
