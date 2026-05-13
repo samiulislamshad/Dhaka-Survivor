@@ -1,6 +1,5 @@
 using System;
 using UniRx;
-using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -9,9 +8,11 @@ namespace Systems.InputSystem.Service
     public enum InputDeviceType
     {
         KeyboardMouse,
-        Gamepad
+        Gamepad,
+        TouchScreen
     }
 
+    [Serializable]
     public class InputDeviceDetector : IInitializable, IDisposable
     {
         public ReactiveProperty<InputDeviceType> CurrentDevice { get; private set; } 
@@ -21,9 +22,10 @@ namespace Systems.InputSystem.Service
         {
             UnityEngine.InputSystem.InputSystem.onActionChange += OnActionChange;
             
-            // Check current connected devices initially
             if (Gamepad.current != null)
                 CurrentDevice.Value = InputDeviceType.Gamepad;
+            else if (Touchscreen.current != null)
+                CurrentDevice.Value = InputDeviceType.TouchScreen;
         }
 
         private void OnActionChange(object obj, InputActionChange change)
@@ -39,6 +41,11 @@ namespace Systems.InputSystem.Service
                     {
                         if (CurrentDevice.Value != InputDeviceType.Gamepad)
                             CurrentDevice.Value = InputDeviceType.Gamepad;
+                    }
+                    else if (control.device is Touchscreen)
+                    {
+                        if (CurrentDevice.Value != InputDeviceType.TouchScreen)
+                            CurrentDevice.Value = InputDeviceType.TouchScreen;
                     }
                     else if (control.device is Keyboard || control.device is Mouse)
                     {

@@ -78,18 +78,32 @@ namespace Systems.InputSystem.Controller
 
             _inputDeviceDetector.CurrentDevice.Subscribe(deviceType =>
             {
-                UpdateKeyboardVisibility(deviceType);
+                UpdatePanelVisibilityBasedOnInputType(deviceType);
             }).AddTo(_disposable);
         }
 
-        private void UpdateKeyboardVisibility(InputDeviceType deviceType)
+        private void UpdatePanelVisibilityBasedOnInputType(InputDeviceType deviceType)
         {
             if (!_view.gameObject.activeInHierarchy) return;
             
-            bool useGamepad = deviceType == InputDeviceType.Gamepad;
-            _view.ToggleVirtualKeyboardKeys(useGamepad);
-
-            if (!useGamepad && _eventSystem.currentSelectedGameObject != null)
+            // bool useGamepad = deviceType == InputDeviceType.Gamepad;
+            switch (deviceType)
+            {
+                case InputDeviceType.KeyboardMouse:
+                    _view.ToggleKeyboardInputDevicePanel();
+                    break;
+                case InputDeviceType.Gamepad:
+                    _view.ToggleGamepadInputDevicePanel();
+                    break;
+                case InputDeviceType.TouchScreen:
+                    _view.ToggleTouchScreenInputDevicePanel();
+                    break;
+                default:
+                    _view.ToggleGamepadInputDevicePanel();
+                    break;
+            }
+            
+            if (deviceType != InputDeviceType.Gamepad && _eventSystem.currentSelectedGameObject != null)
             {
                 _eventSystem.SetSelectedGameObject(null);
             }
@@ -149,7 +163,7 @@ namespace Systems.InputSystem.Controller
                 _eventSystem = EventSystem.current;
             
             _view.gameObject.SetActive(true);
-            UpdateKeyboardVisibility(_inputDeviceDetector.CurrentDevice.Value);
+            UpdatePanelVisibilityBasedOnInputType(_inputDeviceDetector.CurrentDevice.Value);
             _signalBus.Fire<SwitchOffPlayerControlSignal>();
             
             if (Keyboard.current != null)

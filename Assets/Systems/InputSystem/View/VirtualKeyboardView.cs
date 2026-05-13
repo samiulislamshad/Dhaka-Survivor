@@ -16,6 +16,8 @@ namespace Systems.InputSystem.View
         public TMP_Text userNameText;
 
         public GameObject keyboardPanel;
+        public GameObject gamepadPanel;
+        public GameObject touchScreenPanel;
         
         [SerializeField] private EventSystem eventSystem;
 
@@ -45,20 +47,25 @@ namespace Systems.InputSystem.View
             eventSystem.SetSelectedGameObject(allButtons[0].gameObject);
         }
 
-        public void ToggleVirtualKeyboardKeys(bool isVisible)
+        public void ToggleKeyboardInputDevicePanel()
         {
-            keyboardPanel.SetActive(isVisible);
-            // if (allButtons != null)
-            // {
-            //     foreach (var button in allButtons)
-            //     {
-            //         if (button != null) button.gameObject.SetActive(isVisible);
-            //     }
-            // }
-            //
-            // if (submitButton != null) submitButton.gameObject.SetActive(isVisible);
-            // if (deleteButton != null) deleteButton.gameObject.SetActive(isVisible);
-            
+            keyboardPanel.SetActive(true);
+            gamepadPanel.SetActive(false);
+            touchScreenPanel.SetActive(false);
+        }
+        
+        public void ToggleGamepadInputDevicePanel()
+        {
+            gamepadPanel.SetActive(true);
+            keyboardPanel.SetActive(false);
+            touchScreenPanel.SetActive(false);
+        }
+        
+        public void ToggleTouchScreenInputDevicePanel()
+        {
+            touchScreenPanel.SetActive(true);
+            keyboardPanel.SetActive(false);
+            touchScreenPanel.SetActive(false);
         }
     }
 }
