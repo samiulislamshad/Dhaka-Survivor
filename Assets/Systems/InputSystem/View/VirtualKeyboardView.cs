@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -14,6 +14,10 @@ namespace Systems.InputSystem.View
         public Button deleteButton;
 
         public TMP_Text userNameText;
+
+        public GameObject keyboardPanel;
+        public GameObject gamepadPanel;
+        public GameObject touchScreenPanel;
         
         [SerializeField] private EventSystem eventSystem;
 
@@ -41,6 +45,27 @@ namespace Systems.InputSystem.View
             if(eventSystem == null)
                 eventSystem = FindFirstObjectByType<EventSystem>();
             eventSystem.SetSelectedGameObject(allButtons[0].gameObject);
+        }
+
+        public void ToggleKeyboardInputDevicePanel()
+        {
+            keyboardPanel.SetActive(true);
+            gamepadPanel.SetActive(false);
+            touchScreenPanel.SetActive(false);
+        }
+        
+        public void ToggleGamepadInputDevicePanel()
+        {
+            gamepadPanel.SetActive(true);
+            keyboardPanel.SetActive(false);
+            touchScreenPanel.SetActive(false);
+        }
+        
+        public void ToggleTouchScreenInputDevicePanel()
+        {
+            touchScreenPanel.SetActive(true);
+            keyboardPanel.SetActive(false);
+            touchScreenPanel.SetActive(false);
         }
     }
 }

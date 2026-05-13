@@ -9,6 +9,11 @@ namespace Systems.EnemySystem.Model
     {
         public override EnemyType Type => EnemyType.Chesra2;
 
+        protected override void OnStart()
+        {
+            
+        }
+
         protected override void OnFixedUpdate()
         {
             var finalSpeedX = GetCalculatedSpeedX();

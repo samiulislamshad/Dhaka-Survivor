@@ -63,9 +63,9 @@ namespace Systems.EnemySystem.Model
             }
         }
 
-        public virtual void Start()
+        private void Start()
         {
-            
+            OnStart();
         }
 
         private void FixedUpdate()
@@ -73,6 +73,7 @@ namespace Systems.EnemySystem.Model
             OnFixedUpdate();
         }
 
+        protected abstract void OnStart();
         protected abstract void OnFixedUpdate();
         public abstract string GetEnemyName();
 

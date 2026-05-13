@@ -4,6 +4,7 @@ using Systems.EnemySystem.Controller;
 using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
+using Systems.InputSystem.Service;
 using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
@@ -21,6 +22,7 @@ namespace Systems.GameSystem.Manager
         private CompositeDisposable _disposable;
         private InputMaster _inputMaster;
         private AudioManager _audioManager;
+        private InputDeviceDetector _inputDeviceDetector;
         
         [SerializeField] private StartGameCanvasView startGameCanvasView;
 
@@ -31,7 +33,8 @@ namespace Systems.GameSystem.Manager
             SignalBus signalBus,
             GameConfig config,
             InputMaster inputMaster,
-            AudioManager audioManager)
+            AudioManager audioManager,
+            InputDeviceDetector inputDeviceDetector)
         {
             _enemyController = enemyController;
             _signalBus = signalBus;
@@ -39,6 +42,7 @@ namespace Systems.GameSystem.Manager
             _config = config;
             _inputMaster = inputMaster;
             _audioManager = audioManager;
+            _inputDeviceDetector = inputDeviceDetector;
 
             _disposable = new CompositeDisposable();
             
@@ -49,6 +53,7 @@ namespace Systems.GameSystem.Manager
         {
             InitializeVariables();
             SubscribeToSignals();
+            SubscribeToProperties();
         }
 
         private void InitializeVariables()
@@ -62,6 +67,14 @@ namespace Systems.GameSystem.Manager
 
             _disposable = new CompositeDisposable();
             Time.timeScale = 1;
+        }
+
+        private void SubscribeToProperties()
+        {
+            _inputDeviceDetector.CurrentDevice.Subscribe(value =>
+            {
+                startGameCanvasView.ToggleKeyMapBasedOnInput(value);
+            }).AddTo(_disposable);
         }
 
         private void SubscribeToSignals()
@@ -79,14 +92,28 @@ namespace Systems.GameSystem.Manager
         private Action<InputAction.CallbackContext> _startGameInputAction;
         private void ShowKeyMappingUi()
         {
-            startGameCanvasView.gameObject.SetActive(true);
+            startGameCanvasView.ToggleKeymappingPanel(true);
+            startGameCanvasView.ToggleKeyMapBasedOnInput(_inputDeviceDetector.CurrentDevice.Value);
+
+            startGameCanvasView.keyboardStartButton.OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    HideKeyMappingUi();
+                }).AddTo(_disposable);
+
+            startGameCanvasView.touchScreenStartButton.OnClickAsObservable()
+                .Subscribe(_ =>
+                {
+                    HideKeyMappingUi();
+                }).AddTo(_disposable);
+            
             _startGameInputAction = _ => HideKeyMappingUi();
             _inputMaster.UiControl.Submit.performed += _startGameInputAction;
         }
 
         private void HideKeyMappingUi()
         {
-            startGameCanvasView.gameObject.SetActive(false);
+            startGameCanvasView.ToggleKeymappingPanel(false);
             _inputMaster.UiControl.Submit.performed -= _startGameInputAction;
             _inputMaster.Enable();
             _inputMaster.PlayerControl.Enable();

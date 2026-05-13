@@ -22,7 +22,7 @@ namespace Systems.LeaderBoardSystem.Installer
         [SerializeField] private LeaderBoardController controller;
         [SerializeField] private GameConfig gameConfig;
         
-        [SerializeField] private InactivityWarningUI inactivityWarningUI;
+        // [SerializeField] private InactivityWarningUI inactivityWarningUI;
         
         public override void InstallBindings()
         {
@@ -37,8 +37,8 @@ namespace Systems.LeaderBoardSystem.Installer
             Container.Bind<LeaderBoardScriptable>().FromScriptableObject(leaderBoardScriptable).AsSingle();
             
             // Inactivity Detector
-            Container.Bind<InactivityWarningUI>().FromComponentInNewPrefab(inactivityWarningUI).AsSingle();
-            Container.BindInterfacesAndSelfTo<GameInactivityDetector>().AsSingle();
+            // Container.Bind<InactivityWarningUI>().FromComponentInNewPrefab(inactivityWarningUI).AsSingle();
+            // Container.BindInterfacesAndSelfTo<GameInactivityDetector>().AsSingle();
             
             // View
             Container.Bind<LeaderBoardCanvasView>().FromComponentInNewPrefab(canvasView).AsSingle();

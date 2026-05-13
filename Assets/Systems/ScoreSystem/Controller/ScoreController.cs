@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -66,6 +66,17 @@ namespace Systems.ScoreSystem.Controller
             _score.Subscribe(value => { _view.playerScore.text = value.ToString(); }).AddTo(_disposable);
 
             _view.okayButton.OnClickAsObservable().Subscribe(_ => { HideScoreBoard(); }).AddTo(_disposable);
+
+            Observable.EveryUpdate()
+                .Where(_ => _view.okayButton != null && _view.okayButton.gameObject.activeInHierarchy)
+                .Subscribe(_ =>
+                {
+                    if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != _view.okayButton.gameObject)
+                    {
+                        EventSystem.current.SetSelectedGameObject(_view.okayButton.gameObject);
+                    }
+                })
+                .AddTo(_disposable);
         }
 
         private void SubscribeToSignals()
