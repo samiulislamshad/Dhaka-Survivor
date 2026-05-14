@@ -5,6 +5,7 @@ using Systems.GameSystem.Config;
 using Systems.GameSystem.Signals;
 using Systems.GameSystem.View;
 using Systems.InputSystem.Service;
+using Systems.InputSystem.View;
 using Systems.PlayerSystem.Signals.GameSignals;
 using Systems.ScoreSystem.Signal;
 using UniRx;
@@ -23,6 +24,7 @@ namespace Systems.GameSystem.Manager
         private InputMaster _inputMaster;
         private AudioManager _audioManager;
         private InputDeviceDetector _inputDeviceDetector;
+        private TouchScreenButtonCanvasView _touchScreenButtonCanvasView;
         
         [SerializeField] private StartGameCanvasView startGameCanvasView;
 
@@ -34,7 +36,8 @@ namespace Systems.GameSystem.Manager
             GameConfig config,
             InputMaster inputMaster,
             AudioManager audioManager,
-            InputDeviceDetector inputDeviceDetector)
+            InputDeviceDetector inputDeviceDetector,
+            TouchScreenButtonCanvasView touchScreenButtonCanvasView)
         {
             _enemyController = enemyController;
             _signalBus = signalBus;
@@ -43,6 +46,7 @@ namespace Systems.GameSystem.Manager
             _inputMaster = inputMaster;
             _audioManager = audioManager;
             _inputDeviceDetector = inputDeviceDetector;
+            _touchScreenButtonCanvasView = touchScreenButtonCanvasView;
 
             _disposable = new CompositeDisposable();
             
@@ -75,6 +79,16 @@ namespace Systems.GameSystem.Manager
             {
                 startGameCanvasView.ToggleKeyMapBasedOnInput(value);
             }).AddTo(_disposable);
+            
+            
+            _inputDeviceDetector.CurrentDevice
+                .CombineLatest(_config.hasGameStarted,
+                    (device, started) =>
+                        device == InputDeviceType.TouchScreen && started)
+                .Subscribe(show =>
+                {
+                    _touchScreenButtonCanvasView.gameObject.SetActive(show);
+                }).AddTo(_disposable);
         }
 
         private void SubscribeToSignals()

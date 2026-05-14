@@ -1,4 +1,5 @@
-﻿using Systems.PlayerSystem.Controller;
+﻿using Systems.InputSystem.View;
+using Systems.PlayerSystem.Controller;
 using Systems.PlayerSystem.Signals;
 using Systems.PlayerSystem.Signals.GameSignals;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Systems.PlayerSystem.Installer
     public class PlayerInstaller : ScriptableObjectInstaller<PlayerInstaller>
     {
         [SerializeField] private PlayerController playerController;
+        [SerializeField] private TouchScreenButtonCanvasView touchScreenButtonCanvasView;
         public override void InstallBindings()
         {
             // Signals
@@ -25,7 +27,14 @@ namespace Systems.PlayerSystem.Installer
             Container.DeclareSignal<PlayerDeadSignal>();
             Container.DeclareSignal<PlayerSpecialJumpSignal>();
 
-            Container.BindInterfacesAndSelfTo<PlayerController>().FromComponentInNewPrefab(playerController).AsSingle().NonLazy();
+            Container.Bind<TouchScreenButtonCanvasView>()
+                .FromComponentInNewPrefab(touchScreenButtonCanvasView)
+                .AsSingle();
+            
+            Container.BindInterfacesAndSelfTo<PlayerController>()
+                .FromComponentInNewPrefab(playerController)
+                .AsSingle()
+                .NonLazy();
         }
     }
 }

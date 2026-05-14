@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PlayerInstaller
   m_EditorClassIdentifier: Assembly-CSharp::Systems.PlayerSystem.Installer.PlayerInstaller
   playerController: {fileID: 4703018839709335074, guid: a96e716087c332e43a51350e0cb765f0, type: 3}
+  touchScreenButtonCanvasView: {fileID: 2134038514048637792, guid: a3b39c6ef10adf04eab61cb82300dbd7, type: 3}

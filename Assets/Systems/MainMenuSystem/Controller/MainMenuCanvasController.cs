@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using Cysharp.Threading.Tasks;
 using Systems.GameSystem;
 using Systems.GameSystem.Config;
@@ -7,6 +8,7 @@ using Systems.InputSystem.Controller;
 using Systems.MainMenuSystem.Model;
 using Systems.MainMenuSystem.View;
 using UniRx;
+using UnityEngine.Device;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -46,6 +48,8 @@ namespace Systems.MainMenuSystem.Controller
             {
                 PressButtonToStart();
             }
+
+            Application.targetFrameRate = 60;
         }
         
         private Action<InputAction.CallbackContext> _pressButtonToStartAction;
@@ -66,6 +70,7 @@ namespace Systems.MainMenuSystem.Controller
             _inputMaster.UiControl.Enable();
             _pressButtonToStartAction = _=> OnButtonPressed();
             _inputMaster.UiControl.Submit.performed += _pressButtonToStartAction;
+            _inputMaster.UiControl.Click.performed += _pressButtonToStartAction;
         }
 
         private void OnButtonPressed()
@@ -73,6 +78,7 @@ namespace Systems.MainMenuSystem.Controller
             _view.gameObject.SetActive(false);
             _signalBus.Fire<NameInputSignal>();
             _inputMaster.UiControl.Submit.performed -= _pressButtonToStartAction;
+            _inputMaster.UiControl.Click.performed -= _pressButtonToStartAction;
         }
         
         public void Dispose()

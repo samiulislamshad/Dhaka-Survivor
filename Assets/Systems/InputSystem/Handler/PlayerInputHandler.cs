@@ -1,6 +1,8 @@
 using System;
+using Systems.InputSystem.View;
 using Systems.PlayerSystem.Signals;
 using Systems.PlayerSystem.Signals.GameSignals;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -11,6 +13,9 @@ namespace Systems.InputSystem.Handler
     {
         [Inject] private readonly SignalBus _signalBus;
         [Inject] private InputMaster _inputControls;
+        [Inject] private TouchScreenButtonCanvasView _touchScreenButtonCanvasView;
+
+        private CompositeDisposable _disposables = new();
 
         private Action<InputAction.CallbackContext> _startJumpInputAction;
         private Action<InputAction.CallbackContext> _stopJumpInputAction;
@@ -25,8 +30,18 @@ namespace Systems.InputSystem.Handler
 
         #region Subscribe and Unsubscribe
 
+        private void SubscribeToProperties()
+        {
+            _touchScreenButtonCanvasView.jumpButton.OnButtonDown
+                .Subscribe(_ => StartJumpInput()).AddTo(_disposables);
+            _touchScreenButtonCanvasView.jumpButton.OnButtonUp
+                .Subscribe(_ => StopJumpInput()).AddTo(_disposables);
+        }
+
         private void SubscribeToActions()
         {
+            _disposables = new CompositeDisposable();
+            
             _startCrouchInputAction = _ => StartCrouchInput();
             _stopCrouchInputAction = _ => StopCrouchInput();
 
@@ -69,6 +84,7 @@ namespace Systems.InputSystem.Handler
             _inputControls.PlayerControl.Disable();
             _inputControls.UiControl.Enable();
 
+            SubscribeToProperties();
             SubscribeToActions();
         }
 
@@ -115,6 +131,7 @@ namespace Systems.InputSystem.Handler
 
         private void OnDestroy()
         {
+            _disposables.Dispose();
             UnSubscribeToActions();
             _inputControls.PlayerControl.Disable();
             _inputControls.UiControl.Disable();
