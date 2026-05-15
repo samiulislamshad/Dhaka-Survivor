@@ -948,7 +948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2061406652188785353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -969,7 +969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900, y: -520}
+  m_AnchoredPosition: {x: 900, y: -597.5}
   m_SizeDelta: {x: 1600, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9071821860655373910
@@ -1583,7 +1583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900, y: -580}
+  m_AnchoredPosition: {x: 900, y: -340}
   m_SizeDelta: {x: 800, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8557338670368055284
@@ -1976,7 +1976,7 @@ MonoBehaviour:
   userNameText: {fileID: 4790745800475853207}
   keyboardPanel: {fileID: 8805595457216899977}
   gamepadPanel: {fileID: 939912653632042269}
-  touchScreenPanel: {fileID: 2353883164659526924}
+  touchScreenPanel: {fileID: 939912653632042269}
   eventSystem: {fileID: 0}
 --- !u!1 &2037246126233725572
 GameObject:
@@ -2271,7 +2271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900, y: -497.5}
+  m_AnchoredPosition: {x: 900, y: -257.5}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7335607330469233191
@@ -2622,7 +2622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900, y: -1000}
+  m_AnchoredPosition: {x: 900, y: -597.5}
   m_SizeDelta: {x: 1600, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4167947475854784990
@@ -7445,7 +7445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 900, y: -417.5}
+  m_AnchoredPosition: {x: 900, y: -177.5}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8876674609662493644

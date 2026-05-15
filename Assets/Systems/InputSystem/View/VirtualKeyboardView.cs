@@ -51,21 +51,21 @@ namespace Systems.InputSystem.View
         {
             keyboardPanel.SetActive(true);
             gamepadPanel.SetActive(false);
-            touchScreenPanel.SetActive(false);
+            // touchScreenPanel.SetActive(false);
         }
         
         public void ToggleGamepadInputDevicePanel()
         {
             gamepadPanel.SetActive(true);
             keyboardPanel.SetActive(false);
-            touchScreenPanel.SetActive(false);
+            // touchScreenPanel.SetActive(false);
         }
         
         public void ToggleTouchScreenInputDevicePanel()
         {
-            touchScreenPanel.SetActive(true);
+            // touchScreenPanel.SetActive(true);
+            gamepadPanel.SetActive(true);
             keyboardPanel.SetActive(false);
-            touchScreenPanel.SetActive(false);
         }
     }
 }
